@@ -1,0 +1,28 @@
+---
+description: Outlines code quality standards, testing methodologies, and deployment procedures for the Odin Chocolate Next.js site.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx,*.md
+---
+# Quality, Testing & Deployment
+
+## 1. Code Quality
+- Enforce ESLint and Prettier to maintain consistent, clean code.
+- Utilize strict TypeScript settings for type safety and clarity.
+
+## 2. Testing
+- **Unit Tests**: Use Jest + React Testing Library for components and server actions.
+- **Integration Tests**: Check flows like sign-up, product browsing, cart operations, and subscription creation.
+- **E2E Tests**: Cypress or Playwright for simulating real user interactions from start to checkout.
+
+## 3. CI/CD
+- Implement a pipeline (GitHub Actions, GitLab CI, etc.) that runs lint checks and tests on each commit or pull request.
+- Only merge changes that pass all checks and do not break core functionality.
+
+## 4. Deployment
+- Host on a Next.js-friendly platform (Vercel, AWS) to leverage SSR and edge capabilities.
+- Store environment variables (Appwrite endpoint, project ID, secrets) securely.
+- Optimize build (tree shaking, minification, code splitting) to maximize performance.
+
+## 5. Monitoring & Maintenance
+- Integrate error reporting (Sentry or similar) to log and track client/server issues.
+- Monitor performance metrics (LCP, TTFB, etc.) and address regressions promptly.
+- Keep dependencies up to date, ensuring minimal vulnerabilities and improved stability.

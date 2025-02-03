@@ -1,0 +1,29 @@
+---
+description: Lists essential features for Odin Chocolate, including eCommerce flows, subscriptions, and user profiles, using Next.js, Tailwind, and Framer Motion.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
+---
+# Core Features & Requirements
+
+## 1. Authentication & Profiles
+- Implement secure user sign-up and login via Appwrite.
+- Maintain user profiles (name, email, addresses, payment references).
+
+## 2. Product Catalog & Browsing
+- Display Norse-themed chocolate products with high-impact images and descriptions.
+- Use Tailwind for responsive layouts and Framer Motion for hover or scroll animations.
+
+## 3. Shopping & Subscriptions
+- **Cart**: Add/remove items, adjust quantities.
+- **Checkout**: Streamlined flow with shipping details, order confirmation, and placeholders (or integration) for payments.
+- **Recurring Deliveries**: Users select weekly/monthly subscriptions; can pause, cancel, or modify at any time.
+
+## 4. Order Management
+- Show order history and subscription status in a user dashboard area.
+- Provide real-time or mocked shipping updates if integrated with external APIs (Posten, PostNord).
+
+## 5. Notifications
+- Optional web push or email notifications for order status, subscription renewals, or new product alerts.
+
+## 6. Additional Features (Optional but Encouraged)
+- Wishlist, product reviews, referral codes, advanced analytics, multi-language (Norwegian, English).
+- Incorporate imaginative or celebratory animations on significant actions (purchase success).

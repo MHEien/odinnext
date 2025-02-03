@@ -1,0 +1,26 @@
+---
+description: Guidelines for connecting Next.js with Appwrite (Auth, Database, Storage, Functions) to handle user data and eCommerce operations.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
+---
+# Appwrite Integration
+
+## 1. Auth & Security
+- Use Appwrite Auth for user registration, login, and secure session handling.
+- Restrict or allow resource access based on user roles (basic user, admin, etc.).
+
+## 2. Database Collections
+- **Products**: store ID, name, price, images, descriptions, stock.
+- **Orders**: link user ID, cart items, totals, shipping info, status.
+- **Subscriptions**: track user ID, chosen products, frequency, next delivery date, active/pending states.
+
+## 3. Storage
+- Host product images in Appwrite Storage. Reference file IDs in the product data.
+- Enforce read/write permissions to prevent unauthorized access or modification.
+
+## 4. Functions & Webhooks
+- Use serverless functions for subscription renewals, push/email notifications, or advanced shipping logic.
+- Integrate external shipping APIs (e.g., Posten, PostNord) or mock them if not yet available.
+
+## 5. Consistency with Next.js
+- Create a service layer in `src/lib` or `src/app` that queries Appwrite.
+- Keep a unified approach for data fetching (server actions or RSC) without duplicating logic.

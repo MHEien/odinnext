@@ -1,0 +1,22 @@
+---
+description: Defines the high-level goals, overall vision, and core technologies for the Odin Chocolate Next.js project.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
+---
+# Odin Chocolate - Next.js Project Vision & Tech Stack
+
+## Vision & Goals
+- Build a production-ready Next.js website for Odin Chocolate with a massive “WOW!” factor in design and user experience.
+- Utilize Next.js’ latest features (App Router, Server Actions, React Server Components) for performance and developer efficiency.
+- Deliver a fluid eCommerce experience: product browsing, subscriptions, and minimal friction checkout.
+
+## Tech Stack
+- Next.js (latest version) with TypeScript
+- Appwrite for database, authentication, storage, and serverless functions
+- Modern CSS solution (CSS Modules, Tailwind, Styled Components, etc.)
+- Deployment on a suitable SSR-friendly platform (e.g., Vercel, AWS)
+
+## Core Principles
+1. **Scalable Architecture**: Clear separation of concerns and easy maintainability.
+2. **Performance First**: Fast load times, optimized images, and SSR for SEO benefits.
+3. **Norse-Inspired Theme**: Incorporate subtle runic or Viking motifs to reinforce the brand.
+4. **Minimal Manual Tweaks**: Code should be production-grade from the start.

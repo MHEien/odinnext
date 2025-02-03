@@ -1,0 +1,25 @@
+---
+description: Utilize Next.js App Router, Server Actions, and React Server Components for high-performance data handling and organization.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
+---
+# Next.js Advanced Features
+
+## 1. App Router Organization
+- Place route segments under `src/app` for each major section (products, cart, profile, admin, etc.).
+- Use shared layouts with Tailwind-based navbars and footers for consistent branding.
+
+## 2. Server Actions
+- Handle logic for orders, subscriptions, or user profile updates on the server side when possible.
+- Reduce client overhead and ensure better security/performance.
+
+## 3. React Server Components
+- Fetch product data, user info, and subscription details in server components to enhance SEO and reduce client-side complexity.
+- Keep interactive elements as client components to leverage Framer Motion animations.
+
+## 4. Performance Optimization
+- Implement caching, incremental static regeneration (ISR), or SSR for dynamic pages if beneficial.
+- Minimize JS bundle sizes by code-splitting or lazy-loading non-critical features.
+
+## 5. Edge & API Routes
+- If real-time shipping or geolocation is needed, consider deploying certain route handlers to Edge Functions.
+- Alternatively, rely on Appwrite’s serverless functions for advanced logic or external API calls.

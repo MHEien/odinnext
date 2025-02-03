@@ -1,0 +1,32 @@
+---
+description: Guidelines for creating a high-end Next.js admin dashboard that uses Tailwind and Framer Motion for product, order, and subscription management.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
+---
+# Admin Dashboard for Odin Chocolate
+
+## 1. Admin Scope
+- Provide a secure interface for admin users to manage products, orders, subscriptions, and user info.
+- Enforce an "admin" role check with Appwrite or a similar approach to restrict access.
+
+## 2. Dashboard Layout
+- Use Tailwind for a clean, data-centric UI. 
+- Incorporate Framer Motion for subtle animations on menu toggles, table expansions, or chart reveals.
+
+## 3. Core Management Features
+- **Product Management**: Create, edit, delete products, update stock, upload images.
+- **Order Management**: View orders, update statuses, track shipments, process refunds.
+- **Subscriptions**: Oversee active subscriptions, adjust frequencies, handle cancellations.
+- **User Management**: Search/filter user accounts, view their orders/subscriptions.
+
+## 4. Data Visualization & Insights
+- Real-time or near-real-time stats on total sales, subscription trends, best-selling chocolates.
+- Graphs/charts with tailwind-based styling and motion-based animations for a premium effect.
+
+## 5. Productivity & Alerts
+- Implement bulk actions for repetitive tasks (e.g., updating multiple orders).
+- Show notifications/alerts for urgent issues (e.g., out-of-stock products, shipping delays).
+- Keep interactions smooth and user-friendly to maintain the brand’s “WOW” standard.
+
+## 6. Security & Audit
+- Log critical admin actions (price changes, cancellations, refunds) for audit trails.
+- Make sure no non-admin route or page is accessible to standard users.

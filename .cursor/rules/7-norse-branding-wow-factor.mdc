@@ -1,0 +1,26 @@
+---
+description: Sets the epic creative guidelines and Norse-themed branding details to push the Odin Chocolate Next.js site beyond typical eCommerce aesthetics.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx,assets/**/*.*
+---
+# Norse Branding & WOW Factor
+
+## 1. Deeply Immersive Theme
+- Merge Viking-inspired aesthetics (runes, knotwork patterns) into backgrounds or decorative elements.
+- Use Tailwind for a cohesive color scheme: deep browns, gold/bronze, earthy neutrals.
+
+## 2. Cinematic Animations
+- Implement Framer Motion with `motion/react` for high-quality transitions, product reveals, and interactive hovers.
+- Keep animations smooth and purposeful, adding to the story without overwhelming.
+
+## 3. Storytelling
+- Possibility of a short, animated “intro” sequence or landing hero that references Odin Chocolate’s heritage.
+- Seasonal or holiday re-skins (e.g., “Yule” theme) featuring wintery overlays or golden sparks.
+
+## 4. Surpassing Top Competitors
+- Strive to exceed Airbnb-level design fluidity and user delight.
+- Provide premium touches: confetti or runic sparkles after successful checkouts, subtle parallax in hero sections.
+
+## 5. User Delight & Easter Eggs
+- Surprise elements for repeated visitors (e.g., a welcome back message referencing Norse myths).
+- Achievements or badges for frequent buyers, referencing “Valhalla VIP” or “Rune Master.”
+- Maintain consistent brand voice, referencing Norse culture in a tasteful, modern way.

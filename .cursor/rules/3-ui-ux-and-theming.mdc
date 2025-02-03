@@ -1,0 +1,30 @@
+---
+description: Specifies Norse-inspired visuals, Tailwind-based theming, and Framer Motion animations to achieve a premium user interface.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
+---
+# UI/UX & Theming
+
+## 1. Brand Identity & Aesthetics
+- Norse-inspired color palette: deep browns, gold/bronze accents, and charcoal.
+- Tailwind CSS for utility-based styling to maintain consistency across components.
+- Runic or Viking motifs as subtle background patterns or accent dividers.
+
+## 2. Layout & Responsiveness
+- Flexible grid or flex layouts for product listings and user sections, easily adjustable with Tailwind breakpoints.
+- Ensure a fluid design from mobile to large desktop, with adequate spacing and a premium, uncluttered feel.
+
+## 3. Animations & Micro-Interactions
+- Use **Framer Motion** from `motion/react` for:
+  - Hover states (slight scale, subtle shadow).
+  - Page transitions (fade, slide, or advanced parallax).
+  - Hero or product image reveal animations (staggered fade-in).
+- Keep animations smooth (60+ FPS) to reinforce a luxury experience.
+
+## 4. Accessibility
+- Ensure all tailwind classes still allow good contrast, ARIA labels, and keyboard navigation.
+- Support dynamic text scaling without breaking layouts.
+
+## 5. Polished & Premium Feel
+- Hero sections with large banners, possibly parallax motion on scroll.
+- Encourage minimal but impactful animations that express the brand story, not just flashiness.
+- Maintain consistent typography, spacing, and color usage across the entire site.

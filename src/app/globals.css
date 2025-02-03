@@ -2,20 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Norse-inspired color palette */
+    --color-primary: 120 53 15; /* Rich brown */
+    --color-secondary: 193 154 107; /* Bronze/Gold */
+    --color-accent: 51 41 46; /* Deep charcoal */
+    
+    /* UI Colors */
+    --color-background: 250 249 246; /* Warm white */
+    --color-foreground: 28 25 23; /* Deep brown-black */
+    
+    /* Status Colors */
+    --color-success: 22 101 52; /* Forest green */
+    --color-warning: 180 83 9; /* Burnt orange */
+    --color-error: 153 27 27; /* Deep red */
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 text-white px-6 py-3 rounded-lg font-medium 
+           transition-all duration-300 hover:bg-primary-700 
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-100 text-secondary-900 px-6 py-3 rounded-lg font-medium 
+           transition-all duration-300 hover:bg-secondary-200 
+           focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2 border border-stone-200 rounded-lg 
+           focus:outline-none focus:ring-2 focus:ring-primary-500 
+           bg-white/80 backdrop-blur-sm;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-stone-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-200 rounded-full hover:bg-primary-300;
 }

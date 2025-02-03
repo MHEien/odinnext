@@ -1,0 +1,29 @@
+---
+description: Ensures that all backend-facing logic can use mock or placeholder data if Appwrite is not set up yet, while preserving the WOW factor.
+globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
+---
+# Mock Data & Backend Fallback
+
+## 1. Service Layer with Mock Logic
+- Generate CRUD-like functions for products, orders, subscriptions, and user data in `src/lib` or similar.
+- If Appwrite credentials are absent, default to an in-memory or file-based mock data set.
+
+## 2. Data Structure
+- Keep arrays or JSON objects that mimic real products, orders, and user profiles.
+- Implement basic read/update methods: getProducts, createProduct, updateProduct, etc.
+
+## 3. Seamless Transition
+- Maintain identical function signatures whether using mock data or Appwrite.
+- Once the real backend is configured, swap in the Appwrite calls with minimal code changes.
+
+## 4. Admin & User Experience
+- The admin dashboard should still support “create product,” “update order,” etc., even if it’s all in-memory for now.
+- Users should see a consistent product list and can place mock orders or subscriptions that behave realistically.
+
+## 5. WOW Factor Regardless
+- Even with mock data, keep the same tailwind styling, framer-motion effects, and Norse-themed interface.
+- Provide confirmation modals, animations, and transitions as if the data were live.
+
+## 6. Documentation
+- Clarify in a README how to enable or disable mock mode (e.g., environment variable).
+- Mention that data resets on server restart if purely in-memory, so devs understand the temporary nature of mock data.
