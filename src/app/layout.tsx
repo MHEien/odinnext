@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Cinzel } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/components/cart/CartProvider";
-import { AuthProvider } from "@/lib/context/AuthContext";
+import { Providers } from "./providers";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Odin Chocolate | Premium Norse-Themed Chocolates",
-  description: "Experience the divine taste of artisanal Norse-themed chocolates, crafted with passion and premium ingredients.",
+  title: "Odin Chocolate",
+  description: "Premium Norse-themed chocolate experience",
 };
 
 export default function RootLayout({
@@ -18,13 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${cinzel.variable}`}>
-      <body className="min-h-screen bg-stone-50 text-stone-900 font-sans">
-        <AuthProvider>
-          <CartProvider>
-            {children}
-          </CartProvider>
-        </AuthProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

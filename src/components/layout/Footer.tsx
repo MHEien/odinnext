@@ -1,21 +1,22 @@
-import Link from "next/link";
+import { Link } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
 
 const footerNavigation = {
   shop: [
-    { name: "Alle produkter", href: "/shop" },
-    { name: "Fremhevede", href: "/shop/featured" },
-    { name: "Nye lanseringer", href: "/shop/new" },
-    { name: "Abonner på våre nyheter", href: "/shop/subscriptions" },
+    { name: "allProducts", href: "/shop" },
+    { name: "featured", href: "/shop/featured" },
+    { name: "newReleases", href: "/shop/new" },
+    { name: "subscribeNews", href: "/shop/subscriptions" },
   ],
   company: [
-    { name: "Vår historie", href: "/about" },
-    { name: "Kontakt oss", href: "/contact" },
+    { name: "ourStory", href: "/about" },
+    { name: "contactUs", href: "/contact" },
   ],
   support: [
-    { name: "Frakt", href: "/shipping" },
-    { name: "Retur", href: "/returns" },
-    { name: "Ofte stilte spørsmål", href: "/faq" },
-    { name: "Retningslinjer", href: "/terms" },
+    { name: "shipping", href: "/shipping" },
+    { name: "returns", href: "/returns" },
+    { name: "faq", href: "/faq" },
+    { name: "terms", href: "/terms" },
   ],
   social: [
     {
@@ -48,6 +49,9 @@ const footerNavigation = {
 };
 
 export default function Footer() {
+  const t = useTranslations('Footer')
+  const nav = useTranslations('Footer.navigation')
+
   return (
     <footer className="bg-stone-900 text-white" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
@@ -60,7 +64,7 @@ export default function Footer() {
               Odin sjokolade
             </span>
             <p className="text-stone-400 text-sm">
-              Vi lager norsk sjokolade direkte fra kakaobønner som vi importerer fra sør og mellom Amerika. All vår sjokolade blir laget i Hof på vår lille sjokoladefabrikk.
+              {t('companyDescription')}
             </p>
             <div className="flex space-x-6">
               {footerNavigation.social.map((item) => (
@@ -79,7 +83,7 @@ export default function Footer() {
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <h3 className="text-sm font-semibold text-stone-300 tracking-wider uppercase">
-                  Shop
+                  {nav('shop')}
                 </h3>
                 <ul className="mt-4 space-y-4">
                   {footerNavigation.shop.map((item) => (
@@ -88,7 +92,7 @@ export default function Footer() {
                         href={item.href}
                         className="text-stone-400 hover:text-primary-400 text-sm"
                       >
-                        {item.name}
+                        {nav(item.name)}
                       </Link>
                     </li>
                   ))}
@@ -96,7 +100,7 @@ export default function Footer() {
               </div>
               <div className="mt-12 md:mt-0">
                 <h3 className="text-sm font-semibold text-stone-300 tracking-wider uppercase">
-                  Company
+                  {nav('company')}
                 </h3>
                 <ul className="mt-4 space-y-4">
                   {footerNavigation.company.map((item) => (
@@ -105,7 +109,7 @@ export default function Footer() {
                         href={item.href}
                         className="text-stone-400 hover:text-primary-400 text-sm"
                       >
-                        {item.name}
+                        {nav(item.name)}
                       </Link>
                     </li>
                   ))}
@@ -115,10 +119,10 @@ export default function Footer() {
             <div className="md:grid md:grid-cols-1 md:gap-8">
               <div>
                 <h3 className="text-sm font-semibold text-stone-300 tracking-wider uppercase">
-                  Subscribe to our newsletter
+                  {t('subscribeTitle')}
                 </h3>
                 <p className="mt-4 text-stone-400 text-sm">
-                  Get notified about new products, special offers, and Norse chocolate wisdom.
+                  {t('subscribeDescription')}
                 </p>
                 <form className="mt-4 sm:flex sm:max-w-md">
                   <label htmlFor="email-address" className="sr-only">
@@ -131,14 +135,14 @@ export default function Footer() {
                     autoComplete="email"
                     required
                     className="input-field bg-stone-800 border-stone-700 text-white placeholder-stone-400"
-                    placeholder="Enter your email"
+                    placeholder={t('emailPlaceholder')}
                   />
                   <div className="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
                     <button
                       type="submit"
                       className="btn-primary w-full bg-primary-600 hover:bg-primary-700"
                     >
-                      Subscribe
+                      {t('subscribeButton')}
                     </button>
                   </div>
                 </form>
@@ -148,7 +152,7 @@ export default function Footer() {
         </div>
         <div className="mt-12 border-t border-stone-700 pt-8">
           <p className="text-stone-400 text-sm text-center">
-            &copy; {new Date().getFullYear()} Odin Chocolate. All rights reserved.
+            {t('copyright', { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>

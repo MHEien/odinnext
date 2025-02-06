@@ -1,4 +1,8 @@
 ---
+description: 
+globs: 
+---
+---
 description: Sets the epic creative guidelines and Norse-themed branding details to push the Odin Chocolate Next.js site beyond typical eCommerce aesthetics.
 globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx,assets/**/*.*
 ---

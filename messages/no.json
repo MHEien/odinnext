@@ -1,0 +1,513 @@
+{
+  "Index": {
+    "title": "Velkommen til Odin",
+    "subtitle": "Din norrønt-inspirerte markedsplass"
+  },
+  "Navigation": {
+    "products": "Produkter",
+    "collections": "Kolleksjoner",
+    "cart": "Handlekurv",
+    "orders": "Bestillinger",
+    "about": "Om oss",
+    "account": "Konto"
+  },
+  "Products": {
+    "addToCart": "Legg i handlekurv",
+    "outOfStock": "Ikke på lager",
+    "price": "Pris",
+    "inStock": "på lager",
+    "details": "Produktdetaljer",
+    "sku": "Varenummer",
+    "category": "Kategori",
+    "premiumCollection": "Premium Kolleksjon",
+    "decreaseQuantity": "Reduser antall",
+    "increaseQuantity": "Øk antall",
+    "addToCartSuccess": "Lagt til i handlekurven!",
+    "detailedDescription": "Detaljert Beskrivelse",
+    "ingredients": "Ingredienser",
+    "nutritionalInfo": "Næringsinnhold",
+    "productDetails": "Produktdetaljer",
+    "weight": "Vekt",
+    "allergens": "Allergener",
+    "currency": "kr",
+    "productView": "visning",
+    "hero": {
+      "title": "Smi Din Arv",
+      "subtitle": "Oppdag vår kolleksjon av premium norrønt-inspirerte produkter"
+    },
+    "grid": {
+      "noProducts": "Ingen produkter funnet",
+      "loading": "Laster produkter..."
+    },
+    "Products": {
+      "newProduct": "Nytt Produkt",
+      "createNewProduct": "Opprett nytt produkt",
+      "basicInfo": "Grunnleggende Informasjon",
+      "productName": "Produktnavn",
+      "productNamePlaceholder": "f.eks., Thors Torden",
+      "shortDescription": "Kort Beskrivelse",
+      "shortDescriptionPlaceholder": "Kort produktbeskrivelse",
+      "fullDescription": "Full Beskrivelse",
+      "fullDescriptionPlaceholder": "Detaljert produktbeskrivelse",
+      "price": "Pris (kr)",
+      "weight": "Vekt (g)",
+      "stock": "Lagerbeholdning",
+      "category": "Kategori",
+      "selectCategory": "Velg en kategori",
+      "ingredients": "Ingredienser",
+      "addIngredient": "Legg til Ingrediens",
+      "ingredientPlaceholder": "f.eks., Mørk Sjokolade",
+      "allergens": "Allergener",
+      "addAllergen": "Legg til Allergen",
+      "allergenPlaceholder": "f.eks., Melk",
+      "nutritionalInfo": "Næringsinnhold",
+      "calories": "Kalorier",
+      "fat": "Fett (g)",
+      "protein": "Protein (g)",
+      "carbs": "Karbohydrater (g)",
+      "productImage": "Produktbilde",
+      "options": "Alternativer",
+      "inStock": "På Lager",
+      "featured": "Fremhevet Produkt",
+      "creating": "Oppretter...",
+      "create": "Opprett Produkt",
+      "cancel": "Avbryt",
+      "details": {
+        "title": "Produktdetaljer",
+        "overview": "Oversikt",
+        "performance": "Ytelsesmetrikk",
+        "totalOrders": "Totale Bestillinger",
+        "totalRevenue": "Total Omsetning",
+        "averageOrderValue": "Gjennomsnittlig Ordreverdi",
+        "subscriptionCount": "Aktive Abonnementer",
+        "stockHistory": "Lagerhistorikk",
+        "salesTrend": "Salgsutvikling",
+        "lastUpdated": "Sist Oppdatert",
+        "createdAt": "Opprettet",
+        "editProduct": "Rediger Produkt",
+        "deleteProduct": "Slett Produkt",
+        "confirmDelete": "Er du sikker på at du vil slette dette produktet?",
+        "deleteWarning": "Denne handlingen kan ikke angres.",
+        "relatedProducts": "Relaterte Produkter",
+        "collections": "Inkludert i Kolleksjoner",
+        "noCollections": "Ikke inkludert i noen kolleksjoner",
+        "recentOrders": "Nylige Bestillinger",
+        "noOrders": "Ingen bestillinger ennå",
+        "viewAllOrders": "Se Alle Bestillinger",
+        "status": {
+          "title": "Status",
+          "active": "Aktiv",
+          "inactive": "Inaktiv",
+          "outOfStock": "Ikke på Lager"
+        }
+      },
+      "errors": {
+        "nameRequired": "Produktnavn er påkrevd",
+        "descriptionRequired": "Beskrivelse er påkrevd",
+        "longDescriptionRequired": "Full beskrivelse er påkrevd",
+        "validPriceRequired": "Gyldig pris er påkrevd",
+        "validWeightRequired": "Gyldig vekt er påkrevd",
+        "validStockRequired": "Gyldig lagerbeholdning er påkrevd",
+        "allIngredientsRequired": "Alle ingredienser må fylles ut",
+        "allAllergensRequired": "Alle allergener må fylles ut",
+        "categoryRequired": "Kategori er påkrevd",
+        "createError": "Kunne ikke opprette produkt",
+        "unknownError": "En ukjent feil oppstod",
+        "loadError": "Kunne ikke laste produktdetaljer",
+        "deleteError": "Kunne ikke slette produkt"
+      }
+    }
+  },
+  "Cart": {
+    "empty": "Handlekurven din er tom",
+    "checkout": "Gå til kassen",
+    "total": "Total",
+    "remove": "Fjern fra handlekurv",
+    "quantity": "Antall",
+    "title": "Din Handlekurv",
+    "emptyMessage": "Utforsk vår samling og legg til noen varer i handlekurven",
+    "exploreProducts": "Utforsk Produkter",
+    "orderSummary": "Ordreoppsummering",
+    "subscription": {
+      "toggle": "Prenumerér og sparer 10%",
+      "frequency": "Leveringsfrekvens",
+      "weekly": "Hver uke",
+      "biweekly": "Hver to uker",
+      "monthly": "Hver måned",
+      "savings": "Du sparer ${amount} med abonnement"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "discount": "Abonnoments rabatt",
+      "shipping": "Levering",
+      "shippingMessage": "Beregnet ved kassen"
+    }
+  },
+  "Orders": {
+    "title": "Dine Bestillinger",
+    "empty": {
+      "title": "Ingen bestillinger ennå",
+      "message": "Du har ikke plassert noen bestillinger ennå.",
+      "action": "Begynn å handle"
+    },
+    "details": {
+      "orderNumber": "Bestilling #{id}",
+      "date": "Bestilt den {date}",
+      "status": "Status",
+      "quantity": "Antall",
+      "priceEach": "${price} per stk"
+    },
+    "success": {
+      "title": "Ordre bekreftet!",
+      "message": "Takk for din bestilling. Vi sender deg en bekreftelses-epost med bestillingsdetaljer.",
+      "details": {
+        "title": "Bestillingsdetaljer",
+        "orderNumber": "Ordre nummer",
+        "orderDate": "Bestilling dato",
+        "totalAmount": "Total beløp",
+        "status": "Status",
+        "items": "Bestilte varer",
+        "quantity": "Antall"
+      },
+      "actions": {
+        "viewOrders": "Se ordrer",
+        "continueShopping": "Fortsett å handle"
+      }
+    }
+  },
+  "Admin": {
+    "dashboard": "Kontrollpanel",
+    "recentActivity": "Nylig aktivitet",
+    "salesTrends": "Salgstrender",
+    "categories": "Kategorier",
+    "orders": "Bestillinger",
+    "noActivity": "Ingen nylig aktivitet",
+    "viewAll": "Vis alle",
+    "Products": {
+      "newProduct": "Nytt Produkt",
+      "createNewProduct": "Opprett nytt produkt",
+      "basicInfo": "Grunnleggende Informasjon",
+      "productName": "Produktnavn",
+      "productNamePlaceholder": "f.eks., Thors Torden",
+      "shortDescription": "Kort Beskrivelse",
+      "shortDescriptionPlaceholder": "Kort produktbeskrivelse",
+      "fullDescription": "Full Beskrivelse",
+      "fullDescriptionPlaceholder": "Detaljert produktbeskrivelse",
+      "price": "Pris (kr)",
+      "weight": "Vekt (g)",
+      "stock": "Lagerbeholdning",
+      "category": "Kategori",
+      "selectCategory": "Velg en kategori",
+      "ingredients": "Ingredienser",
+      "addIngredient": "Legg til Ingrediens",
+      "ingredientPlaceholder": "f.eks., Mørk Sjokolade",
+      "allergens": "Allergener",
+      "addAllergen": "Legg til Allergen",
+      "allergenPlaceholder": "f.eks., Melk",
+      "nutritionalInfo": "Næringsinnhold",
+      "calories": "Kalorier",
+      "fat": "Fett (g)",
+      "protein": "Protein (g)",
+      "carbs": "Karbohydrater (g)",
+      "productImage": "Produktbilde",
+      "options": "Alternativer",
+      "inStock": "På Lager",
+      "featured": "Fremhevet Produkt",
+      "creating": "Oppretter...",
+      "create": "Opprett Produkt",
+      "cancel": "Avbryt",
+      "details": {
+        "title": "Produktdetaljer",
+        "overview": "Oversikt",
+        "performance": "Ytelsesmetrikk",
+        "totalOrders": "Totale Bestillinger",
+        "totalRevenue": "Total Omsetning",
+        "averageOrderValue": "Gjennomsnittlig Ordreverdi",
+        "subscriptionCount": "Aktive Abonnementer",
+        "stockHistory": "Lagerhistorikk",
+        "salesTrend": "Salgsutvikling",
+        "lastUpdated": "Sist Oppdatert",
+        "createdAt": "Opprettet",
+        "editProduct": "Rediger Produkt",
+        "deleteProduct": "Slett Produkt",
+        "confirmDelete": "Er du sikker på at du vil slette dette produktet?",
+        "deleteWarning": "Denne handlingen kan ikke angres.",
+        "relatedProducts": "Relaterte Produkter",
+        "collections": "Inkludert i Kolleksjoner",
+        "noCollections": "Ikke inkludert i noen kolleksjoner",
+        "recentOrders": "Nylige Bestillinger",
+        "noOrders": "Ingen bestillinger ennå",
+        "viewAllOrders": "Se Alle Bestillinger",
+        "status": {
+          "title": "Status",
+          "active": "Aktiv",
+          "inactive": "Inaktiv",
+          "outOfStock": "Ikke på Lager"
+        }
+      },
+      "errors": {
+        "nameRequired": "Produktnavn er påkrevd",
+        "descriptionRequired": "Beskrivelse er påkrevd",
+        "longDescriptionRequired": "Full beskrivelse er påkrevd",
+        "validPriceRequired": "Gyldig pris er påkrevd",
+        "validWeightRequired": "Gyldig vekt er påkrevd",
+        "validStockRequired": "Gyldig lagerbeholdning er påkrevd",
+        "allIngredientsRequired": "Alle ingredienser må fylles ut",
+        "allAllergensRequired": "Alle allergener må fylles ut",
+        "categoryRequired": "Kategori er påkrevd",
+        "createError": "Kunne ikke opprette produkt",
+        "unknownError": "En ukjent feil oppstod",
+        "loadError": "Kunne ikke laste produktdetaljer",
+        "deleteError": "Kunne ikke slette produkt"
+      }
+    }
+  },
+  "Common": {
+    "loading": "Laster...",
+    "error": "Det oppstod en feil",
+    "retry": "Prøv igjen",
+    "save": "Lagre",
+    "cancel": "Avbryt",
+    "delete": "Slett",
+    "edit": "Rediger"
+  },
+  "About": {
+    "hero": {
+      "title": "Vår Saga",
+      "subtitle": "Som de gamle nordiske håndverkere som forgjorde legendariske våpen, lagar vi våre sjokolader med dedikasjon, kunnskap og en dypt respekt for tradisjon."
+    },
+    "mission": {
+      "title": "Vår Søk",
+      "description1": "Vi hentar de fineste kakao-bønner fra gamle trær, der jorden's sjel infuserer hver bønne med unik karakter. Våre master-håndverkere transformerer disse verdifulle ingredienser til ekstreme sjokoladeoppskrifter.",
+      "description2": "Som de nordiske gudene som skapte store gaver i sin himmelske verksted, vi puster vår entusiasme og kunnskap inn i hver batch, sikrer at hver bit forteller sin egen historie om eksellens."
+    },
+    "values": {
+      "title": "Våre Verdier",
+      "honor": {
+        "title": "Honor",
+        "description": "Som Thor's uforanderlige kraft, står vi fast ved vårt ansvar for kvalitet og håndverk."
+      },
+      "harmony": {
+        "title": "Harmoni",
+        "description": "Som Yggdrasil's røtter, opprettholder vi sterke kontakter med bærekraftige landbrukspraksis."
+      },
+      "knowledge": {
+        "title": "Kunnskap",
+        "description": "Som Odin's uendelige søk etter kunnskap, utforsker vi nye smaker og teknikker."
+      }
+    },
+    "team": {
+      "title": "Våre Master Kunstnere",
+      "roles": {
+        "masterChocolatier": "Master Chocolatier",
+        "leadArtisan": "Lead Artisan",
+        "flavorMaster": "Flavor Master"
+      }
+    }
+  },
+  "Checkout": {
+    "title": "Fullfør din reise",
+    "emptyCart": {
+      "title": "Din handlekurv venter på sitt store gaver",
+      "message": "Fyll din handlekurv med legendariske oppskrifter før du reiser til kassen.",
+      "action": "Utforsk vår samling"
+    },
+    "steps": {
+      "shipping": "Levering",
+      "payment": "Betaling",
+      "review": "Gjennomgang"
+    },
+    "shipping": {
+      "title": "Leveringsinformasjon",
+      "firstName": "Fornavn",
+      "lastName": "Etternavn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "street": "Gateadresse",
+      "city": "By",
+      "state": "Fylke",
+      "postalCode": "Postnummer",
+      "country": "Land",
+      "sameAsBilling": "Fakturaadresse samme som leveringsadresse",
+      "saveInfo": "Lagre denne informasjonen til neste gang",
+      "continue": "Fortsett til betaling"
+    },
+    "payment": {
+      "title": "Betalingsmetode",
+      "cardNumber": "Kortnummer",
+      "cardName": "Navn på kort",
+      "expiry": "Utløpsdato",
+      "cvc": "CVC",
+      "back": "Tilbake til levering",
+      "continue": "Fortsett til gjennomgang"
+    },
+    "review": {
+      "title": "Gjennomgå bestilling",
+      "shippingDetails": "Leveringsdetaljer",
+      "paymentMethod": "Betalingsmetode",
+      "cardEnding": "•••• •••• •••• {last4}",
+      "expires": "Utløper {month}/{year}",
+      "back": "Tilbake",
+      "placeOrder": "Bestill",
+      "processing": "Behandler..."
+    },
+    "error": {
+      "orderFailed": "Kunne ikke fullføre bestillingen. Vennligst prøv igjen."
+    }
+  },
+  "Collections": {
+    "loading": "Laster samling...",
+    "includedProducts": "Inkluderte Produkter",
+    "quantity": "Antall",
+    "perDelivery": "per levering",
+    "subscription": {
+      "toggle": "Abboner og sparer 10%",
+      "savingsLabel": "Sparer 10% med abonnement",
+      "frequency": "Leveringsfrekvens",
+      "weekly": "Hver uke",
+      "biweekly": "Hver to uker",
+      "monthly": "Hver måned"
+    },
+    "addToCart": {
+      "button": "Legg til i handlekurv",
+      "loading": "Legger til i handlekurv...",
+      "error": "Klarte ikke legge samling til handlekurv:"
+    }
+  },
+  "FeaturedCollections": {
+    "title": "Legendariske Kolleksjoner",
+    "subtitle": "Abonner på våre kuraterte kolleksjoner og bli med på en smaksreise gjennom norrøn mytologi",
+    "saveWithSubscription": "Spar 10% med abonnement",
+    "perDelivery": "per levering",
+    "exploreCollection": "Utforsk Kolleksjon"
+  },
+  "SubscriptionPlans": {
+    "title": "Bli med i vårt legendariske fellesskap",
+    "subtitle": "Abonner på jevne leveringer av vår kunstfulle sjokolade og bli en del av vårt legendariske fellesskap",
+    "mostPopular": "Mest Populær",
+    "monthly": "månedlig",
+    "choosePlan": "Velg Plan"
+  },
+  "CallToAction": {
+    "title": "Start Din Legendariske Reise",
+    "description": "Bli med i vårt fellesskap av sjokoladeentusiaster og opplev den guddommelige smaken av våre håndlagde kreasjoner. Hver bit forteller en historie om norrøn mytologi og håndverk.",
+    "exploreProducts": "Utforsk Alle Produkter"
+  },
+  "Footer": {
+    "companyDescription": "Vi lager norsk sjokolade direkte fra kakaobønner som vi importerer fra Sør- og Mellom-Amerika. All vår sjokolade blir laget i Hof på vår lille sjokoladefabrikk.",
+    "subscribeTitle": "Abonner på vårt nyhetsbrev",
+    "subscribeDescription": "Få varsler om nye produkter, spesialtilbud og norrøn sjokoladevisdom.",
+    "emailPlaceholder": "Skriv inn din e-post",
+    "subscribeButton": "Abonner",
+    "copyright": "© {year} Odin Sjokolade. Alle rettigheter forbeholdt.",
+    "navigation": {
+      "shop": "Butikk",
+      "company": "Selskap",
+      "allProducts": "Alle Produkter",
+      "featured": "Fremhevet",
+      "newReleases": "Nye Lanseringer",
+      "subscribeNews": "Abonner på våre nyheter",
+      "ourStory": "Vår Historie",
+      "contactUs": "Kontakt Oss",
+      "shipping": "Frakt",
+      "returns": "Retur",
+      "faq": "Ofte Stilte Spørsmål",
+      "terms": "Vilkår"
+    }
+  },
+  "Account": {
+    "welcome": {
+      "title": "Velkommen til Valhall",
+      "greeting": "Hei, {name}! Din sjokoladefest venter på deg."
+    },
+    "profile": {
+      "title": "Profil",
+      "edit": "Rediger",
+      "name": "Navn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "shippingAddress": "Leveringsadresse"
+    },
+    "orders": {
+      "title": "Siste Bestillinger",
+      "viewAll": "Se Alle",
+      "noOrders": "Ingen bestillinger ennå.",
+      "startShopping": "Begynn å Handle"
+    },
+    "subscriptions": {
+      "title": "Abonnementer",
+      "manage": "Administrer",
+      "noSubscriptions": "Ingen aktive abonnementer.",
+      "explorePlans": "Utforsk Planer"
+    },
+    "preferences": {
+      "title": "Preferanser",
+      "marketingEmails": "Markedsførings-epost",
+      "orderNotifications": "Ordre-varsler",
+      "on": "På",
+      "off": "Av"
+    }
+  },
+  "Profile": {
+    "title": "Rediger Profil",
+    "subtitle": "Oppdater din personlige informasjon",
+    "loading": "Laster...",
+    "personalInfo": {
+      "title": "Personlig Informasjon",
+      "fullName": "Fullt Navn",
+      "phoneNumber": "Telefonnummer"
+    },
+    "shippingAddress": {
+      "title": "Leveringsadresse",
+      "street": "Gateadresse",
+      "city": "By",
+      "state": "Fylke",
+      "postalCode": "Postnummer",
+      "country": "Land"
+    },
+    "preferences": {
+      "title": "Preferanser",
+      "marketingConsent": "Motta markedsførings-e-post om nye produkter og tilbud",
+      "notifications": "Motta ordre- og leveringsoppdateringer"
+    },
+    "actions": {
+      "cancel": "Avbryt",
+      "saving": "Lagrer...",
+      "save": "Lagre Endringer"
+    },
+    "error": "Det oppstod en feil under oppdatering av profilen din"
+  },
+  "Subscriptions": {
+    "title": "Dine Abonnementer",
+    "subtitle": "Administrer dine guddommelige sjokoladeleveringer",
+    "empty": {
+      "title": "Ingen Aktive Abonnementer",
+      "message": "Bli med i våre abonnementsplaner for å motta regelmessige leveringer av premium norrøn-inspirert sjokolade.",
+      "action": "Utforsk Våre Sjokolader"
+    },
+    "details": {
+      "customSubscription": "Tilpasset Abonnement",
+      "delivery": "{frequency} Levering",
+      "nextDelivery": "Neste Levering",
+      "noUpcomingDelivery": "Ingen kommende levering",
+      "products": "Produkter"
+    },
+    "status": {
+      "active": "Aktiv",
+      "paused": "Pauset",
+      "cancelled": "Kansellert"
+    },
+    "actions": {
+      "modifyProducts": "Endre Produkter",
+      "pauseDeliveries": "Pause Leveringer",
+      "cancelSubscription": "Kanseller Abonnement",
+      "resumeDeliveries": "Gjenoppta Leveringer",
+      "reactivate": "Reaktiver"
+    },
+    "frequency": {
+      "weekly": "Ukentlig",
+      "biweekly": "Annenhver uke",
+      "monthly": "Månedlig"
+    }
+  }
+} 

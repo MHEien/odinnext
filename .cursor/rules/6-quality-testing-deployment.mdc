@@ -1,4 +1,8 @@
 ---
+description: 
+globs: 
+---
+---
 description: Outlines code quality standards, testing methodologies, and deployment procedures for the Odin Chocolate Next.js site.
 globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx,*.md
 ---

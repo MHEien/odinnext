@@ -1,4 +1,8 @@
 ---
+description: 
+globs: 
+---
+---
 description: Guidelines for creating a high-end Next.js admin dashboard that uses Tailwind and Framer Motion for product, order, and subscription management.
 globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
 ---
@@ -6,7 +10,7 @@ globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**
 
 ## 1. Admin Scope
 - Provide a secure interface for admin users to manage products, orders, subscriptions, and user info.
-- Enforce an "admin" role check with Appwrite or a similar approach to restrict access.
+- Enforce an "admin" role check or a similar approach to restrict access.
 
 ## 2. Dashboard Layout
 - Use Tailwind for a clean, data-centric UI. 

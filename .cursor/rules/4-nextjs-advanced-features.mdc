@@ -1,4 +1,8 @@
 ---
+description: 
+globs: 
+---
+---
 description: Utilize Next.js App Router, Server Actions, and React Server Components for high-performance data handling and organization.
 globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
 ---
@@ -22,4 +26,3 @@ globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**
 
 ## 5. Edge & API Routes
 - If real-time shipping or geolocation is needed, consider deploying certain route handlers to Edge Functions.
-- Alternatively, rely on Appwrite’s serverless functions for advanced logic or external API calls.

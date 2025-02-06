@@ -1,4 +1,8 @@
 ---
+description: 
+globs: 
+---
+---
 description: Defines the high-level goals, overall vision, and core technologies for the Odin Chocolate Next.js project.
 globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
 ---
@@ -11,7 +15,9 @@ globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**
 
 ## Tech Stack
 - Next.js (latest version) with TypeScript
-- Appwrite for database, authentication, storage, and serverless functions
+- Prisma and Postgres for database.
+- Next Auth for authentication
+- Server actions for serverless functions.
 - Modern CSS solution (CSS Modules, Tailwind, Styled Components, etc.)
 - Deployment on a suitable SSR-friendly platform (e.g., Vercel, AWS)
 

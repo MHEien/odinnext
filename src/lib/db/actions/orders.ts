@@ -1,0 +1,265 @@
+"use server"
+
+import { prisma } from '@/lib/db'
+import { auth } from '@/auth'
+import { revalidatePath } from 'next/cache'
+import type { Order, OrderItem, Address, PaymentMethod } from '@prisma/client'
+import { Prisma } from '@prisma/client'
+
+export type OrderWithItems = Order & {
+  items: (OrderItem & {
+    product: {
+      name: string
+      images: string[]
+    }
+  })[]
+  shippingAddress: Address
+  billingAddress: Address
+  paymentMethod: PaymentMethod
+}
+
+export type OrderWithDetails = Order & {
+  items: (OrderItem & {
+    product: {
+      name: string
+      images: string[]
+    }
+  })[]
+  user: {
+    name: string | null
+    email: string
+  }
+}
+
+type AddressInput = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  street: string
+  city: string
+  state: string
+  postalCode: string
+  country: string
+}
+
+type PaymentMethodInput = {
+  type: string
+  cardBrand: string
+  last4: string
+  expiryMonth: number
+  expiryYear: number
+}
+
+interface OrderCreateInput {
+  userId: string
+  items: {
+    productId: string
+    quantity: number
+    price: number
+  }[]
+  shippingAddress: AddressInput
+  billingAddress: AddressInput
+  paymentMethod: PaymentMethodInput
+}
+
+export async function createOrder(data: OrderCreateInput): Promise<Order> {
+  const total = data.items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+
+  return await prisma.$transaction(async (tx) => {
+    // Create shipping address
+    const shippingAddress = await tx.address.create({
+      data: data.shippingAddress
+    })
+
+    // Create billing address
+    const billingAddress = await tx.address.create({
+      data: data.billingAddress
+    })
+
+    // Create payment method
+    const paymentMethod = await tx.paymentMethod.create({
+      data: data.paymentMethod
+    })
+
+    // Create order
+    const order = await tx.order.create({
+      data: {
+        userId: data.userId,
+        total: new Prisma.Decimal(total),
+        shippingAddressId: shippingAddress.id,
+        billingAddressId: billingAddress.id,
+        paymentMethodId: paymentMethod.id,
+        items: {
+          create: data.items.map(item => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            price: new Prisma.Decimal(item.price)
+          }))
+        }
+      },
+      include: {
+        items: {
+          include: {
+            product: {
+              select: {
+                name: true,
+                images: true
+              }
+            }
+          }
+        },
+        shippingAddress: true,
+        billingAddress: true,
+        paymentMethod: true
+      }
+    })
+
+    return order
+  })
+}
+
+export async function getOrders(): Promise<OrderWithDetails[]> {
+  const session = await auth()
+  if (!session?.user) {
+    throw new Error('Not authenticated')
+  }
+
+  const orders = await prisma.order.findMany({
+    include: {
+      items: {
+        include: {
+          product: {
+            select: {
+              name: true,
+              images: true
+            }
+          }
+        }
+      },
+      user: {
+        select: {
+          name: true,
+          email: true
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+  // Type assertion since we know the query matches our type
+  return orders as OrderWithDetails[]
+}
+
+export async function getOrder(id: string): Promise<OrderWithDetails | null> {
+  const session = await auth()
+  if (!session?.user) {
+    throw new Error('Not authenticated')
+  }
+
+  const order = await prisma.order.findUnique({
+    where: { id },
+    include: {
+      items: {
+        include: {
+          product: {
+            select: {
+              name: true,
+              images: true
+            }
+          }
+        }
+      },
+      user: {
+        select: {
+          name: true,
+          email: true
+        }
+      }
+    }
+  })
+
+  // Type assertion since we know the query matches our type
+  return order as OrderWithDetails | null
+}
+
+export async function updateOrderStatus(id: string, status: Order['status']) {
+  const session = await auth()
+  if (!session?.user) {
+    throw new Error('Not authenticated')
+  }
+
+  const order = await prisma.order.update({
+    where: { id },
+    data: { status }
+  })
+
+  revalidatePath('/admin/orders')
+  revalidatePath(`/admin/orders/${id}`)
+  return order
+}
+
+export async function deleteOrder(id: string) {
+  const session = await auth()
+  if (!session?.user) {
+    throw new Error('Not authenticated')
+  }
+
+  await prisma.order.delete({
+    where: { id }
+  })
+
+  revalidatePath('/admin/orders')
+}
+
+export async function getOrdersByUserId(userId: string): Promise<OrderWithItems[]> {
+  return prisma.order.findMany({
+    where: { userId },
+    include: {
+      items: {
+        include: {
+          product: {
+            select: {
+              name: true,
+              images: true
+            }
+          }
+        }
+      },
+      shippingAddress: true,
+      billingAddress: true,
+      paymentMethod: true
+    },
+    orderBy: { createdAt: 'desc' }
+  })
+}
+
+export async function getOrderById(id: string): Promise<OrderWithItems | null> {
+  return prisma.order.findUnique({
+    where: { id },
+    include: {
+      items: {
+        include: {
+          product: {
+            select: {
+              name: true,
+              images: true
+            }
+          }
+        }
+      },
+      shippingAddress: true,
+      billingAddress: true,
+      paymentMethod: true
+    }
+  })
+}
+
+export async function cancelOrder(id: string): Promise<Order> {
+  return prisma.order.update({
+    where: { id },
+    data: { status: 'CANCELLED' }
+  })
+} 

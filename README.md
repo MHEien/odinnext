@@ -16,7 +16,8 @@ A Next.js-powered eCommerce platform for Odin Chocolate, featuring a Norse-inspi
 - **Frontend**: Next.js 14 with App Router
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
-- **Backend**: Appwrite (Auth, Database, Storage)
+- **Backend**: PostgreSQL with Prisma ORM
+- **Auth**: NextAuth.js
 - **Language**: TypeScript
 
 ## 🚀 Getting Started
@@ -30,7 +31,12 @@ A Next.js-powered eCommerce platform for Odin Chocolate, featuring a Norse-inspi
    # or
    bun install
    ```
-3. Run the development server:
+3. Set up your PostgreSQL database and update the connection string in `.env`
+4. Run the database migrations:
+   ```bash
+   npx prisma migrate dev
+   ```
+5. Run the development server:
    ```bash
    npm run dev
    # or
@@ -38,7 +44,7 @@ A Next.js-powered eCommerce platform for Odin Chocolate, featuring a Norse-inspi
    # or
    bun dev
    ```
-4. Open [http://localhost:3000](http://localhost:3000)
+6. Open [http://localhost:3000](http://localhost:3000)
 
 ## 📁 Project Structure
 
@@ -47,7 +53,8 @@ src/
 ├── app/                 # Next.js App Router pages
 ├── components/          # Reusable UI components
 ├── lib/                 # Utilities and helpers
-│   ├── appwrite/       # Appwrite client & services
+│   ├── auth/           # Authentication services
+│   ├── db.ts           # Prisma client
 │   └── mock/           # Mock data for development
 ├── styles/             # Global styles
 └── types/              # TypeScript type definitions
@@ -62,11 +69,15 @@ src/
 
 ## 🔒 Environment Variables
 
-Create a `.env.local` file with:
+Create a `.env` file with:
 
 ```
-NEXT_PUBLIC_APPWRITE_ENDPOINT=your-appwrite-endpoint
-NEXT_PUBLIC_APPWRITE_PROJECT_ID=your-project-id
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/odin_chocolate"
+
+# NextAuth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-generated-secret"
 ```
 
 ## 📝 License

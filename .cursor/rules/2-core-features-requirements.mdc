@@ -1,11 +1,15 @@
 ---
+description: 
+globs: 
+---
+---
 description: Lists essential features for Odin Chocolate, including eCommerce flows, subscriptions, and user profiles, using Next.js, Tailwind, and Framer Motion.
 globs: *.ts,*.tsx,app/**/*.tsx,pages/**/*.tsx,src/app/**/*.tsx,src/components/**/*.tsx,src/lib/**/*.ts,src/lib/**/*.tsx
 ---
 # Core Features & Requirements
 
 ## 1. Authentication & Profiles
-- Implement secure user sign-up and login via Appwrite.
+- Implement secure user sign-up and login via Next-Auth.
 - Maintain user profiles (name, email, addresses, payment references).
 
 ## 2. Product Catalog & Browsing
