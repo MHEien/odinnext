@@ -9,7 +9,12 @@
     "cart": "Cart",
     "orders": "Orders",
     "about": "About",
-    "account": "Account"
+    "contactUs": "Contact Us",
+    "account": "Account",
+    "language": "Change language",
+    "Products": {
+      "manage": "Manage Products"
+    }
   },
   "Products": {
     "addToCart": "Add to Cart",
@@ -131,7 +136,8 @@
       "discount": "Subscription discount",
       "shipping": "Shipping",
       "shippingMessage": "Calculated at checkout"
-    }
+    },
+    "oneTime": "One time"
   },
   "Orders": {
     "title": "Your Orders",
@@ -167,14 +173,53 @@
   },
   "Admin": {
     "dashboard": "Dashboard",
+    "revenue": "Revenue",
+    "subTitle": "Overview over sales and customers",
     "recentActivity": "Recent Activity",
     "salesTrends": "Sales Trends",
     "categories": "Categories",
-    "orders": "Orders",
+    "orders": {
+      "order": "Order",
+      "customer": "Customer",
+      "items": "Items",
+      "total": "Total",
+      "status": {
+        "title": "Status",
+        "pending": "Pending",
+        "processing": "Processing",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled",
+        "shipped": "Shipped"
+      },
+      "date": "Date",
+      "actions": "Actions",
+      "viewDetails": "View Details",
+      "backToOrders": "Back to Orders",
+      "orderTitle": "Order {id}",
+      "createdOn": "Created on {date}",
+      "timeline": "Timeline",
+      "shippingAddress": "Shipping Address",
+      "paymentMethod": "Payment Method",
+      "cardEnding": "{brand} ending in {last4}"
+    },
     "noActivity": "No recent activity",
     "viewAll": "View All",
+    "Categories": {
+      "title": "Categories",
+      "adding": "Adding...",
+      "manage": "Manage product categories",
+      "name": "Name",
+      "description": "Description",
+      "namePlaceholder": "e.g, Dark Chocolate",
+      "descriptionPlaceholder": "Category description",
+      "addNewCategory": "Add New Category",
+      "addCategory": "Add Category",
+      "existingCategories": "Existing Categories",
+      "noCategories": "No categories found. Add your first category above."
+    },
     "Products": {
       "newProduct": "New Product",
+      "manage": "Manage your product catalog",
       "createNewProduct": "Create a new product",
       "basicInfo": "Basic Information",
       "productName": "Product Name",
@@ -249,6 +294,92 @@
         "unknownError": "An unknown error occurred",
         "loadError": "Failed to load product details",
         "deleteError": "Failed to delete product"
+      }
+    },
+    "Subscriptions": {
+      "title": "Manage Subscriptions",
+      "nextDelivery": "Next Delivery",
+      "frequency": "Delivery Frequency",
+      "Details": {
+        "backToSubscriptions": "Back to Subscriptions",
+        "subscriptionDetails": "Subscription Details",
+        "items": "Items",
+        "viewCustomer": "View Customer",
+        "resume": "Resume",
+        "customerInformation": "Customer information",
+        "contactDetails": "Contact Details",
+        "quantity": "Quantity",
+        "viewProduct": "View Product"
+      },
+      "shippingAddress": "Shipping Address",
+      "deliverySchedule": "Delivery Schedule",
+      "history": "History",
+      "created": "Created",
+      "lastUpdated": "Last Updated",
+      "Type": {
+        "collection": "Collection",
+        "custom": "Custom"
+      },
+      "Status": {
+        "all": "All",
+        "active": "Active",
+        "paused": "Paused",
+        "cancelled": "Cancelled"
+      }
+    },
+    "manageOrders": "Manage customer orders",
+    "Customers": {
+      "title": "Customers",
+      "subtitle": "Manage your customer base",
+      "list": {
+        "anonymous": "Anonymous",
+        "totalOrders": "Total Orders",
+        "totalSpent": "Total Spent",
+        "activeSubscriptions": "Active Subscription",
+        "activeSubscriptionsPlural": "Active Subscriptions",
+        "viewDetails": "View Details"
+      },
+      "details": {
+        "title": "Customer Details",
+        "stats": {
+          "title": "Customer Statistics",
+          "totalOrders": "Total Orders",
+          "totalSpent": "Total Spent",
+          "averageOrderValue": "Average Order Value",
+          "firstOrder": "First Order",
+          "lastOrder": "Last Order",
+          "activeSubscriptions": "Active Subscriptions"
+        },
+        "orders": {
+          "title": "Orders History",
+          "noOrders": "No orders yet",
+          "table": {
+            "orderNumber": "Order Number",
+            "date": "Date",
+            "status": "Status",
+            "total": "Total",
+            "items": "Items"
+          }
+        },
+        "subscriptions": {
+          "title": "Active Subscriptions",
+          "noSubscriptions": "No active subscriptions",
+          "table": {
+            "plan": "Plan",
+            "status": "Status",
+            "nextDelivery": "Next Delivery",
+            "amount": "Amount"
+          }
+        },
+        "sidebar": {
+          "title": "Customer Information",
+          "contactInfo": "Contact Information",
+          "email": "Email",
+          "phone": "Phone",
+          "address": "Address",
+          "memberSince": "Member Since",
+          "lastActive": "Last Active"
+        }
       }
     }
   },
@@ -406,6 +537,8 @@
     }
   },
   "Account": {
+    "signOut": "Sign Out",
+    "signIn": "Sign in",
     "welcome": {
       "title": "Welcome to Valhalla",
       "greeting": "Hello, {name}! Your chocolate feast awaits."
@@ -500,4 +633,4 @@
       "monthly": "Monthly"
     }
   }
-} 
+}

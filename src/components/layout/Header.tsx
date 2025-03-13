@@ -2,29 +2,69 @@
 
 import { Link } from '@/i18n/routing'
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/components/cart/CartProvider";
 import { useAuth } from "@/lib/context/AuthContext";
 import { formatCartAmount } from "@/app/lib/mock/cart";
+import { useUIStore } from "@/lib/stores/uiStore";
+import { useEffect, useRef, useState } from "react";
+import { useTranslations } from 'next-intl';
+import LocaleSwitcher from '@/components/locale/LocaleSwitcher';
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Products", href: "/products" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "Navigation.products", href: "/products" },
+  { name: "Navigation.collections", href: "/collections" },
+  { name: "Navigation.about", href: "/about" },
+  { name: "Navigation.contactUs", href: "/contact" },
 ];
 
 export default function Header() {
   const { cart, products, itemCount } = useCart();
   const { user, signOut } = useAuth();
+  const t = useTranslations();
+  const { 
+    isAccountMenuOpen, 
+    toggleAccountMenu, 
+    closeAccountMenu,
+  } = useUIStore();
+  const accountMenuRef = useRef<HTMLDivElement>(null);
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const languageMenuRef = useRef<HTMLDivElement>(null);
 
   const handleSignOut = async () => {
     try {
       await signOut();
+      closeAccountMenu();
     } catch (error) {
       console.error('Error signing out:', error);
     }
   };
+
+  // Close menus when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        accountMenuRef.current && 
+        !accountMenuRef.current.contains(event.target as Node)
+      ) {
+        closeAccountMenu();
+      }
+      if (
+        languageMenuRef.current && 
+        !languageMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsLanguageMenuOpen(false);
+      }
+    };
+
+    if (isAccountMenuOpen || isLanguageMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isAccountMenuOpen, isLanguageMenuOpen, closeAccountMenu]);
 
   return (
     <motion.header 
@@ -50,19 +90,22 @@ export default function Header() {
                 href={item.href}
                 className="text-stone-600 hover:text-primary-600 transition-colors duration-200"
               >
-                {item.name}
+                {t(item.name)}
               </Link>
             ))}
           </nav>
 
-          {/* Cart and Account */}
+          {/* Cart, Locale and Account */}
           <div className="flex items-center space-x-4">
+            {/* Locale Switcher */}
+            <LocaleSwitcher />
+
             <div className="relative group">
               <Link
                 href="/cart"
                 className="text-stone-600 hover:text-primary-600 transition-colors duration-200 relative"
               >
-                <span className="sr-only">Cart</span>
+                <span className="sr-only">{t('Navigation.cart')}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -89,7 +132,7 @@ export default function Header() {
                 {cart && cart.items.length > 0 ? (
                   <>
                     <div className="px-4 mb-4">
-                      <h3 className="font-medium text-stone-900">Your Cart</h3>
+                      <h3 className="font-medium text-stone-900">{t('Cart.title')}</h3>
                     </div>
                     <div className="max-h-96 overflow-auto px-4">
                       {cart.items.map((item) => {
@@ -114,12 +157,12 @@ export default function Header() {
                               </h4>
                               <p className="text-stone-600 text-sm">
                                 {item.isSubscription
-                                  ? `Subscription (${item.frequency})`
-                                  : 'One-time purchase'}
+                                  ? t('Cart.subscription.frequency', { frequency: item.frequency })
+                                  : t('Cart.oneTime')}
                               </p>
                               <div className="flex justify-between items-center mt-1">
                                 <span className="text-sm text-stone-600">
-                                  Qty: {item.quantity}
+                                  {t('Cart.quantity')}: {item.quantity}
                                 </span>
                                 <span className="text-sm font-medium text-stone-900">
                                   {formatCartAmount(item.price * item.quantity)}
@@ -132,7 +175,7 @@ export default function Header() {
                     </div>
                     <div className="border-t border-stone-200 mt-4 px-4 pt-4">
                       <div className="flex justify-between mb-4">
-                        <span className="font-medium text-stone-900">Total</span>
+                        <span className="font-medium text-stone-900">{t('Cart.total')}</span>
                         <span className="font-medium text-stone-900">
                           {formatCartAmount(cart.total)}
                         </span>
@@ -141,22 +184,28 @@ export default function Header() {
                         href="/cart"
                         className="block w-full py-2 px-4 bg-primary-600 text-white text-center rounded-lg hover:bg-primary-700 transition-colors"
                       >
-                        View Cart
+                        {t('Cart.checkout')}
                       </Link>
                     </div>
                   </>
                 ) : (
                   <div className="px-4 text-center">
-                    <p className="text-stone-600">Your cart is empty</p>
+                    <p className="text-stone-600">{t('Cart.empty')}</p>
                   </div>
                 )}
               </div>
             </div>
 
             {user ? (
-              <div className="relative group">
-                <button className="text-stone-600 hover:text-primary-600 transition-colors duration-200">
-                  <span className="sr-only">Account menu</span>
+              <div className="relative" ref={accountMenuRef}>
+                <button 
+                  onClick={toggleAccountMenu}
+                  className="text-stone-600 hover:text-primary-600 transition-colors duration-200"
+                  aria-expanded={isAccountMenuOpen}
+                  aria-haspopup="true"
+                  aria-label={t('Navigation.account')}
+                >
+                  <span className="sr-only">{t('Navigation.account')}</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -172,33 +221,46 @@ export default function Header() {
                     />
                   </svg>
                 </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 hidden group-hover:block">
-                  <Link
-                    href="/account"
-                    className="block px-4 py-2 text-sm text-stone-700 hover:bg-stone-50"
-                  >
-                    My Account
-                  </Link>
-                  <Link
-                    href="/account/orders"
-                    className="block px-4 py-2 text-sm text-stone-700 hover:bg-stone-50"
-                  >
-                    Orders
-                  </Link>
-                  <button
-                    onClick={handleSignOut}
-                    className="block w-full text-left px-4 py-2 text-sm text-stone-700 hover:bg-stone-50"
-                  >
-                    Sign out
-                  </button>
-                </div>
+                
+                <AnimatePresence>
+                  {isAccountMenuOpen && (
+                    <motion.div 
+                      className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Link
+                        href="/account"
+                        className="block px-4 py-2 text-sm text-stone-700 hover:bg-stone-50"
+                        onClick={closeAccountMenu}
+                      >
+                        {t('Account.profile.title')}
+                      </Link>
+                      <Link
+                        href="/account/orders"
+                        className="block px-4 py-2 text-sm text-stone-700 hover:bg-stone-50"
+                        onClick={closeAccountMenu}
+                      >
+                        {t('Orders.title')}
+                      </Link>
+                      <button
+                        onClick={handleSignOut}
+                        className="block w-full text-left px-4 py-2 text-sm text-stone-700 hover:bg-stone-50"
+                      >
+                        {t('Account.signOut')}
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               <Link
                 href="/auth/sign-in"
                 className="text-stone-600 hover:text-primary-600 transition-colors duration-200"
               >
-                <span className="sr-only">Sign in</span>
+                <span className="sr-only">{t('Account.signIn')}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

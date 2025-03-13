@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
 import type { CustomerWithStats } from '@/lib/db/actions/customers'
 
 interface CustomerListProps {
@@ -31,6 +32,8 @@ const itemVariants = {
 }
 
 export function CustomerList({ customers }: CustomerListProps) {
+  const t = useTranslations('Admin.Customers.list')
+
   return (
     <motion.div
       variants={containerVariants}
@@ -70,8 +73,8 @@ export function CustomerList({ customers }: CustomerListProps) {
                 </svg>
               )}
             </div>
-            <div className="flex-1">
-              <h3 className="font-medium">{customer.name || customer.email || 'Anonymous'}</h3>
+            <div>
+              <h3 className="font-medium">{customer.name || customer.email || t('anonymous')}</h3>
               {customer.name && customer.email && (
                 <p className="text-sm text-stone-500">{customer.email}</p>
               )}
@@ -81,11 +84,11 @@ export function CustomerList({ customers }: CustomerListProps) {
           <div className="mt-4 pt-4 border-t border-stone-100">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-stone-500">Total Orders</p>
+                <p className="text-sm text-stone-500">{t('totalOrders')}</p>
                 <p className="font-medium">{customer.totalOrders}</p>
               </div>
               <div>
-                <p className="text-sm text-stone-500">Total Spent</p>
+                <p className="text-sm text-stone-500">{t('totalSpent')}</p>
                 <p className="font-medium">
                   {new Intl.NumberFormat('no-NO', {
                     style: 'currency',
@@ -100,7 +103,9 @@ export function CustomerList({ customers }: CustomerListProps) {
             <div className="flex items-center gap-2">
               {customer.activeSubscriptions > 0 && (
                 <span className="px-2 py-1 text-xs font-medium bg-purple-50 text-purple-600 rounded-full">
-                  {customer.activeSubscriptions} Active Subscription{customer.activeSubscriptions > 1 ? 's' : ''}
+                  {customer.activeSubscriptions} {customer.activeSubscriptions > 1 
+                    ? t('activeSubscriptionsPlural') 
+                    : t('activeSubscriptions')}
                 </span>
               )}
             </div>
@@ -108,7 +113,7 @@ export function CustomerList({ customers }: CustomerListProps) {
               href={`/admin/customers/${customer.id}`}
               className="text-sm font-medium text-amber-600 hover:text-amber-700"
             >
-              View Details →
+              {t('viewDetails')} →
             </Link>
           </div>
         </motion.div>

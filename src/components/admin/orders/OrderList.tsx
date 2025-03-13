@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import type { OrderWithDetails } from '@/lib/db/actions/orders'
 import { updateOrderStatus } from '@/lib/db/actions/orders'
+import { useTranslations } from 'next-intl'
 
 interface OrderListProps {
   orders: OrderWithDetails[]
@@ -45,6 +46,8 @@ function getStatusColor(status: string) {
 }
 
 export function OrderList({ orders }: OrderListProps) {
+  const t = useTranslations('Admin')
+
   return (
     <motion.div
       variants={containerVariants}
@@ -56,13 +59,13 @@ export function OrderList({ orders }: OrderListProps) {
         <table className="w-full">
           <thead>
             <tr className="border-b border-stone-200">
-              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">Order</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">Customer</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">Items</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">Total</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">Status</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">Date</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">Actions</th>
+              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">{t('orders.order')}</th>
+              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">{t('orders.customer')}</th>
+              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">{t('orders.items')}</th>
+              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">{t('orders.total')}</th>
+              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">{t('orders.status.title')}</th>
+              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">{t('orders.date')}</th>
+              <th className="px-6 py-4 text-left text-sm font-medium text-stone-500">{t('orders.actions')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-stone-200">
@@ -115,10 +118,10 @@ export function OrderList({ orders }: OrderListProps) {
                     }}
                     className={`px-3 py-1 rounded-full text-sm ${getStatusColor(order.status)} border-0 focus:ring-2 focus:ring-amber-500`}
                   >
-                    <option value="PENDING">Pending</option>
-                    <option value="PROCESSING">Processing</option>
-                    <option value="DELIVERED">Delivered</option>
-                    <option value="CANCELLED">Cancelled</option>
+                    <option value="PENDING">{t('orders.status.pending')}</option>
+                    <option value="PROCESSING">{t('orders.status.processing')}</option>
+                    <option value="DELIVERED">{t('orders.status.delivered')}</option>
+                    <option value="CANCELLED">{t('orders.status.cancelled')}</option>
                   </select>
                 </td>
                 <td className="px-6 py-4">
@@ -135,7 +138,7 @@ export function OrderList({ orders }: OrderListProps) {
                     href={`/admin/orders/${order.id}`}
                     className="text-sm font-medium text-amber-600 hover:text-amber-700"
                   >
-                    View Details →
+                    {t('orders.viewDetails')} →
                   </Link>
                 </td>
               </motion.tr>

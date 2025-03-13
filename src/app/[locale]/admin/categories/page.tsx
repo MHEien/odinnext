@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface Category {
   id: string;
@@ -37,6 +38,8 @@ export default function CategoriesPage() {
   const [error, setError] = useState('');
   const [newCategory, setNewCategory] = useState({ name: '', description: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const t = useTranslations('Admin.Categories')
 
   useEffect(() => {
     fetchCategories();
@@ -106,34 +109,34 @@ export default function CategoriesPage() {
       >
         {/* Header */}
         <motion.div variants={itemVariants}>
-          <h1 className="font-display text-3xl mb-2">Categories</h1>
-          <p className="text-stone-600">Manage product categories.</p>
+          <h1 className="font-display text-3xl mb-2">{t('title')}</h1>
+          <p className="text-stone-600">{t('manage')}</p>
         </motion.div>
 
         {/* New Category Form */}
         <motion.div variants={itemVariants} className="card space-y-6">
-          <h2 className="font-display text-xl">Add New Category</h2>
+          <h2 className="font-display text-xl">{t('addNewCategory')}</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="label">Name</label>
+              <label htmlFor="name" className="label">{t('name')}</label>
               <input
                 type="text"
                 id="name"
                 value={newCategory.name}
                 onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
                 className="input-field"
-                placeholder="e.g., Dark Chocolate"
+                placeholder={t('namePlaceholder')}
                 required
               />
             </div>
             <div>
-              <label htmlFor="description" className="label">Description</label>
+              <label htmlFor="description" className="label">{t('description')}</label>
               <textarea
                 id="description"
                 value={newCategory.description}
                 onChange={(e) => setNewCategory({ ...newCategory, description: e.target.value })}
                 className="input-field min-h-[100px]"
-                placeholder="Category description"
+                placeholder={t('descriptionPlaceholder')}
               />
             </div>
             {error && (
@@ -147,7 +150,7 @@ export default function CategoriesPage() {
                 disabled={isSubmitting}
                 className={`btn-primary ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}`}
               >
-                {isSubmitting ? 'Adding...' : 'Add Category'}
+                {isSubmitting ? t('adding') : t('addCategory')}
               </button>
             </div>
           </form>
@@ -155,7 +158,7 @@ export default function CategoriesPage() {
 
         {/* Categories List */}
         <motion.div variants={itemVariants} className="card">
-          <h2 className="font-display text-xl mb-6">Existing Categories</h2>
+          <h2 className="font-display text-xl mb-6">{t('existingCategories')}</h2>
           <div className="divide-y divide-stone-200">
             {categories.map((category) => (
               <div
@@ -178,7 +181,7 @@ export default function CategoriesPage() {
             ))}
             {categories.length === 0 && (
               <p className="py-4 text-stone-600 text-center">
-                No categories found. Add your first category above.
+                {t('noCategories')}
               </p>
             )}
           </div>

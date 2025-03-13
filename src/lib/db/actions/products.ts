@@ -18,6 +18,14 @@ export interface NutritionalInfo {
   fat: number
 }
 
+export async function getPublicProducts(): Promise<Product[]> {
+
+
+  const products = await prisma.product.findMany()
+
+  return products
+}
+
 export async function getProducts(): Promise<ProductWithStats[]> {
   const session = await auth()
   if (!session?.user) {

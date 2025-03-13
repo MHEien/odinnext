@@ -5,7 +5,8 @@ import { motion } from 'framer-motion'
 import { Link } from '@/i18n/routing'
 import { useRouter} from '@/i18n/routing'
 import type { Subscription, User, Product, Collection, Profile } from '@prisma/client'
-import { updateSubscriptionStatus, formatStatus, getFrequencyLabel } from '@/lib/db/actions/subscriptions'
+import { updateSubscriptionStatus, getFrequencyLabel } from '@/lib/db/actions/subscriptions'
+import { useTranslations } from 'next-intl'
 
 type ExtendedSubscription = Subscription & {
   user: User & {
@@ -48,6 +49,8 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
   const [isUpdating, setIsUpdating] = useState(false)
   const router = useRouter()
 
+  const t = useTranslations('Admin.Subscriptions')
+
   const handleStatusUpdate = async (newStatus: 'ACTIVE' | 'PAUSED' | 'CANCELLED') => {
     if (isUpdating) return
 
@@ -79,18 +82,18 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            Back to Subscriptions
+            {t('Details.backToSubscriptions')}
           </button>
-          <h1 className="font-norse text-4xl mb-2">Subscription Details</h1>
+          <h1 className="font-norse text-4xl mb-2">{t('Details.subscriptionDetails')}</h1>
           <p className="text-stone-600">
-            {subscription.items.length} items • {getFrequencyLabel(subscription.frequency)}
+            {subscription.items.length} {t('Details.items')} • {getFrequencyLabel(subscription.frequency)}
           </p>
         </div>
         <Link
           href={`/admin/customers/${subscription.userId}`}
           className="text-amber-600 hover:text-amber-700"
         >
-          View Customer
+          {t('Details.viewCustomer')}
         </Link>
       </motion.div>
 
@@ -106,7 +109,7 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
                 ? 'bg-yellow-100 text-yellow-800'
                 : 'bg-red-100 text-red-800'
             }`}>
-              {formatStatus(subscription.status)}
+              {t(`Status.${subscription.status.toLowerCase()}`)}
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -117,14 +120,14 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
                   disabled={isUpdating}
                   className="px-4 py-2 text-sm font-medium text-yellow-600 hover:text-yellow-700 disabled:opacity-50"
                 >
-                  Pause
+                  {t('Status.paused')}
                 </button>
                 <button
                   onClick={() => handleStatusUpdate('CANCELLED')}
                   disabled={isUpdating}
                   className="px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700 disabled:opacity-50"
                 >
-                  Cancel
+                  {t('Status.cancelled')}
                 </button>
               </>
             )}
@@ -134,7 +137,7 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
                 disabled={isUpdating}
                 className="px-4 py-2 text-sm font-medium text-green-600 hover:text-green-700 disabled:opacity-50"
               >
-                Resume
+                {t('Details.resume')}
               </button>
             )}
           </div>
@@ -143,16 +146,16 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
 
       {/* Customer Details */}
       <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-sm p-6 border border-stone-200">
-        <h2 className="font-norse text-2xl mb-4">Customer Information</h2>
+        <h2 className="font-norse text-2xl mb-4">{t('Details.customerInformation')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h3 className="font-medium mb-2">Contact Details</h3>
+            <h3 className="font-medium mb-2">{t('Details.contactDetails')}</h3>
             <p className="text-lg font-medium">{subscription.user.name}</p>
             <p className="text-stone-600">{subscription.user.email}</p>
           </div>
           {subscription.user.profile && (
             <div>
-              <h3 className="font-medium mb-2">Shipping Address</h3>
+              <h3 className="font-medium mb-2">{t('shippingAddress')}</h3>
               <p className="text-stone-600">
                 {[
                   subscription.user.profile.shippingStreet,
@@ -169,7 +172,7 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
 
       {/* Subscription Items */}
       <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-sm p-6 border border-stone-200">
-        <h2 className="font-norse text-2xl mb-4">Items</h2>
+        <h2 className="font-norse text-2xl mb-4">{t('Details.items')}</h2>
         <div className="space-y-4">
           {subscription.items.map((item) => (
             <div
@@ -179,14 +182,14 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
               <div>
                 <p className="font-medium">{item.product.name}</p>
                 <p className="text-sm text-stone-500">
-                  Quantity: {item.quantity}
+                  {t('Details.quantity')}: {item.quantity}
                 </p>
               </div>
               <Link
                 href={`/admin/products/${item.product.id}`}
                 className="text-amber-600 hover:text-amber-700"
               >
-                View Product
+                {t('Details.viewProduct')}
               </Link>
             </div>
           ))}
@@ -195,16 +198,16 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
 
       {/* Subscription Details */}
       <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-sm p-6 border border-stone-200">
-        <h2 className="font-norse text-2xl mb-4">Delivery Schedule</h2>
+        <h2 className="font-norse text-2xl mb-4">{t('deliverySchedule')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h3 className="font-medium mb-2">Next Delivery</h3>
+            <h3 className="font-medium mb-2">{t('nextDelivery')}</h3>
             <p className="text-lg">
               {new Date(subscription.nextDelivery).toLocaleDateString()}
             </p>
           </div>
           <div>
-            <h3 className="font-medium mb-2">Frequency</h3>
+            <h3 className="font-medium mb-2">{t('frequency')}</h3>
             <p className="text-lg">
               {getFrequencyLabel(subscription.frequency)}
             </p>
@@ -214,16 +217,16 @@ export function SubscriptionDetail({ subscription: initialSubscription }: Subscr
 
       {/* Subscription History */}
       <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-sm p-6 border border-stone-200">
-        <h2 className="font-norse text-2xl mb-4">History</h2>
+        <h2 className="font-norse text-2xl mb-4">{t('history')}</h2>
         <div className="space-y-4">
           <div>
-            <h3 className="font-medium mb-1">Created</h3>
+            <h3 className="font-medium mb-1">{t('created')}</h3>
             <p className="text-stone-600">
               {new Date(subscription.createdAt).toLocaleString()}
             </p>
           </div>
           <div>
-            <h3 className="font-medium mb-1">Last Updated</h3>
+            <h3 className="font-medium mb-1">{t('lastUpdated')}</h3>
             <p className="text-stone-600">
               {new Date(subscription.updatedAt).toLocaleString()}
             </p>

@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import {
   LineChart,
   Line,
@@ -32,6 +33,9 @@ const containerVariants = {
 }
 
 export function SalesTrends({ data }: SalesTrendsProps) {
+
+  const t = useTranslations('Admin')
+
   return (
     <motion.div
       variants={containerVariants}
@@ -40,15 +44,15 @@ export function SalesTrends({ data }: SalesTrendsProps) {
       className="bg-white rounded-lg shadow-sm p-6 border border-stone-200"
     >
       <div className="flex items-center justify-between mb-6">
-        <h2 className="font-norse text-2xl">Salgstrend</h2>
+        <h2 className="font-norse text-2xl">{t('salesTrends')}</h2>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-purple-600" />
-            <span className="text-sm text-stone-600">Omsetning</span>
+            <span className="text-sm text-stone-600">{t('revenue')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-blue-500" />
-            <span className="text-sm text-stone-600">Ordre</span>
+            <span className="text-sm text-stone-600">{t('orders')}</span>
           </div>
         </div>
       </div>

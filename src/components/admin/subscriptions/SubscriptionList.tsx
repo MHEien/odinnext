@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from '@/i18n/routing'
 import type { Subscription, User, Product, Collection } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 type ExtendedSubscription = Subscription & {
   user: User & {
@@ -51,6 +52,8 @@ export function SubscriptionList({ subscriptions: initialSubscriptions }: Subscr
   const [subscriptions] = useState(initialSubscriptions)
   const [filter, setFilter] = useState<'all' | 'active' | 'paused' | 'cancelled'>('all')
 
+  const t = useTranslations('Admin.Subscriptions')
+
   const filteredSubscriptions = filter === 'all' 
     ? subscriptions 
     : subscriptions.filter(sub => sub.status.toLowerCase() === filter)
@@ -74,7 +77,7 @@ export function SubscriptionList({ subscriptions: initialSubscriptions }: Subscr
                 : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
             }`}
           >
-            {status.charAt(0).toUpperCase() + status.slice(1)}
+            {t(`Status.${status}`)}
           </button>
         ))}
       </motion.div>
@@ -117,14 +120,14 @@ export function SubscriptionList({ subscriptions: initialSubscriptions }: Subscr
                 </div>
 
                 <div>
-                  <p className="text-sm text-stone-500">Next Delivery</p>
+                  <p className="text-sm text-stone-500">{t('nextDelivery')}</p>
                   <p className="font-medium">
                     {new Date(subscription.nextDelivery).toLocaleDateString()}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-stone-500">Frequency</p>
+                  <p className="text-sm text-stone-500">{t('nextDelivery')}</p>
                   <p className="font-medium">
                     {subscription.frequency.charAt(0) + subscription.frequency.slice(1).toLowerCase()}
                   </p>
@@ -134,14 +137,14 @@ export function SubscriptionList({ subscriptions: initialSubscriptions }: Subscr
                   <p className="text-sm text-stone-500">Type</p>
                   <p className="font-medium">
                     {subscription.type === 'COLLECTION' 
-                      ? `Collection: ${subscription.collection?.name}`
-                      : 'Custom'}
+                      ? `${t('Type.collection')} ${subscription.collection?.name}`
+                      : t('Type.custom')}
                   </p>
                 </div>
 
                 {subscription.user.profile && (
                   <div>
-                    <p className="text-sm text-stone-500">Shipping Address</p>
+                    <p className="text-sm text-stone-500">{t('shippingAddress')}</p>
                     <p className="text-sm">
                       {[
                         subscription.user.profile.shippingStreet,

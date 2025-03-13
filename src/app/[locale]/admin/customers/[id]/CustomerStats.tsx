@@ -1,63 +1,46 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import type { User } from '@prisma/client';
+import { useTranslations } from 'next-intl';
+import type { CustomerWithStats } from '@/lib/db/actions/customers';
 
-type CustomerWithStats = User & {
-  totalOrders: number;
-  totalSpent: number;
-  activeSubscriptions: number;
-};
+interface CustomerStatsProps {
+  customer: CustomerWithStats;
+}
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
+export function CustomerStats({ customer }: CustomerStatsProps) {
+  const t = useTranslations('Admin.Customers.details.stats');
 
-export function CustomerStats({ customer }: { customer: CustomerWithStats }) {
   return (
-    <motion.div
-      variants={itemVariants}
-      initial="hidden"
-      animate="visible"
-      className="grid grid-cols-1 md:grid-cols-4 gap-6"
-    >
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h3 className="text-sm font-medium text-stone-500">Total Orders</h3>
-        <p className="text-2xl font-norse mt-1">{customer.totalOrders}</p>
+    <div className="bg-white rounded-lg shadow-sm p-6 border border-stone-200">
+      <h2 className="text-xl font-semibold mb-4">{t('title')}</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div>
+          <p className="text-sm text-stone-500">{t('totalOrders')}</p>
+          <p className="text-2xl font-semibold">{customer.totalOrders}</p>
+        </div>
+        <div>
+          <p className="text-sm text-stone-500">{t('totalSpent')}</p>
+          <p className="text-2xl font-semibold">
+            {new Intl.NumberFormat('no-NO', {
+              style: 'currency',
+              currency: 'NOK'
+            }).format(customer.totalSpent)}
+          </p>
+        </div>
+        <div>
+          <p className="text-sm text-stone-500">{t('averageOrderValue')}</p>
+          <p className="text-2xl font-semibold">
+            {new Intl.NumberFormat('no-NO', {
+              style: 'currency',
+              currency: 'NOK'
+            }).format(customer.totalOrders ? customer.totalSpent / customer.totalOrders : 0)}
+          </p>
+        </div>
+        <div>
+          <p className="text-sm text-stone-500">{t('activeSubscriptions')}</p>
+          <p className="text-2xl font-semibold">{customer.activeSubscriptions}</p>
+        </div>
       </div>
-
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h3 className="text-sm font-medium text-stone-500">Total Spent</h3>
-        <p className="text-2xl font-norse mt-1">
-          {new Intl.NumberFormat('no-NO', {
-            style: 'currency',
-            currency: 'NOK',
-          }).format(customer.totalSpent)}
-        </p>
-      </div>
-
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h3 className="text-sm font-medium text-stone-500">
-          Active Subscriptions
-        </h3>
-        <p className="text-2xl font-norse mt-1">{customer.activeSubscriptions}</p>
-      </div>
-
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h3 className="text-sm font-medium text-stone-500">Customer Since</h3>
-        <p className="text-2xl font-norse mt-1">
-          {new Date(customer.emailVerified || Date.now()).toLocaleDateString(
-            'no-NO'
-          )}
-        </p>
-      </div>
-    </motion.div>
+    </div>
   );
 } 

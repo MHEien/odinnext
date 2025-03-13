@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Link } from '@/i18n/routing'
 import type { User } from '@prisma/client'
 import { formatRevenue } from '@/lib/utils/shared-format'
+import { useTranslations } from 'next-intl'
 
 interface ActivityItem {
   type: 'order' | 'subscription'
@@ -46,6 +47,7 @@ const itemVariants = {
 }
 
 export function RecentActivity({ activity, activityTypes }: RecentActivityProps) {
+  const t = useTranslations('Admin')
   return (
     <motion.div
       variants={containerVariants}
@@ -53,7 +55,7 @@ export function RecentActivity({ activity, activityTypes }: RecentActivityProps)
       animate="visible"
       className="bg-white rounded-lg shadow-sm p-6 border border-stone-200"
     >
-      <h2 className="font-norse text-2xl mb-6">Nylig Aktivitet</h2>
+      <h2 className="font-norse text-2xl mb-6">{t('recentActivity')}</h2>
       <div className="space-y-4">
         {activity.map((item) => (
           <motion.div

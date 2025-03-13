@@ -38,6 +38,7 @@ const itemVariants = {
 }
 
 export function DashboardMetrics({ metrics, data }: DashboardMetricsProps) {
+
   return (
     <motion.div
       variants={containerVariants}

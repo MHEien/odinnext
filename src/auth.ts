@@ -6,6 +6,7 @@ import { compare } from "bcrypt"
 import type { User } from "next-auth"
 import type { User as PrismaUser, Profile } from "@prisma/client"
 import type { Adapter } from "next-auth/adapters"
+import Google from "next-auth/providers/google"
 
 interface ExtendedPrismaUser extends PrismaUser {
   profile?: Profile | null
@@ -68,7 +69,8 @@ export const {
           notifications: user.profile?.notifications ?? false,
         }
       }
-    })
+    }),
+    Google
   ],
   session: { strategy: "jwt" },
   pages: {

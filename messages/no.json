@@ -8,8 +8,10 @@
     "collections": "Kolleksjoner",
     "cart": "Handlekurv",
     "orders": "Bestillinger",
+    "contactUs": "Kontakt Oss",
     "about": "Om oss",
-    "account": "Konto"
+    "account": "Konto",
+    "language": "Endre språk"
   },
   "Products": {
     "addToCart": "Legg i handlekurv",
@@ -141,7 +143,8 @@
       "discount": "Abonnoments rabatt",
       "shipping": "Levering",
       "shippingMessage": "Beregnet ved kassen"
-    }
+    },
+    "oneTime": "En gang"
   },
   "Orders": {
     "title": "Dine Bestillinger",
@@ -177,14 +180,53 @@
   },
   "Admin": {
     "dashboard": "Kontrollpanel",
+    "revenue": "Omsetning",
+    "subTitle": "Oversikt over salg og kunder",
     "recentActivity": "Nylig aktivitet",
     "salesTrends": "Salgstrender",
     "categories": "Kategorier",
-    "orders": "Bestillinger",
+    "orders": {
+      "order": "Ordre",
+      "customer": "Kunde",
+      "items": "Varer",
+      "total": "Total",
+      "status": {
+        "title": "Status",
+        "pending": "Venter",
+        "processing": "Behandles",
+        "delivered": "Levert",
+        "cancelled": "Kansellert",
+        "shipped": "Sendt"
+      },
+      "date": "Dato",
+      "actions": "Handlinger",
+      "viewDetails": "Se detaljer",
+      "backToOrders": "Tilbake til ordrer",
+      "orderTitle": "Ordre {id}",
+      "createdOn": "Opprettet {date}",
+      "timeline": "Tidslinje",
+      "shippingAddress": "Leveringsadresse",
+      "paymentMethod": "Betalingsmetode",
+      "cardEnding": "{brand} som slutter på {last4}"
+    },
     "noActivity": "Ingen nylig aktivitet",
     "viewAll": "Vis alle",
+    "Categories": {
+      "title": "Kategorier",
+      "adding": "Legger til...",
+      "manage": "Administrer produktkategorier",
+      "name": "Navn",
+      "description": "Beskrivelse",
+      "namePlaceholder": "f.eks., Mørk Sjokolade",
+      "descriptionPlaceholder": "Kategoribeskrivelse",
+      "addNewCategory": "Legg til ny kategori",
+      "addCategory": "Legg til kategori",
+      "existingCategories": "Eksisterende kategorier",
+      "noCategories": "Ingen kategorier funnet. Legg til din første kategori ovenfor."
+    },
     "Products": {
       "newProduct": "Nytt Produkt",
+      "manage": "Administrer produktkatalogen",
       "createNewProduct": "Opprett nytt produkt",
       "basicInfo": "Grunnleggende Informasjon",
       "productName": "Produktnavn",
@@ -259,6 +301,92 @@
         "unknownError": "En ukjent feil oppstod",
         "loadError": "Kunne ikke laste produktdetaljer",
         "deleteError": "Kunne ikke slette produkt"
+      }
+    },
+    "Subscriptions": {
+      "title": "Administrer Abonnementer",
+      "nextDelivery": "Neste Levering",
+      "frequency": "Leveringsfrekvens",
+      "Details": {
+        "backToSubscriptions": "Tilbake til Abonnementer",
+        "subscriptionDetails": "Abonnementsdetaljer",
+        "items": "Varer",
+        "viewCustomer": "Se Kunde",
+        "resume": "Gjenoppta",
+        "customerInformation": "Kundeinformasjon",
+        "contactDetails": "Kontaktdetaljer",
+        "quantity": "Antall",
+        "viewProduct": "Se Produkt"
+      },
+      "shippingAddress": "Leveringsadresse",
+      "deliverySchedule": "Leveringsplan",
+      "history": "Historikk",
+      "created": "Opprettet",
+      "lastUpdated": "Sist Oppdatert",
+      "Type": {
+        "collection": "Kolleksjon",
+        "custom": "Tilpasset"
+      },
+      "Status": {
+        "all": "Alle",
+        "active": "Aktiv",
+        "paused": "Pauset",
+        "cancelled": "Kansellert"
+      }
+    },
+    "manageOrders": "Administrer ordre",
+    "Customers": {
+      "title": "Kunder",
+      "subtitle": "Administrer din kundebase",
+      "list": {
+        "anonymous": "Anonym",
+        "totalOrders": "Totale Bestillinger",
+        "totalSpent": "Total Brukt",
+        "activeSubscriptions": "Aktivt Abonnement",
+        "activeSubscriptionsPlural": "Aktive Abonnementer",
+        "viewDetails": "Se Detaljer"
+      },
+      "details": {
+        "title": "Kundedetaljer",
+        "stats": {
+          "title": "Kundestatistikk",
+          "totalOrders": "Totale Bestillinger",
+          "totalSpent": "Total Brukt",
+          "averageOrderValue": "Gjennomsnittlig Ordreverdi",
+          "firstOrder": "Første Bestilling",
+          "lastOrder": "Siste Bestilling",
+          "activeSubscriptions": "Aktive Abonnementer"
+        },
+        "orders": {
+          "title": "Ordrehistorikk",
+          "noOrders": "Ingen bestillinger ennå",
+          "table": {
+            "orderNumber": "Ordrenummer",
+            "date": "Dato",
+            "status": "Status",
+            "total": "Total",
+            "items": "Varer"
+          }
+        },
+        "subscriptions": {
+          "title": "Aktive Abonnementer",
+          "noSubscriptions": "Ingen aktive abonnementer",
+          "table": {
+            "plan": "Plan",
+            "status": "Status",
+            "nextDelivery": "Neste Levering",
+            "amount": "Beløp"
+          }
+        },
+        "sidebar": {
+          "title": "Kundeinformasjon",
+          "contactInfo": "Kontaktinformasjon",
+          "email": "E-post",
+          "phone": "Telefon",
+          "address": "Adresse",
+          "memberSince": "Medlem Siden",
+          "lastActive": "Sist Aktiv"
+        }
       }
     }
   },
@@ -416,6 +544,8 @@
     }
   },
   "Account": {
+    "signOut": "Logg ut",
+    "signIn": "Logg inn",
     "welcome": {
       "title": "Velkommen til Valhall",
       "greeting": "Hei, {name}! Din sjokoladefest venter på deg."
@@ -510,4 +640,4 @@
       "monthly": "Månedlig"
     }
   }
-} 
+}

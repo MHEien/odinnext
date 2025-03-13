@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
+import { redirectWithLocale } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/db'
 import AccountDashboard from './AccountDashboard'
@@ -9,7 +9,7 @@ export default async function AccountPage() {
   const t = await getTranslations('Account')
   
   if (!session?.user) {
-    redirect('/auth/sign-in')
+    redirectWithLocale('/auth/sign-in')
   }
 
   const profile = await prisma.profile.findUnique({

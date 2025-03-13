@@ -1,11 +1,11 @@
-import { getProducts } from '@/lib/db/actions/products'
+import { getPublicProducts } from '@/lib/db/actions/products'
 import ProductGrid from '@/components/ProductGrid'
 import ProductHero from '@/components/ProductHero'
 
 export const revalidate = 60 // Revalidate every minute
 
 export default async function ProductsPage() {
-  const products = await getProducts()
+  const products = await getPublicProducts()
 
   // Serialize the products to handle Decimal
   const serializedProducts = products.map(product => ({

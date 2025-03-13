@@ -3,9 +3,13 @@ import { redirect } from 'next/navigation'
 import { getProducts } from '@/lib/db/actions/products'
 import { ProductList } from '@/components/admin/products/ProductList'
 import { AddProductButton } from './add-product'
+import { getTranslations } from 'next-intl/server'
 
 export default async function AdminProducts() {
   const session = await auth()
+
+  const t = await getTranslations('Admin')
+  const navt = await getTranslations('Navigation')
   
   if (!session?.user) {
     redirect('/auth/sign-in')
@@ -19,8 +23,8 @@ export default async function AdminProducts() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-norse text-4xl mb-2">Products</h1>
-            <p className="text-stone-600">Manage your product catalog</p>
+            <h1 className="font-norse text-4xl mb-2">{navt('products')}</h1>
+            <p className="text-stone-600">{t('Products.manage')}</p>
           </div>
           <AddProductButton />
         </div>

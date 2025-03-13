@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import type { Prisma } from '@prisma/client';
 import { getOrderById } from '@/lib/db/actions/orders';
 import { StatusSelect } from './StatusSelect';
+import { getTranslations } from 'next-intl/server';
 
 // Utility functions
 function formatDate(date: Date | null | undefined) {
@@ -51,6 +52,7 @@ export default async function OrderDetailPage({
   params: { id: string };
 }) {
   const order = await getOrderById(params.id);
+  const t = await getTranslations('Admin')
 
   if (!order) {
     return null;
@@ -79,11 +81,11 @@ export default async function OrderDetailPage({
               href="/admin/orders"
               className="inline-block text-stone-600 hover:text-primary-600 mb-4"
             >
-              ← Back to Orders
+              ← {t('orders.backToOrders')}
             </Link>
-            <h1 className="font-display text-3xl">Order {order.id}</h1>
+            <h1 className="font-display text-3xl">{t('orders.orderTitle', { id: order.id })}</h1>
             <p className="text-stone-600">
-              Created on {formatDate(order.createdAt)}
+              {t('orders.createdOn', { date: formatDate(order.createdAt) })}
             </p>
           </div>
           <div className="flex gap-4">
@@ -100,7 +102,7 @@ export default async function OrderDetailPage({
           >
             {/* Items */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="font-display text-xl mb-4">Items</h2>
+              <h2 className="font-display text-xl mb-4">{t('orders.items')}</h2>
               <div className="space-y-4">
                 {order.items.map((item) => (
                   <div
@@ -132,7 +134,7 @@ export default async function OrderDetailPage({
               <div className="mt-6 pt-6 border-t border-stone-200">
                 <div className="space-y-2">
                   <div className="flex justify-between text-stone-600">
-                    <span>Total</span>
+                    <span>{t('orders.total')}</span>
                     <span>{formatPrice(order.total)}</span>
                   </div>
                 </div>
@@ -141,7 +143,7 @@ export default async function OrderDetailPage({
 
             {/* Timeline */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="font-display text-xl mb-4">Timeline</h2>
+              <h2 className="font-display text-xl mb-4">{t('orders.timeline')}</h2>
               <div className="space-y-4">
                 {statusTimeline.map((item, index) => (
                   <div
@@ -157,7 +159,7 @@ export default async function OrderDetailPage({
                     />
                     <div>
                       <p className="font-medium">
-                        {item.status.charAt(0) + item.status.slice(1).toLowerCase()}
+                        {t(`orders.status.${item.status.toLowerCase()}`)}
                       </p>
                       <p className="text-sm text-stone-600">
                         {formatDate(item.date)}
@@ -173,11 +175,11 @@ export default async function OrderDetailPage({
           <motion.div variants={itemVariants} className="space-y-8">
             {/* Customer Info */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="font-display text-xl mb-4">Customer</h2>
+              <h2 className="font-display text-xl mb-4">{t('orders.customer')}</h2>
               <div className="space-y-4">
                 <div>
                   <h3 className="text-sm font-medium text-stone-600">
-                    Shipping Address
+                    {t('orders.shippingAddress')}
                   </h3>
                   <p>{order.shippingAddress.street}</p>
                   <p>
@@ -188,11 +190,14 @@ export default async function OrderDetailPage({
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-stone-600">
-                    Payment Method
+                    {t('orders.paymentMethod')}
                   </h3>
                   <p>
                     {order.paymentMethod.type === 'card'
-                      ? `${order.paymentMethod.cardBrand} ending in ${order.paymentMethod.last4}`
+                      ? t('orders.cardEnding', { 
+                          brand: order.paymentMethod.cardBrand,
+                          last4: order.paymentMethod.last4 
+                        })
                       : order.paymentMethod.type}
                   </p>
                 </div>
