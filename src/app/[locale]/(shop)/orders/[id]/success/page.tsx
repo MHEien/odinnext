@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation'
 import { getOrderById } from '@/lib/db/actions/orders'
-import { auth } from '@/auth'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
@@ -14,14 +13,13 @@ export default async function OrderSuccessPage({
   params
 }: Props) {
   const { id } = await params
-  const session = await auth()
-  if (!session?.user?.email) {
-    redirect('/auth/sign-in')
-  }
-
+  
+  // Get the order regardless of authentication status
   const order = await getOrderById(id)
+  
+  // Redirect if order not found
   if (!order) {
-    redirect('/orders')
+    redirect('/products')
   }
 
   const t = await getTranslations('Orders.success')

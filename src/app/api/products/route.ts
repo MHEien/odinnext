@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
-import { getProducts, createProduct } from '@/lib/db/actions/products'
+import { getPublicProducts, createProduct } from '@/lib/db/actions/products'
 
 export async function GET() {
   try {
-    const products = await getProducts()
+    const products = await getPublicProducts()
     return NextResponse.json(products)
   } catch (error) {
     console.error('Failed to fetch products:', error)

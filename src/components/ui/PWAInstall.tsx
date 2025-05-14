@@ -62,10 +62,10 @@ export default function PWAInstall() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
       {isIOS ? (
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-medium">
+          <p className="text-sm font-medium text-white">
             Install this app on your device
           </p>
           <p className="text-xs text-gray-600 dark:text-gray-400">

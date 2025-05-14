@@ -13,7 +13,11 @@ const locales = [
   { code: 'no', flag: '/flags/no.svg', label: 'Norsk' }
 ] as const;
 
-export default function LocaleSwitcher() {
+type LocaleSwitcherProps = {
+  closeMenu?: () => void;
+};
+
+export default function LocaleSwitcher({ closeMenu }: LocaleSwitcherProps) {
   const currentLocale = useLocale() as AppLocale;
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +27,7 @@ export default function LocaleSwitcher() {
     startTransition(() => {
       setUserLocale(locale);
       setIsOpen(false);
+      if (closeMenu) closeMenu();
       window.location.pathname = window.location.pathname.replace(`/${currentLocale}`, `/${locale}`);
     });
   };

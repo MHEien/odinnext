@@ -12,6 +12,7 @@ import ShippingForm from '@/components/checkout/ShippingForm';
 import PaymentForm from '@/components/checkout/PaymentForm';
 import OrderSummary from '@/components/checkout/OrderSummary';
 import { useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
 
 type CheckoutStep = 'shipping' | 'payment' | 'review';
 
@@ -20,7 +21,10 @@ export default function CheckoutPage() {
   const { state: { items, total }, clearCart } = useCart();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>('shipping');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentOption, setPaymentOption] = useState<'card' | 'vipps'>('card');
   const t = useTranslations('Checkout');
+  const { status } = useSession();
+  const isLoggedIn = status === 'authenticated';
 
   const [formData, setFormData] = useState({
     shippingAddress: {
@@ -117,7 +121,7 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     setIsProcessing(true);
     try {
-      const order = await processCheckout({
+      const checkoutData = {
         items: items.map(item => ({
           productId: item.productId,
           quantity: item.quantity,
@@ -129,10 +133,82 @@ export default function CheckoutPage() {
           ? formData.shippingAddress
           : formData.billingAddress,
         paymentMethod: formData.paymentMethod,
-      });
+      };
+
+      // If using Vipps payment
+      if (paymentOption === 'vipps') {
+        const body = {
+          products: items,
+          isVipps: true,
+          customer: {
+            email: formData.shippingAddress.email,
+            firstName: formData.shippingAddress.firstName,
+            lastName: formData.shippingAddress.lastName,
+            phoneNumber: formData.shippingAddress.phone
+          }
+        };
+
+        // Use guest checkout API for both guests and logged-in users with Vipps
+        const response = await fetch('/api/checkout/guest', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
+
+        if (!response.ok) {
+          throw new Error('Vipps checkout failed');
+        }
+
+        const result = await response.json();
+        
+        // Handle Vipps response format
+        if (result.ok && result.data) {
+          // Handle new Vipps response structure
+          if (result.data.token && result.data.checkoutFrontendUrl) {
+            clearCart();
+            window.location.href = `${result.data.checkoutFrontendUrl}?token=${result.data.token}`;
+            return;
+          }
+        } else if (result.url) {
+          // Handle legacy direct URL format
+          clearCart();
+          window.location.href = result.url;
+          return;
+        }
+        
+        throw new Error('Invalid Vipps response format');
+      } 
+      
+      // Regular checkout
+      let orderId;
+
+      if (isLoggedIn) {
+        // Use server action for logged-in users
+        const order = await processCheckout(checkoutData);
+        orderId = order.id;
+      } else {
+        // Use API endpoint for guests
+        const response = await fetch('/api/checkout/guest', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(checkoutData),
+        });
+
+        const result = await response.json();
+        
+        if (!result.success) {
+          throw new Error(result.error || 'Checkout failed');
+        }
+        
+        orderId = result.orderId;
+      }
 
       clearCart();
-      router.push(`/orders/${order.id}/success`);
+      router.push(`/orders/${orderId}/success`);
     } catch (error) {
       console.error('Error placing order:', error);
       alert(t('error.orderFailed'));
@@ -244,6 +320,66 @@ export default function CheckoutPage() {
                       </div>
                     </div>
 
+                    {/* Payment Option Selection */}
+                    <div className="mt-8">
+                      <h3 className="font-norse text-xl text-stone-100 mb-4">
+                        {t('review.paymentOptions')}
+                      </h3>
+                      <div className="flex space-x-4">
+                        <button
+                          type="button"
+                          onClick={() => setPaymentOption('card')}
+                          className={`px-4 py-2 rounded-lg flex items-center ${
+                            paymentOption === 'card'
+                              ? 'bg-amber-600 text-white'
+                              : 'bg-stone-700 text-stone-300'
+                          }`}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 mr-2"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                            />
+                          </svg>
+                          {t('review.cardPayment')}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setPaymentOption('vipps')}
+                          className={`px-4 py-2 rounded-lg flex items-center ${
+                            paymentOption === 'vipps'
+                              ? 'bg-amber-600 text-white'
+                              : 'bg-stone-700 text-stone-300'
+                          }`}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 mr-2"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                            />
+                          </svg>
+                          {t('review.vippsPayment')}
+                        </button>
+                      </div>
+                    </div>
+
                     {/* Actions */}
                     <div className="flex justify-between">
                       <button
@@ -260,7 +396,9 @@ export default function CheckoutPage() {
                           hover:from-amber-500 hover:to-amber-600 text-white font-medium transition-colors 
                           disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        {isProcessing ? t('review.processing') : t('review.placeOrder')}
+                        {isProcessing ? t('review.processing') : (
+                          paymentOption === 'vipps' ? t('review.payWithVipps') : t('review.placeOrder')
+                        )}
                       </button>
                     </div>
                   </div>

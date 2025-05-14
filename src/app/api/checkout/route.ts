@@ -3,7 +3,6 @@ import { createCheckout, createSubscriptionCheckout, getCheckout } from '@/lib/v
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: NextRequest) {
-
     const { products, isSubscription } = await request.json();
 
     const orderId = uuidv4();

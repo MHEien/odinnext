@@ -45,17 +45,44 @@ export default function CartPage() {
   };
 
   const handleCheckout = async () => {
-    const body = {
-      products: items,
-      isSubscription,
+    try {
+      const body = {
+        products: items,
+        isSubscription,
+      }
+      console.log("Sending checkout request with body:", body);
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        body: JSON.stringify(body),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Checkout request failed');
+      }
+      
+      const data = await response.json();
+      console.log("Checkout response:", data);
+      
+      // Handling the Vipps response structure
+      if (data.ok && data.data) {
+        // If there's a Vipps response with token and checkout URL
+        if (data.data.token && data.data.checkoutFrontendUrl) {
+          // Redirect to Vipps checkout with token
+          const redirectUrl = `${data.data.checkoutFrontendUrl}?token=${data.data.token}`;
+          window.location.href = redirectUrl;
+          return;
+        }
+      } else if (data.url) {
+        // Legacy format for direct URL
+        window.location.href = data.url;
+        return;
+      }
+      
+      throw new Error('Invalid checkout response format');
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert(t('checkoutError'));
     }
-    console.log("Sending checkout request with body:", body);
-    const response = await fetch('/api/checkout', {
-      method: 'POST',
-      body: JSON.stringify(body),
-    });
-    const data = await response.json();
-    console.log(data);
   };
 
   if (items.length === 0) {

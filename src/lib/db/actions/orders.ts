@@ -52,7 +52,7 @@ type PaymentMethodInput = {
 }
 
 interface OrderCreateInput {
-  userId: string
+  userId?: string
   items: {
     productId: string
     quantity: number
@@ -82,22 +82,29 @@ export async function createOrder(data: OrderCreateInput): Promise<Order> {
       data: data.paymentMethod
     })
 
+    // Create the order data structure
+    const orderData: Prisma.OrderCreateInput = {
+      total: new Prisma.Decimal(total),
+      shippingAddress: { connect: { id: shippingAddress.id } },
+      billingAddress: { connect: { id: billingAddress.id } },
+      paymentMethod: { connect: { id: paymentMethod.id } },
+      items: {
+        create: data.items.map(item => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          price: new Prisma.Decimal(item.price)
+        }))
+      }
+    }
+
+    // Only add the user relation if userId is provided
+    if (data.userId) {
+      orderData.user = { connect: { id: data.userId } }
+    }
+
     // Create order
     const order = await tx.order.create({
-      data: {
-        userId: data.userId,
-        total: new Prisma.Decimal(total),
-        shippingAddressId: shippingAddress.id,
-        billingAddressId: billingAddress.id,
-        paymentMethodId: paymentMethod.id,
-        items: {
-          create: data.items.map(item => ({
-            productId: item.productId,
-            quantity: item.quantity,
-            price: new Prisma.Decimal(item.price)
-          }))
-        }
-      },
+      data: orderData,
       include: {
         items: {
           include: {
