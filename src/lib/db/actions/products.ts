@@ -18,12 +18,13 @@ export interface NutritionalInfo {
   fat: number
 }
 
-export async function getPublicProducts(): Promise<Product[]> {
-
-
+export async function getPublicProducts(): Promise<(Omit<Product, 'price'> & { price: number })[]> {
   const products = await prisma.product.findMany()
 
-  return products
+  return products.map(product => ({
+    ...product,
+    price: Number(product.price)
+  }))
 }
 
 export async function getProducts(): Promise<ProductWithStats[]> {
@@ -55,7 +56,7 @@ export async function getProducts(): Promise<ProductWithStats[]> {
       ...product,
       price: Number(product.price),
       totalOrders: items.length,
-      totalRevenue: items.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0)
+      totalRevenue: items.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0),
     }
   })
 }
@@ -113,7 +114,14 @@ export async function createProduct(data: Prisma.ProductCreateInput) {
   })
 
   revalidatePath('/admin/products')
-  return product
+  
+  // Convert Decimal to Number before returning to client
+  const serializedProduct = {
+    ...product,
+    price: Number(product.price),
+  };
+  
+  return serializedProduct
 }
 
 export async function updateProduct(id: string, data: Prisma.ProductUpdateInput) {
@@ -132,7 +140,14 @@ export async function updateProduct(id: string, data: Prisma.ProductUpdateInput)
 
   revalidatePath('/admin/products')
   revalidatePath(`/admin/products/${id}`)
-  return product
+  
+  // Convert Decimal to Number before returning to client
+  const serializedProduct = {
+    ...product,
+    price: Number(product.price),
+  };
+  
+  return serializedProduct
 }
 
 export async function deleteProduct(id: string) {
@@ -148,19 +163,25 @@ export async function deleteProduct(id: string) {
   revalidatePath('/admin/products')
 }
 
-export async function updateStock(id: string, quantity: number): Promise<Product> {
-  return prisma.product.update({
+export async function updateStock(id: string, quantity: number): Promise<Omit<Product, 'price'> & { price: number }> {
+  const product = await prisma.product.update({
     where: { id },
     data: {
       stock: {
         increment: quantity
       }
     }
-  })
+  });
+  
+  // Convert Decimal to Number before returning to client
+  return {
+    ...product,
+    price: Number(product.price),
+  };
 }
 
-export async function searchProducts(query: string): Promise<Product[]> {
-  return prisma.product.findMany({
+export async function searchProducts(query: string): Promise<(Omit<Product, 'price'> & { price: number })[]> {
+  const products = await prisma.product.findMany({
     where: {
       OR: [
         { name: { contains: query, mode: 'insensitive' } },
@@ -168,6 +189,11 @@ export async function searchProducts(query: string): Promise<Product[]> {
       ]
     }
   })
+  
+  return products.map(product => ({
+    ...product,
+    price: Number(product.price)
+  }))
 }
 
 export async function getCategories() {

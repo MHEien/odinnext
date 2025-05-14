@@ -58,7 +58,13 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json(product);
+    // Convert Decimal price to Number before returning
+    const serializedProduct = {
+      ...product,
+      price: Number(product.price),
+    };
+
+    return NextResponse.json(serializedProduct);
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new NextResponse(JSON.stringify({ message: 'Invalid request data', errors: error.errors }), {
@@ -73,3 +79,14 @@ export async function POST(request: Request) {
     );
   }
 } 
+
+export async function GET() {
+  const session = await auth()
+  if (!session?.user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const products = await prisma.product.findMany()
+  return NextResponse.json(products)
+}
+

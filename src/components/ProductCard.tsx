@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import type { Product } from '@prisma/client'
+import { formatCurrency } from '@/lib/utils/shared-format'
 
 type SerializedProduct = Omit<Product, 'price'> & {
   price: number
@@ -38,7 +39,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </p>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-amber-500">
-            ${product.price.toFixed(2)}
+            {formatCurrency(product.price)}
           </span>
           <span
             className={`px-3 py-1 rounded-full text-sm ${

@@ -14,7 +14,7 @@ export function HeroSection() {
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-bg.png"
+          src="/images/bg-hero.png"
           alt="Viking-inspired chocolate craftsmanship"
           fill
           className="object-cover"

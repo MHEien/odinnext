@@ -129,7 +129,7 @@
       "weekly": "Every week",
       "biweekly": "Every two weeks",
       "monthly": "Every month",
-      "savings": "You save ${amount} with subscription"
+      "savings": "You save {amount} kr with subscription"
     },
     "summary": {
       "subtotal": "Subtotal",
@@ -222,6 +222,7 @@
       "manage": "Manage your product catalog",
       "createNewProduct": "Create a new product",
       "basicInfo": "Basic Information",
+      "carbohydrates": "Carbohydrates (g)",
       "productName": "Product Name",
       "productNamePlaceholder": "e.g., Thor's Thunder",
       "shortDescription": "Short Description",
@@ -381,16 +382,82 @@
           "lastActive": "Last Active"
         }
       }
+    },
+    "newsletters": {
+      "deleteConfirm": "Confirm to delete",
+      "title": "Title",
+      "createNewButton": "Create new",
+      "noNewsletters": "No newsletters",
+      "columns": {
+        "title": "Title",
+        "status": "Status",
+        "scheduled": "Scheduled",
+        "sent": "Sent",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "newNewsletter": "New newsletter",
+      "createNewsletterDesc": "Create new Nesletter",
+      "englishContent": "English content",
+      "content": "Content",
+      "translateToNorwegian": "Translate to norwegian",
+      "norwegianContent": "Norwegian content",
+      "translateToEnglish": "Translate to english",
+      "scheduledFor": "Scheduled for",
+      "scheduledHint": "Scheduled hint",
+      "cancel": "Cancel",
+      "saving": "Saving",
+      "saveNewsletter": "Save newsletter"
+    },
+    "Collections": {
+      "title": "Title",
+      "manage": "Manage",
+      "addNewCollection": "Add new collection",
+      "name": "Name",
+      "namePlaceholder": "Collection 1",
+      "description": "Description",
+      "descriptionPlaceholder": "Description of the collection",
+      "imageUrl": "Image URL",
+      "imageUrlPlaceholder": "https://odinchocolate.com/images/some-image.png",
+      "price": "Price",
+      "calculatedDefault": "Calculate default",
+      "featured": "Featured",
+      "active": "Active",
+      "selectProducts": "Select products",
+      "noProducts": "No products",
+      "adding": "Adding",
+      "addCollection": "Add collection",
+      "existingCollections": "Existing Collections",
+      "noImage": "No image",
+      "inactive": "Inactive",
+      "edit": "Edit",
+      "delete": "Delete",
+      "noCollections": "No collections",
+      "createFirst": "Create first",
+      "addProducts": "Add products",
+      "noProductsSelected": "No products selected",
+      "searchProducts": "Search products",
+      "inStock": "In stock",
+      "noProductsFound": "No products found",
+      "productsSelected": "Products selected",
+      "done": "Done"
     }
   },
   "Common": {
+    "orders": "Orders",
     "loading": "Loading...",
     "error": "An error occurred",
     "retry": "Try Again",
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "salesTrends": "Sales Trends",
+    "revenue": "Revenue"
   },
   "About": {
     "hero": {
@@ -477,10 +544,21 @@
     }
   },
   "Collections": {
+    "title": "Our Collections",
+    "subtitle": "Discover our carefully curated chocolate collections, each designed to take you on a unique flavor journey.",
     "loading": "Loading collection...",
     "includedProducts": "Included Products",
     "quantity": "Quantity",
     "perDelivery": "per delivery",
+    "featured": "Featured",
+    "viewDetails": "View details",
+    "noCollections": "No collections available",
+    "checkBackLater": "Please check back later for new collections",
+    "subscriptionCTA": {
+      "title": "Subscribe & Save",
+      "description": "Enjoy regular deliveries of your favorite collections at a discounted price.",
+      "button": "Explore Subscriptions"
+    },
     "subscription": {
       "toggle": "Subscribe and save 10%",
       "savingsLabel": "Save 10% with subscription",
@@ -533,7 +611,16 @@
       "shipping": "Shipping",
       "returns": "Returns",
       "faq": "FAQ",
-      "terms": "Terms"
+      "terms": "Terms",
+      "companyDescription": "Company description",
+      "subscribeTitle": "Subscribe title",
+      "subscribeDescription": "Subscribe description",
+      "emailPlaceholder": "ragnarok@odinchocolate.no",
+      "subscribeButton": "Subscribe",
+      "subscribing": "Subscribing",
+      "subscribeSuccess": "Success",
+      "subscribeError": "Error",
+      "copyright": "Copyright"
     }
   },
   "Account": {

@@ -70,6 +70,12 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
     };
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    if (isOpen) {
+      refreshCart();
+    }
+  }, [isOpen, refreshCart]);
+
   const handleQuantityChange = async (
     item: CartItem,
     newQuantity: number
@@ -200,7 +206,13 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
                   <div className="p-6 space-y-6">
                     {cart.items.map((item: CartItem) => {
                       const product = products[item.productId];
-                      if (!product) return null;
+                      
+                      // Use fallback values if product is not found
+                      const productName = product ? product.name : 'Product';
+                      const productImage = product ? product.image : '/images/placeholder.jpg';
+                      const productDescription = product ? product.description : '';
+                      const productWeight = product ? product.weight : '';
+                      const productCategory = product ? product.category : '';
 
                       return (
                         <motion.div
@@ -214,28 +226,32 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
                           <div className="flex gap-4">
                             <div className="relative w-20 h-20 rounded-md overflow-hidden bg-stone-100">
                               <Image
-                                src={product.image}
-                                alt={product.name}
+                                src={productImage}
+                                alt={productName}
                                 fill
                                 className="object-cover"
                               />
                             </div>
-                            <div className="flex-1 min-w-0">
+                            <div className="flex-1">
                               <div className="flex items-start justify-between gap-2">
                                 <div>
                                   <h3 className="font-medium text-stone-900 truncate">
-                                    {product.name}
+                                    {productName}
                                   </h3>
                                   <p className="mt-1 text-sm text-stone-500 line-clamp-2">
-                                    {product.description}
+                                    {productDescription}
                                   </p>
                                   <div className="mt-1 flex flex-wrap gap-2">
-                                    <span className="inline-block px-2 py-0.5 text-xs font-medium bg-stone-100 text-stone-600 rounded-full">
-                                      {product.weight}
-                                    </span>
-                                    <span className="inline-block px-2 py-0.5 text-xs font-medium bg-stone-100 text-stone-600 rounded-full capitalize">
-                                      {product.category}
-                                    </span>
+                                    {productWeight && (
+                                      <span className="inline-block px-2 py-0.5 text-xs font-medium bg-stone-100 text-stone-600 rounded-full">
+                                        {productWeight}
+                                      </span>
+                                    )}
+                                    {productCategory && (
+                                      <span className="inline-block px-2 py-0.5 text-xs font-medium bg-stone-100 text-stone-600 rounded-full capitalize">
+                                        {productCategory}
+                                      </span>
+                                    )}
                                     {item.isSubscription && (
                                       <>
                                         <span className="inline-block px-2 py-0.5 text-xs font-medium bg-primary-50 text-primary-600 rounded-full">
@@ -356,22 +372,21 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
                         <span>{formatCartAmount(cart.total)}</span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <Link
-                        href="/cart"
-                        onClick={onClose}
-                        className="px-6 py-3 rounded-lg bg-stone-100 text-stone-900 text-center font-medium hover:bg-stone-200 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 transition-colors"
-                      >
-                        View Cart
-                      </Link>
-                      <Link
-                        href="/checkout"
-                        onClick={onClose}
-                        className="px-6 py-3 rounded-lg bg-primary-600 text-white text-center font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
-                      >
-                        Checkout
-                      </Link>
-                    </div>
+                    
+                    <Link
+                      href="/cart"
+                      onClick={onClose}
+                      className="block w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white text-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    >
+                      View Cart
+                    </Link>
+                    <Link
+                      href="/checkout"
+                      onClick={onClose}
+                      className="block w-full py-3 px-4 bg-stone-800 hover:bg-stone-900 text-white text-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-stone-800 focus:ring-offset-2"
+                    >
+                      Checkout
+                    </Link>
                   </div>
                 </div>
               )}

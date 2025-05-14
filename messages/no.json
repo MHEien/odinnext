@@ -131,12 +131,12 @@
     "exploreProducts": "Utforsk Produkter",
     "orderSummary": "Ordreoppsummering",
     "subscription": {
-      "toggle": "Prenumerér og sparer 10%",
+      "toggle": "Abonnér og spar 10%",
       "frequency": "Leveringsfrekvens",
       "weekly": "Hver uke",
-      "biweekly": "Hver to uker",
+      "biweekly": "Hver andre uke",
       "monthly": "Hver måned",
-      "savings": "Du sparer ${amount} med abonnement"
+      "savings": "Du sparer {amount} kr med abonnement"
     },
     "summary": {
       "subtotal": "Subtotal",
@@ -238,6 +238,7 @@
       "price": "Pris (kr)",
       "weight": "Vekt (g)",
       "stock": "Lagerbeholdning",
+      "carbohydrates": "Karbohydrater (g)",
       "category": "Kategori",
       "selectCategory": "Velg en kategori",
       "ingredients": "Ingredienser",
@@ -388,6 +389,69 @@
           "lastActive": "Sist Aktiv"
         }
       }
+    },
+    "newsletters": {
+      "deleteConfirm": "Berkreft sletting",
+      "title": "Tittel",
+      "createNewButton": "Opprett ny",
+      "noNewsletters": "Ingen nyhetsbrev",
+      "columns": {
+        "title": "Tittel",
+        "status": "Status",
+        "scheduled": "Planlagt",
+        "sent": "Sendt",
+        "actions": "Handlinger"
+      },
+      "actions": {
+        "view": "Se",
+        "edit": "Rediger",
+        "delete": "Slett"
+      },
+      "newNewsletter": "Nytt nyhetsbrev",
+      "createNewsletterDesc": "Opprett nytt nyhetsbrev",
+      "englishContent": "Engelsk innhold",
+      "content": "Innhold",
+      "translateToNorwegian": "Oversett til engelsk",
+      "norwegianContent": "Norsk innhold",
+      "translateToEnglish": "Oversett til engelsk",
+      "scheduledFor": "Planlagt",
+      "scheduledHint": "Planlagt hint",
+      "cancel": "Avbryt",
+      "saving": "Lagrer",
+      "saveNewsletter": "Lagre nyhetsbrev"
+    },
+    "Collections": {
+      "title": "Tittel",
+      "manage": "Behandle",
+      "addNewCollection": "Legg til ny kolleksjon",
+      "name": "Navn",
+      "namePlaceholder": "Kolleksjon 1",
+      "description": "Beskrivelse",
+      "descriptionPlaceholder": "Beskrivelse av kolleksjonen",
+      "imageUrl": "Bilde lenke",
+      "imageUrlPlaceholder": "https://odinchocolate.no/public/images/bilde.png",
+      "price": "Pris",
+      "calculatedDefault": "Kalkuler",
+      "featured": "Fremhevede",
+      "active": "Aktiv",
+      "selectProducts": "Velg produkter",
+      "noProducts": "Ingen produkter",
+      "adding": "Legger til",
+      "addCollection": "Legg til kolleksjon",
+      "existingCollections": "Kolleksjoner",
+      "noImage": "Ingen bilde",
+      "inactive": "Inaktiv",
+      "edit": "Rediger",
+      "delete": "Slett",
+      "noCollections": "Ingen kolleksjoner",
+      "createFirst": "Opprett første",
+      "done": "Ferdig",
+      "productsSelected": "Valgte produkter",
+      "noProductsFound": "Ingen produkter funnet",
+      "inStock": "På lager",
+      "searchProducts": "Søk produkter",
+      "addProducts": "Legg til produkter",
+      "noProductsSelected": "Ingen produkter valgt"
     }
   },
   "Common": {
@@ -397,7 +461,10 @@
     "save": "Lagre",
     "cancel": "Avbryt",
     "delete": "Slett",
-    "edit": "Rediger"
+    "edit": "Rediger",
+    "salesTrends": "Salgstrender",
+    "revenue": "Omsetning",
+    "orders": "Ordre"
   },
   "About": {
     "hero": {
@@ -484,22 +551,33 @@
     }
   },
   "Collections": {
-    "loading": "Laster samling...",
+    "title": "Våre Kolleksjoner",
+    "subtitle": "Oppdag våre nøye utvalgte sjokoladekolleksjoner, hver designet for å ta deg med på en unik smaksreise.",
+    "loading": "Laster kolleksjon...",
     "includedProducts": "Inkluderte Produkter",
     "quantity": "Antall",
     "perDelivery": "per levering",
+    "featured": "Utvalgt",
+    "viewDetails": "Se detaljer",
+    "noCollections": "Ingen kolleksjoner tilgjengelig",
+    "checkBackLater": "Vennligst sjekk tilbake senere for nye kolleksjoner",
+    "subscriptionCTA": {
+      "title": "Abonnér og Spar",
+      "description": "Nyt regelmessige leveringer av favorittkollekksjonen din til en rabattert pris.",
+      "button": "Utforsk Abonnementer"
+    },
     "subscription": {
-      "toggle": "Abboner og sparer 10%",
-      "savingsLabel": "Sparer 10% med abonnement",
+      "toggle": "Abonnér og spar 10%",
+      "savingsLabel": "Spar 10% med abonnement",
       "frequency": "Leveringsfrekvens",
       "weekly": "Hver uke",
-      "biweekly": "Hver to uker",
+      "biweekly": "Annenhver uke",
       "monthly": "Hver måned"
     },
     "addToCart": {
-      "button": "Legg til i handlekurv",
-      "loading": "Legger til i handlekurv...",
-      "error": "Klarte ikke legge samling til handlekurv:"
+      "button": "Legg i Handlekurven",
+      "loading": "Legger i handlekurv...",
+      "error": "Kunne ikke legge kolleksjon i handlekurven:"
     }
   },
   "FeaturedCollections": {
@@ -540,7 +618,16 @@
       "shipping": "Frakt",
       "returns": "Retur",
       "faq": "Ofte Stilte Spørsmål",
-      "terms": "Vilkår"
+      "terms": "Vilkår",
+      "copyright": "Opphavsrett",
+      "companyDescription": "Bedriftsbeskrivelse",
+      "subscribeTitle": "Abbonner tittel",
+      "subscribeDescription": "Abonnoment beskrivelse",
+      "emailPlaceholder": "ragnarok@odinchocolate.no",
+      "subscribeButton": "Abboner",
+      "subscribing": "Abbnonerer",
+      "subscribeSuccess": "Fullført",
+      "subscribeError": "Feil"
     }
   },
   "Account": {

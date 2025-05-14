@@ -5,6 +5,8 @@ import { useRouter} from '@/i18n/routing';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/context/AuthContext';
 import { updateUserProfile } from '@/lib/auth/service';
+import { useLocale } from 'next-intl';
+import { AppLocale } from '@/i18n/config';
 
 interface ProfileFormData {
   name: string;
@@ -19,12 +21,15 @@ interface ProfileFormData {
   preferences: {
     marketing: boolean;
     notifications: boolean;
+    locale: AppLocale;
   };
 }
 
 export default function ProfilePage() {
   const { user, profile, isLoading, refreshProfile } = useAuth();
   const router = useRouter();
+  const currentLocale = useLocale() as AppLocale;
+  
   const [formData, setFormData] = useState<ProfileFormData>({
     name: '',
     phone: '',
@@ -38,6 +43,7 @@ export default function ProfilePage() {
     preferences: {
       marketing: true,
       notifications: true,
+      locale: currentLocale,
     },
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -61,10 +67,11 @@ export default function ProfilePage() {
         preferences: {
           marketing: profile.marketingConsent || true,
           notifications: profile.notifications || true,
+          locale: currentLocale,
         },
       });
     }
-  }, [isLoading, user, profile, router]);
+  }, [isLoading, user, profile, router, currentLocale]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,6 +91,7 @@ export default function ProfilePage() {
         shippingCountry: formData.shipping.country,
         marketingConsent: formData.preferences.marketing,
         notifications: formData.preferences.notifications,
+        locale: formData.preferences.locale,
       });
 
       await refreshProfile();
@@ -335,6 +343,35 @@ export default function ProfilePage() {
                 >
                   Receive order status and shipping notifications
                 </label>
+              </div>
+              
+              <div className="mt-4">
+                <label
+                  htmlFor="preferredLanguage"
+                  className="block text-sm font-medium text-stone-700 mb-1"
+                >
+                  Preferred Newsletter Language
+                </label>
+                <select
+                  id="preferredLanguage"
+                  value={formData.preferences.locale}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      preferences: {
+                        ...formData.preferences,
+                        locale: e.target.value as AppLocale,
+                      },
+                    })
+                  }
+                  className="input-field"
+                >
+                  <option value="en">English</option>
+                  <option value="no">Norwegian</option>
+                </select>
+                <p className="text-sm text-stone-500 mt-1">
+                  This is the language in which you&apos;ll receive newsletters and marketing emails.
+                </p>
               </div>
             </div>
 

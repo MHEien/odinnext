@@ -1,8 +1,21 @@
 import { hash } from 'bcrypt'
 import { prisma } from '@/lib/db'
+import { AppLocale, defaultLocale } from '@/i18n/config'
 
-export async function createUser(email: string, password: string, name: string) {
+export async function createUser(
+  email: string, 
+  password: string, 
+  name: string, 
+  options?: { 
+    marketingConsent?: boolean,
+    newsletterSubscription?: boolean,
+    locale?: AppLocale 
+  }
+) {
   const hashedPassword = await hash(password, 10)
+  const locale = options?.locale || defaultLocale
+  const marketingConsent = options?.marketingConsent !== undefined ? options.marketingConsent : true
+  const newsletterSubscription = options?.newsletterSubscription !== undefined ? options.newsletterSubscription : marketingConsent
 
   const user = await prisma.user.create({
     data: {
@@ -11,10 +24,18 @@ export async function createUser(email: string, password: string, name: string) 
       password: hashedPassword,
       profile: {
         create: {
-          marketingConsent: true,
+          marketingConsent,
           notifications: true,
+          locale,
         }
-      }
+      },
+      newsletterSubscriptions: newsletterSubscription ? {
+        create: {
+          email,
+          locale,
+          isActive: true
+        }
+      } : undefined
     },
   })
 
@@ -52,6 +73,7 @@ export async function updateUserProfile(
     billingCountry?: string
     marketingConsent?: boolean
     notifications?: boolean
+    locale?: string
   }
 ) {
   const { name, ...profileData } = data

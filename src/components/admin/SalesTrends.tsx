@@ -35,6 +35,7 @@ const containerVariants = {
 export function SalesTrends({ data }: SalesTrendsProps) {
 
   const t = useTranslations('Admin')
+  const tCommon = useTranslations('Common')
 
   return (
     <motion.div
@@ -48,11 +49,11 @@ export function SalesTrends({ data }: SalesTrendsProps) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-purple-600" />
-            <span className="text-sm text-stone-600">{t('revenue')}</span>
+            <span className="text-sm text-stone-600">{tCommon('revenue')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-blue-500" />
-            <span className="text-sm text-stone-600">{t('orders')}</span>
+            <span className="text-sm text-stone-600">{tCommon('orders')}</span>
           </div>
         </div>
       </div>

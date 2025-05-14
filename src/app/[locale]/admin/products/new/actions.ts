@@ -50,7 +50,13 @@ export async function createProduct(data: CreateProductInput) {
     revalidatePath('/[locale]/admin/products');
     revalidatePath('/[locale]/(shop)/products');
 
-    return { success: true, data: product };
+    // Convert Decimal to Number before returning to client
+    const serializedProduct = {
+      ...product,
+      price: Number(product.price),
+    };
+
+    return { success: true, data: serializedProduct };
   } catch (error) {
     console.error('Error creating product:', error);
     if (error instanceof z.ZodError) {

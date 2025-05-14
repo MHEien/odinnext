@@ -9,10 +9,13 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { SalesTrend } from '@/lib/mock/analytics';
 
 interface SalesChartProps {
-  data: SalesTrend[];
+  data: {
+    date: string;
+    revenue: number;
+    orders: number;
+  }[];
   className?: string;
 }
 

@@ -128,6 +128,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 }
 
 const CART_STORAGE_KEY = 'odinnext_cart'
+// Define a custom event name for cart changes - must match the one in CartProvider.tsx
+const CART_UPDATED_EVENT = 'odinnext_cart_updated'
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, {
@@ -150,6 +152,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Save cart to localStorage on changes
   useEffect(() => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state))
+    // Dispatch a custom event to notify other components about the cart update
+    window.dispatchEvent(new Event(CART_UPDATED_EVENT))
   }, [state])
 
   const addItem = (

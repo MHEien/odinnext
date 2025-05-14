@@ -21,7 +21,13 @@ export async function GET(
       return NextResponse.json({ error: 'Product not found' }, { status: 404 })
     }
 
-    return NextResponse.json(product)
+    // Convert Decimal price to Number before returning
+    const serializedProduct = {
+      ...product,
+      price: Number(product.price),
+    }
+
+    return NextResponse.json(serializedProduct)
   } catch (error) {
     console.error('Error fetching product:', error)
     return NextResponse.json(
@@ -65,7 +71,13 @@ export async function PATCH(
     revalidatePath('/admin/products')
     revalidatePath(`/admin/products/${params.id}`)
 
-    return NextResponse.json(product)
+    // Convert Decimal price to Number before returning
+    const serializedProduct = {
+      ...product,
+      price: Number(product.price),
+    }
+
+    return NextResponse.json(serializedProduct)
   } catch (error) {
     console.error('Error updating product:', error)
     return NextResponse.json(

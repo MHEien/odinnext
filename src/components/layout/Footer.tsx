@@ -1,5 +1,7 @@
+'use client'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
+import NewsletterForm from './NewsletterForm'
 
 const footerNavigation = {
   shop: [
@@ -124,28 +126,15 @@ export default function Footer() {
                 <p className="mt-4 text-stone-400 text-sm">
                   {t('subscribeDescription')}
                 </p>
-                <form className="mt-4 sm:flex sm:max-w-md">
-                  <label htmlFor="email-address" className="sr-only">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    name="email-address"
-                    id="email-address"
-                    autoComplete="email"
-                    required
-                    className="input-field bg-stone-800 border-stone-700 text-white placeholder-stone-400"
-                    placeholder={t('emailPlaceholder')}
-                  />
-                  <div className="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-                    <button
-                      type="submit"
-                      className="btn-primary w-full bg-primary-600 hover:bg-primary-700"
-                    >
-                      {t('subscribeButton')}
-                    </button>
-                  </div>
-                </form>
+                <NewsletterForm 
+                  translations={{
+                    emailPlaceholder: t('emailPlaceholder'),
+                    subscribeButton: t('subscribeButton'),
+                    subscribing: nav('subscribing'),
+                    subscribeSuccess: nav('subscribeSuccess'),
+                    subscribeError: nav('subscribeError')
+                  }}
+                />
               </div>
             </div>
           </div>

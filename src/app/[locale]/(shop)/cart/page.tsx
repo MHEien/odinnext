@@ -44,6 +44,20 @@ export default function CartPage() {
     }
   };
 
+  const handleCheckout = async () => {
+    const body = {
+      products: items,
+      isSubscription,
+    }
+    console.log("Sending checkout request with body:", body);
+    const response = await fetch('/api/checkout', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-stone-900 to-stone-800 py-24">
@@ -116,7 +130,7 @@ export default function CartPage() {
                         {item.name}
                       </h3>
                       <p className="text-amber-500 font-medium">
-                        ${item.price.toFixed(2)}
+                        {item.price.toFixed(2)}  kr
                       </p>
                     </div>
                     <div className="flex items-center space-x-4">
@@ -220,12 +234,12 @@ export default function CartPage() {
               <div className="space-y-4">
                 <div className="flex justify-between text-stone-300">
                   <span>{t('summary.subtotal')}</span>
-                  <span>${(total / (isSubscription ? 0.9 : 1)).toFixed(2)}</span>
+                  <span>{(total / (isSubscription ? 0.9 : 1)).toFixed(2)}  kr</span>
                 </div>
                 {isSubscription && (
                   <div className="flex justify-between text-amber-500">
                     <span>{t('summary.discount')}</span>
-                    <span>-${((total / 0.9) * 0.1).toFixed(2)}</span>
+                    <span>-{((total / 0.9) * 0.1).toFixed(2)}  kr</span>
                   </div>
                 )}
                 <div className="flex justify-between text-stone-300">
@@ -235,7 +249,7 @@ export default function CartPage() {
                 <div className="border-t border-stone-700 pt-4">
                   <div className="flex justify-between text-lg font-medium text-stone-100">
                     <span>{t('total')}</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>{total.toFixed(2)}  kr</span>
                   </div>
                   {isSubscription && (
                     <p className="text-sm text-amber-500 mt-1">
@@ -243,13 +257,13 @@ export default function CartPage() {
                     </p>
                   )}
                 </div>
-                <Link
-                  href="/checkout"
+                <button
+                  onClick={handleCheckout}
                   className="block w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 
                     hover:to-amber-600 text-white py-3 rounded-lg font-medium text-center transition-colors"
                 >
                   {t('checkout')}
-                </Link>
+                </button>
               </div>
             </div>
           </motion.div>

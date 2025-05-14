@@ -14,8 +14,12 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <FeaturedCollections collections={featuredCollections} />
-      <SubscriptionPlans collections={subscriptionCollections} />
+      {featuredCollections.length > 0 && (
+        <FeaturedCollections collections={featuredCollections} />
+      )}
+      {subscriptionCollections.length > 0 && (
+        <SubscriptionPlans collections={subscriptionCollections} />
+      )}
       <CallToAction />
     </div>
   )

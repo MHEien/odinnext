@@ -63,6 +63,7 @@ model User {
   profile       Profile?
   orders        Order[]
   subscriptions Subscription[]
+  newsletterSubscriptions NewsletterSubscription[]
 }
 
 model Profile {
@@ -261,4 +262,41 @@ enum SubscriptionType {
 enum UserRole {
   USER
   ADMIN
+}
+
+enum NewsletterStatus {
+  DRAFT
+  SCHEDULED
+  SENT
+  CANCELLED
+}
+
+// Newsletter and Subscriptions
+model Newsletter {
+  id             String    @id @default(cuid())
+  titleEn        String
+  titleNo        String
+  contentEn      String
+  contentNo      String
+  htmlTemplateEn String?   @db.Text
+  htmlTemplateNo String?   @db.Text
+  isTranslatedAI Boolean   @default(false)
+  status         NewsletterStatus @default(DRAFT)
+  scheduledFor   DateTime?
+  sentAt         DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  subscribers    NewsletterSubscription[]
+}
+
+model NewsletterSubscription {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  userId    String?
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  isActive  Boolean   @default(true)
+  locale    String    @default("no")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  newsletters Newsletter[]
 }
