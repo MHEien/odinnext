@@ -10,11 +10,12 @@ import { CustomerSidebar } from './CustomerSidebar';
 export default async function CustomerDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const [customer, orders] = await Promise.all([
-    getCustomer(params.id),
-    getOrdersByUserId(params.id),
+    getCustomer(id),
+    getOrdersByUserId(id),
   ]);
 
   if (!customer) {

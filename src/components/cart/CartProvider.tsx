@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
   ReactNode,
+  useCallback,
 } from 'react';
 import { Cart, getCart, CartItem as MockCartItem } from '@/app/lib/mock/cart';
 import { Product, getProductsByIds } from '@/app/lib/mock/products';
@@ -74,7 +75,7 @@ export function CartProvider({ children }: CartProviderProps) {
     return undefined;
   };
 
-  const refreshCart = async () => {
+  const refreshCart = useCallback(async () => {
     try {
       // Get cart data from localStorage first
       const savedCart = localStorage.getItem(CART_STORAGE_KEY);
@@ -139,7 +140,7 @@ export function CartProvider({ children }: CartProviderProps) {
     } catch (err) {
       console.error('Error fetching cart:', err);
     }
-  };
+  }, []);
 
   // Listen for changes to localStorage
   useEffect(() => {
@@ -154,7 +155,7 @@ export function CartProvider({ children }: CartProviderProps) {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  }, [refreshCart]);
 
   // Listen for custom events (for changes in the same window)
   useEffect(() => {
@@ -167,7 +168,7 @@ export function CartProvider({ children }: CartProviderProps) {
     return () => {
       window.removeEventListener(CART_UPDATED_EVENT, handleCartUpdated);
     };
-  }, []);
+  }, [refreshCart]);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -179,7 +180,7 @@ export function CartProvider({ children }: CartProviderProps) {
     };
 
     fetchCart();
-  }, []);
+  }, [refreshCart]);
 
   const value = {
     cart,

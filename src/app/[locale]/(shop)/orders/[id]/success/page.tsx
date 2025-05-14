@@ -6,17 +6,20 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 
+type Props = {
+  params: Promise<{ id: string }>
+}
+
 export default async function OrderSuccessPage({
   params
-}: {
-  params: { id: string }
-}) {
+}: Props) {
+  const { id } = await params
   const session = await auth()
   if (!session?.user?.email) {
     redirect('/auth/sign-in')
   }
 
-  const order = await getOrderById(params.id)
+  const order = await getOrderById(id)
   if (!order) {
     redirect('/orders')
   }

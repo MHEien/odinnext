@@ -4,9 +4,7 @@ import { getSubscriptionById } from '@/lib/db/actions/subscriptions'
 import { SubscriptionDetail } from '@/components/admin/subscriptions/SubscriptionDetail'
 
 interface Props {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
 export default async function AdminSubscriptionDetailPage({ params }: Props) {
@@ -16,7 +14,8 @@ export default async function AdminSubscriptionDetailPage({ params }: Props) {
     redirect('/auth/sign-in')
   }
 
-  const subscription = await getSubscriptionById(params.id)
+  const { id } = await params
+  const subscription = await getSubscriptionById(id)
   
   if (!subscription) {
     redirect('/admin/subscriptions')

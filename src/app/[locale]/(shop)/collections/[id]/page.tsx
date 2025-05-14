@@ -3,12 +3,16 @@ import { getCollectionById } from '@/lib/db/actions/collections'
 import { getTranslations } from 'next-intl/server'
 import CollectionContent from '@/components/collections/CollectionContent'
 
+type Props = {
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
 export default async function CollectionPage({
   params
-}: {
-  params: { id: string }
-}) {
-  const collection = await getCollectionById(params.id)
+}: Props) {
+  const { id } = await params
+  const collection = await getCollectionById(id)
   if (!collection) {
     redirect('/404')
   }

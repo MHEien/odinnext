@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/db';
-import { model } from '@/app/lib/ai';
+import { model } from '@/lib/ai';
 import { CoreMessage, streamText } from 'ai';
 
 const systemPrompt = `You are an expert email template designer specializing in creating HTML email templates for newsletters. 

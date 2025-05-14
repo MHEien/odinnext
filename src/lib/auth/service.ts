@@ -1,4 +1,5 @@
-import { hash } from 'bcrypt'
+"use server"
+import { hash } from 'bcryptjs'
 import { prisma } from '@/lib/db'
 import { AppLocale, defaultLocale } from '@/i18n/config'
 

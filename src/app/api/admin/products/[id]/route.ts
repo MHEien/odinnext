@@ -5,16 +5,17 @@ import { revalidatePath } from 'next/cache'
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await auth()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const product = await prisma.product.findUnique({
-      where: { id: params.id }
+      where: { id }
     })
 
     if (!product) {
@@ -39,9 +40,10 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await auth()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -50,7 +52,7 @@ export async function PATCH(
     const body = await request.json()
 
     const product = await prisma.product.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         name: body.name,
         description: body.description,
@@ -69,7 +71,7 @@ export async function PATCH(
     })
 
     revalidatePath('/admin/products')
-    revalidatePath(`/admin/products/${params.id}`)
+    revalidatePath(`/admin/products/${id}`)
 
     // Convert Decimal price to Number before returning
     const serializedProduct = {
@@ -89,16 +91,17 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await auth()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     await prisma.product.delete({
-      where: { id: params.id }
+      where: { id }
     })
 
     revalidatePath('/admin/products')

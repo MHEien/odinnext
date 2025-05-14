@@ -4,38 +4,8 @@ import { prisma } from '@/lib/db'
 import { Order } from '@prisma/client'
 import { auth } from '@/auth'
 import { createOrder } from './orders'
+import { CheckoutData } from '@/types'
 
-export interface Address {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  street: string
-  city: string
-  state: string
-  postalCode: string
-  country: string
-}
-
-export interface PaymentMethod {
-  type: 'card'
-  cardBrand: string
-  last4: string
-  expiryMonth: number
-  expiryYear: number
-}
-
-export interface CheckoutData {
-  items: {
-    productId: string
-    quantity: number
-    price: number
-  }[]
-  total: number
-  shippingAddress: Address
-  billingAddress: Address
-  paymentMethod: PaymentMethod
-}
 
 export async function processCheckout(data: CheckoutData): Promise<Order> {
   const session = await auth()
@@ -106,6 +76,3 @@ export async function processCheckout(data: CheckoutData): Promise<Order> {
 
   return order
 }
-
-// Re-export everything
-export * from './checkout' 

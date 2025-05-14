@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { useCart } from '@/lib/context/CartContext'
 import { getProduct } from '@/lib/db/actions/products'
+import { Product } from '@prisma/client'
 
 interface Props {
   productId: string
@@ -26,7 +27,13 @@ export default function AddToCartButton({ productId, stock }: Props) {
       const product = await getProduct(productId)
       if (!product) throw new Error('Product not found')
       
-      addItem(product, quantity)
+      // Convert the ProductWithStats to expected Product type
+      const productForCart = {
+        ...product,
+        price: product.price // price is already a number in ProductWithStats
+      }
+      
+      addItem(productForCart as unknown as Product, quantity)
       setShowSuccess(true)
       setTimeout(() => setShowSuccess(false), 2000)
     } catch (error) {

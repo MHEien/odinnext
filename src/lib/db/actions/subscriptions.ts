@@ -26,6 +26,16 @@ export async function getUserSubscriptions(userId: string) {
   })
 }
 
+export async function getFrequencyLabel(frequency: Frequency) {
+  const frequencyLabels = {
+    WEEKLY: 'Weekly',
+    BIWEEKLY: 'Bi-weekly', 
+    MONTHLY: 'Monthly'
+  };
+  
+  return frequencyLabels[frequency] || frequency;
+}
+
 export async function getSubscriptionById(id: string) {
   return prisma.subscription.findUnique({
     where: { id },
@@ -107,16 +117,3 @@ export async function createSubscription(data: {
   revalidatePath('/account/subscriptions')
   return subscription
 }
-
-export function formatStatus(status: SubscriptionStatus) {
-  return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()
-}
-
-export function getFrequencyLabel(frequency: Frequency) {
-  switch (frequency) {
-    case 'WEEKLY': return 'Weekly'
-    case 'BIWEEKLY': return 'Bi-weekly'
-    case 'MONTHLY': return 'Monthly'
-    default: return frequency
-  }
-} 

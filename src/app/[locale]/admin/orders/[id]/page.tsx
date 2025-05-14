@@ -46,12 +46,15 @@ const itemVariants = {
   },
 };
 
+type Props = {
+  params: Promise<{ id: string }>
+}
+
 export default async function OrderDetailPage({
   params,
-}: {
-  params: { id: string };
-}) {
-  const order = await getOrderById(params.id);
+}: Props) {
+  const { id } = await params
+  const order = await getOrderById(id);
   const t = await getTranslations('Admin')
 
   if (!order) {

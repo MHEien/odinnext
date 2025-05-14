@@ -1,9 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import type { PaymentMethod } from '@/lib/db/actions';
+import type { PaymentMethod } from '@/types';
 
 interface PaymentFormProps {
   initialData: PaymentMethod;
@@ -11,13 +9,30 @@ interface PaymentFormProps {
   onBack: () => void;
 }
 
-export default function PaymentForm({ initialData, onSubmit, onBack }: PaymentFormProps) {
-  const [formData, setFormData] = useState(initialData);
+export default function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
   const t = useTranslations('Checkout.payment');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    
+    // Simulate payment processing
+    // In a real app, you'd use a payment processor API
+    const cardInput = document.getElementById('cardNumber') as HTMLInputElement;
+    const expiryInput = document.getElementById('expiry') as HTMLInputElement;
+    
+    // Parse expiry date MM/YY format
+    const [month, year] = expiryInput.value.split('/');
+    
+    // Set payment data with form values
+    const paymentData: PaymentMethod = {
+      type: 'card',
+      cardBrand: 'visa', // Simplified - would be determined by card number in real app
+      last4: cardInput.value.slice(-4),
+      expiryMonth: parseInt(month, 10),
+      expiryYear: 2000 + parseInt(year, 10) // Convert YY to full year
+    };
+    
+    onSubmit(paymentData);
   };
 
   return (

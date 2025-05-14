@@ -5,9 +5,10 @@ import { SubscriptionStatus } from '@prisma/client';
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await auth();
     if (!session?.user) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -22,7 +23,7 @@ export async function PATCH(
 
     // Verify the subscription belongs to the user
     const subscription = await prisma.subscription.findUnique({
-      where: { id: params.id },
+      where: { id },
       select: { userId: true }
     });
 
@@ -36,7 +37,7 @@ export async function PATCH(
 
     // Update the subscription status
     const updatedSubscription = await prisma.subscription.update({
-      where: { id: params.id },
+      where: { id },
       data: { 
         status: status as SubscriptionStatus,
         // If reactivating, set next delivery date

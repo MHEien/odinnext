@@ -5,9 +5,7 @@ import ProductDetail from '@/components/ProductDetail'
 export const revalidate = 60 // Revalidate every minute
 
 interface Props {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
 export default async function ProductPage({ params }: Props) {

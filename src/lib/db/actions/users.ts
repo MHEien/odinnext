@@ -1,6 +1,7 @@
+"use server"
 import { prisma } from '@/lib/db'
 import { User, Profile } from '@prisma/client'
-import { hash } from 'bcrypt'
+import { hash } from 'bcryptjs'
 
 export type UserWithProfile = User & {
   profile: Profile | null

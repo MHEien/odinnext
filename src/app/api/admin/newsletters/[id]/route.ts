@@ -4,12 +4,11 @@ import { auth } from '@/auth'
 import { prisma } from '@/lib/db'
 
 interface Params {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
 export async function GET(req: Request, { params }: Params) {
+  const { id } = await params
   try {
     // Check admin authentication
     const session = await auth()
@@ -33,7 +32,7 @@ export async function GET(req: Request, { params }: Params) {
       )
     }
 
-    const newsletter = await getNewsletter(params.id, true)
+    const newsletter = await getNewsletter(id, true)
     
     if (!newsletter) {
       return NextResponse.json(
@@ -56,6 +55,7 @@ export async function GET(req: Request, { params }: Params) {
 }
 
 export async function PATCH(req: Request, { params }: Params) {
+  const { id } = await params
   try {
     // Check admin authentication
     const session = await auth()
@@ -81,7 +81,7 @@ export async function PATCH(req: Request, { params }: Params) {
 
     const data = await req.json()
     
-    const newsletter = await updateNewsletter(params.id, {
+    const newsletter = await updateNewsletter(id, {
       ...data,
       scheduledFor: data.scheduledFor ? new Date(data.scheduledFor) : undefined
     })
@@ -100,6 +100,7 @@ export async function PATCH(req: Request, { params }: Params) {
 }
 
 export async function DELETE(req: Request, { params }: Params) {
+  const { id } = await params
   try {
     // Check admin authentication
     const session = await auth()
@@ -123,7 +124,7 @@ export async function DELETE(req: Request, { params }: Params) {
       )
     }
 
-    await deleteNewsletter(params.id)
+    await deleteNewsletter(id)
     
     return NextResponse.json(
       { message: 'Newsletter deleted successfully' },

@@ -2,13 +2,16 @@ import { getProduct, getCategories } from '@/lib/db/actions/products'
 import { notFound } from 'next/navigation'
 import { ProductForm } from './ProductForm'
 
+type Props = {
+  params: Promise<{ id: string }>
+}
+
 export default async function EditProductPage({
   params,
-}: {
-  params: { id: string }
-}) {
+}: Props) {
+  const { id } = await params
   const [product, categories] = await Promise.all([
-    getProduct(params.id),
+    getProduct(id),
     getCategories()
   ])
 

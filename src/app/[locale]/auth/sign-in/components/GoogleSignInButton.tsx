@@ -15,6 +15,7 @@ export default function GoogleSignInButton() {
     try {
       await signIn('google', { callbackUrl: `/${locale}/account` });
     } catch (error) {
+      console.error('Google sign in error:', error);
       setError('Failed to sign in with Google');
     }
   };

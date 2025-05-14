@@ -1,43 +1,58 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  Product,
-  CreateProductData,
-  UpdateProductData,
-  categories,
-} from '@/lib/mock/products';
+import type { Product, Prisma, Category } from '@prisma/client';
 import ImageUpload from './ImageUpload';
 import { useToast } from '@/lib/hooks/useToast';
+import { NutritionalInfo } from '@/lib/db/actions/products';
 
 interface ProductFormProps {
-  product?: Product;
-  onSubmit: (data: CreateProductData | UpdateProductData) => Promise<void>;
+  product?: Product & { price: number };
+  categories: Category[];
+  onSubmit: (data: Prisma.ProductCreateInput | Prisma.ProductUpdateInput & { id?: string }) => Promise<void>;
   onCancel: () => void;
+}
+
+interface FormData {
+  name: string;
+  description: string;
+  longDescription: string;
+  price: number;
+  images: string[];
+  categoryId: string;
+  ingredients: string[];
+  allergens: string[];
+  weight: number;
+  featured: boolean;
+  inStock: boolean;
+  stock: number;
+  nutritionalInfo: NutritionalInfo;
 }
 
 export default function ProductForm({
   product,
+  categories,
   onSubmit,
   onCancel,
 }: ProductFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const showToast = useToast();
+  const [mainImage, setMainImage] = useState('');
 
-  const [formData, setFormData] = useState<CreateProductData>({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     description: '',
     longDescription: '',
     price: 0,
-    image: '',
-    category: 'dark',
+    images: [],
+    categoryId: '',
     ingredients: [],
     allergens: [],
     weight: 100,
     featured: false,
     inStock: true,
+    stock: 0,
     nutritionalInfo: {
       calories: 0,
       protein: 0,
@@ -48,20 +63,26 @@ export default function ProductForm({
 
   useEffect(() => {
     if (product) {
+      const nutritionalInfo = product.nutritionalInfo as unknown as NutritionalInfo;
       setFormData({
         name: product.name,
         description: product.description,
         longDescription: product.longDescription,
         price: product.price,
-        image: product.image,
-        category: product.category,
+        images: product.images,
+        categoryId: product.categoryId,
         ingredients: product.ingredients,
         allergens: product.allergens,
         weight: product.weight,
         featured: product.featured,
         inStock: product.inStock,
-        nutritionalInfo: product.nutritionalInfo,
+        stock: product.stock,
+        nutritionalInfo,
       });
+      
+      if (product.images.length > 0) {
+        setMainImage(product.images[0]);
+      }
     }
   }, [product]);
 
@@ -80,8 +101,8 @@ export default function ProductForm({
       newErrors.longDescription = 'Long description is required';
     }
 
-    if (!formData.image) {
-      newErrors.image = 'Image is required';
+    if (formData.images.length === 0) {
+      newErrors.images = 'At least one image is required';
     }
 
     if (formData.price <= 0) {
@@ -100,6 +121,10 @@ export default function ProductForm({
       newErrors.allergens = 'At least one allergen is required';
     }
 
+    if (!formData.categoryId) {
+      newErrors.categoryId = 'Category is required';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -114,10 +139,25 @@ export default function ProductForm({
 
     try {
       setIsSubmitting(true);
-      const data: CreateProductData | UpdateProductData = product
-        ? { id: product.id, ...formData }
-        : formData;
-      await onSubmit(data);
+      // Convert the form data to match Prisma schema
+      const submissionData = {
+        id: product?.id,
+        name: formData.name,
+        description: formData.description,
+        longDescription: formData.longDescription,
+        price: formData.price,
+        images: formData.images,
+        categoryId: formData.categoryId,
+        ingredients: formData.ingredients,
+        allergens: formData.allergens,
+        weight: formData.weight,
+        featured: formData.featured,
+        inStock: formData.inStock,
+        stock: formData.stock,
+        nutritionalInfo: formData.nutritionalInfo as unknown as Prisma.InputJsonValue,
+      };
+      
+      await onSubmit(submissionData);
       showToast.success(
         product ? 'Product updated successfully' : 'Product created successfully'
       );
@@ -137,7 +177,7 @@ export default function ProductForm({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
-    setFormData((prev) => ({
+    setFormData((prev: FormData) => ({
       ...prev,
       [name]:
         type === 'number'
@@ -152,7 +192,7 @@ export default function ProductForm({
     name: 'ingredients' | 'allergens',
     value: string
   ) => {
-    setFormData((prev) => ({
+    setFormData((prev: FormData) => ({
       ...prev,
       [name]: value
         .split(',')
@@ -165,12 +205,20 @@ export default function ProductForm({
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData((prev: FormData) => ({
       ...prev,
       nutritionalInfo: {
         ...prev.nutritionalInfo,
         [name]: parseFloat(value) || 0,
       },
+    }));
+  };
+
+  const handleImageSelect = (imageUrl: string) => {
+    setMainImage(imageUrl);
+    setFormData((prev: FormData) => ({
+      ...prev,
+      images: [imageUrl, ...prev.images.filter(img => img !== imageUrl)],
     }));
   };
 
@@ -288,21 +336,43 @@ export default function ProductForm({
 
             <div>
               <label className="block text-sm font-medium text-stone-700">
-                Category
+                Stock
               </label>
-              <select
-                name="category"
-                value={formData.category}
+              <input
+                type="number"
+                name="stock"
+                value={formData.stock}
                 onChange={handleChange}
+                min="0"
                 className="mt-1 block w-full rounded-lg border border-stone-300 focus:border-primary-500 focus:ring-primary-500"
-              >
-                {categories.map((category) => (
-                  <option key={category.value} value={category.value}>
-                    {category.label}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-stone-700">
+              Category
+            </label>
+            <select
+              name="categoryId"
+              value={formData.categoryId}
+              onChange={handleChange}
+              className={`mt-1 block w-full rounded-lg border ${
+                errors.categoryId
+                  ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+                  : 'border-stone-300 focus:border-primary-500 focus:ring-primary-500'
+              }`}
+            >
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            {errors.categoryId && (
+              <p className="mt-1 text-sm text-red-600">{errors.categoryId}</p>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
@@ -337,13 +407,13 @@ export default function ProductForm({
 
       {/* Image Upload */}
       <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="font-display text-xl mb-6">Product Image</h2>
+        <h2 className="font-display text-xl mb-6">Product Images</h2>
         <ImageUpload
-          value={formData.image}
-          onChange={(value) => setFormData((prev) => ({ ...prev, image: value }))}
+          currentImage={mainImage}
+          onImageSelect={handleImageSelect}
         />
-        {errors.image && (
-          <p className="mt-2 text-sm text-red-600">{errors.image}</p>
+        {errors.images && (
+          <p className="mt-2 text-sm text-red-600">{errors.images}</p>
         )}
       </div>
 

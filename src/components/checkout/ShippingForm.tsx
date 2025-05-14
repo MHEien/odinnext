@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import type { Address } from '@/lib/db/actions';
+import type { Address } from '@prisma/client';
 
 interface ShippingFormProps {
   initialData: Address;

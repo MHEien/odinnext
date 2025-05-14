@@ -267,3 +267,4 @@ export async function getCheckout(orderId: string) {
     const checkout = await client.checkout.info(clientId, clientSecret, orderId);
     return checkout;
 }
+ 

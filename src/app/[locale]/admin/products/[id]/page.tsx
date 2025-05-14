@@ -123,7 +123,7 @@ async function getProductDetails(id: string): Promise<ExtendedProduct | null> {
 export default async function ProductDetailsPage({
   params
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
   
 

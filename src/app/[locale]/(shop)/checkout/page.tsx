@@ -5,7 +5,9 @@ import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing'
 import { useRouter} from '@/i18n/routing';
 import { useCart } from '@/lib/context/CartContext';
-import { processCheckout, type Address, type PaymentMethod } from '@/lib/db/actions';
+import { processCheckout } from '@/lib/db/actions';
+import { Address } from '@prisma/client';
+import { PaymentMethod } from '@/types';
 import ShippingForm from '@/components/checkout/ShippingForm';
 import PaymentForm from '@/components/checkout/PaymentForm';
 import OrderSummary from '@/components/checkout/OrderSummary';
@@ -234,7 +236,7 @@ export default function CheckoutPage() {
                           <p>{t('review.cardEnding', { last4: formData.paymentMethod.last4 })}</p>
                           <p>
                             {t('review.expires', {
-                              month: formData.paymentMethod.expiryMonth.toString().padStart(2, '0'),
+                              month: (formData.paymentMethod.expiryMonth).toString().padStart(2, '0'),
                               year: formData.paymentMethod.expiryYear
                             })}
                           </p>

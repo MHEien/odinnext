@@ -2,28 +2,34 @@
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { Session } from 'next-auth';
+import { useSearchParams } from 'next/navigation';
 
 // Add interface to extend the Window type
+
+interface Data {
+  session: Session;
+  sessionToken: string;
+}
+
 declare global {
   interface Window {
     flutter_inappwebview?: {
-      callHandler: (handlerName: string, data?: any) => void;
+      callHandler: (handlerName: string, data?: Data) => void;
     };
   }
 }
 
-interface ClientSessionPageProps {
-  sessionToken: string | null;
-}
-
-const ClientSessionPage: React.FC<ClientSessionPageProps> = ({ sessionToken }) => {
+export default function ClientSessionPage() {
   const [sessionSent, setSessionSent] = useState(false);
   const { data: session, status } = useSession();
+  const searchParams = useSearchParams();
+  const sessionToken = searchParams.get('token');
 
   useEffect(() => {
     if (status === 'authenticated' && sessionToken && !sessionSent) {
       if (window.flutter_inappwebview) {
-        let sessionData = {
+        const sessionData = {
           session: session,
           sessionToken: sessionToken,
         }
@@ -38,6 +44,4 @@ const ClientSessionPage: React.FC<ClientSessionPageProps> = ({ sessionToken }) =
       <div className="w-9 h-9 border-4 border-gray-300 border-t-4 border-t-[#9c27b0] rounded-full animate-spin"></div>
     </div>
   );
-};
-
-export default ClientSessionPage;
+}
