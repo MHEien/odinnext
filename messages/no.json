@@ -144,7 +144,8 @@
       "shipping": "Levering",
       "shippingMessage": "Beregnet ved kassen"
     },
-    "oneTime": "En gang"
+    "oneTime": "En gang",
+    "checkoutError": "Utsjekk feilmelding"
   },
   "Orders": {
     "title": "Dine Bestillinger",
@@ -544,7 +545,11 @@
       "expires": "Utløper {month}/{year}",
       "back": "Tilbake",
       "placeOrder": "Bestill",
-      "processing": "Behandler..."
+      "processing": "Behandler...",
+      "paymentOptions": "Betalingsmåter",
+      "cardPayment": "Kortbetaling",
+      "vippsPayment": "Vipps betaling",
+      "payWithVipps": "Betal med Vipps"
     },
     "error": {
       "orderFailed": "Kunne ikke fullføre bestillingen. Vennligst prøv igjen."
