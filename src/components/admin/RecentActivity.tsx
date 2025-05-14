@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl'
 interface ActivityItem {
   type: 'order' | 'subscription'
   id: string
-  user: User
+  user: User | null
   amount?: number
   status: string
   date: Date
@@ -91,7 +91,10 @@ export function RecentActivity({ activity, activityTypes }: RecentActivityProps)
                 </span>
               </div>
               <p className="text-sm text-stone-600">
-                by {item.user.name || item.user.email}
+                {item.user ? 
+                  `by ${item.user.name || item.user.email}` : 
+                  "Guest order"
+                }
               </p>
               <div className="flex items-center justify-between mt-1">
                 <span className="text-xs text-stone-500">

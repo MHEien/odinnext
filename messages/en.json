@@ -46,5 +46,8 @@
     },
     "total": "Total",
     "checkout": "Go to checkout"
+  },
+  "Admin": {
+    "recentActivity": "Recent activity"
   }
 }
