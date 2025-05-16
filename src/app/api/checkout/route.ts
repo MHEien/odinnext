@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createCheckout, createSubscriptionCheckout, getCheckout } from '@/lib/vipps';
-import { v4 as uuidv4 } from 'uuid';
 import { prisma } from '@/lib/db';
 import { Decimal } from '@prisma/client/runtime/library';
 import { OrderStatus, SubscriptionStatus, Frequency, SubscriptionType } from '@prisma/client';
@@ -26,8 +25,29 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Products are required' }, { status: 400 });
         }
 
-        // Generate a unique ID for the order/subscription
-        const orderId = uuidv4();
+        // Validate product IDs exist in the database before proceeding
+        const productIds = products.map((product: ProductItem) => product.id);
+        const existingProducts = await prisma.product.findMany({
+            where: {
+                id: {
+                    in: productIds
+                }
+            },
+            select: {
+                id: true,
+                price: true
+            }
+        });
+
+        if (existingProducts.length !== productIds.length) {
+            const existingProductIds = existingProducts.map((p) => p.id);
+            const missingProductIds = productIds.filter((id: string) => !existingProductIds.includes(id));
+            
+            return NextResponse.json({ 
+                error: 'Some products do not exist', 
+                missingProducts: missingProductIds 
+            }, { status: 400 });
+        }
         
         // Calculate total amount
         const total = products.reduce(
@@ -39,7 +59,6 @@ export async function POST(request: NextRequest) {
             // Create subscription record in database
             const subscription = await prisma.subscription.create({
                 data: {
-                    id: orderId,
                     userId,
                     status: SubscriptionStatus.ACTIVE,
                     frequency: frequency as Frequency,
@@ -56,7 +75,11 @@ export async function POST(request: NextRequest) {
             });
             
             // Initialize Vipps subscription checkout
-            const checkout = await createSubscriptionCheckout({ products, orderId });
+            const checkout = await createSubscriptionCheckout({ 
+                products, 
+                orderId: subscription.id
+            });
+            
             return NextResponse.json({
                 ...checkout,
                 subscriptionId: subscription.id
@@ -70,10 +93,8 @@ export async function POST(request: NextRequest) {
             });
 
             // Create order record in database without addresses
-            // Addresses will be added when we get the data from Vipps
             const order = await prisma.order.create({
                 data: {
-                    id: orderId,
                     userId,
                     status: OrderStatus.PENDING,
                     total: new Decimal(total),
@@ -89,7 +110,10 @@ export async function POST(request: NextRequest) {
             });
             
             // Initialize Vipps checkout
-            const checkout = await createCheckout({ products, orderId });
+            const checkout = await createCheckout({ 
+                products, 
+                orderId: order.id
+            });
             
             return NextResponse.json({
                 ...checkout,
@@ -114,4 +138,3 @@ export async function GET(request: NextRequest) {
     const checkout = await getCheckout(orderId);
     return NextResponse.json(checkout);
 }
-
