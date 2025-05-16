@@ -1,11 +1,9 @@
-import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import PWAProviderWrapper from '@/components/ui/PWAProviderWrapper';
 
-const inter = Inter({ subsets: ['latin'] });
 
 export default async function LocaleLayout({
   children,
@@ -23,13 +21,9 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-          <PWAProviderWrapper />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      {children}
+      <PWAProviderWrapper />
+    </NextIntlClientProvider>
   );
 } 

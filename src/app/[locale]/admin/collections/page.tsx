@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Search, X, PlusCircle, CheckCircle } from 'lucide-react';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 interface Collection {
   id: string;
@@ -262,17 +263,7 @@ export default function CollectionsPage() {
                 </div>
                 
                 <div>
-                  <label htmlFor="image" className="block text-sm font-medium text-stone-700">
-                    {t('imageUrl') || 'Image URL'}
-                  </label>
-                  <input
-                    type="text"
-                    id="image"
-                    value={newCollection.image}
-                    onChange={(e) => setNewCollection({ ...newCollection, image: e.target.value })}
-                    className="mt-1 block w-full rounded-lg border border-stone-300 focus:border-amber-500 focus:ring-amber-500"
-                    placeholder={t('imageUrlPlaceholder') || 'https://example.com/image.jpg'}
-                  />
+                  <ImageUpload currentImage={newCollection.image} onImageSelect={(image) => setNewCollection({ ...newCollection, image })} publicBool={true} />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">

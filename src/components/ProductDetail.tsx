@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import type { Product } from '@prisma/client'
 import AddToCartButton from '@/app/[locale]/(shop)/products/[id]/AddToCartButton'
+import { useState } from 'react'
 
 type NutritionalInfo = {
   [key: string]: string | number
@@ -21,6 +22,18 @@ interface Props {
 
 export default function ProductDetail({ product }: Props) {
   const t = useTranslations('Products')
+  const [mainImgError, setMainImgError] = useState(false)
+  const [thumbnailErrors, setThumbnailErrors] = useState<Record<number, boolean>>({})
+
+  // Validate image URL format
+  const isValidImageUrl = (url: string) => {
+    return url && typeof url === 'string' && (url.startsWith('http') || url.startsWith('/'))
+  }
+
+  // Make sure we have valid images
+  const mainImage = product.images && product.images.length > 0 && isValidImageUrl(product.images[0]) 
+    ? product.images[0] 
+    : '/placeholder-image.jpg'
 
   return (
     <div className="max-w-7xl mx-auto px-4">
@@ -31,30 +44,53 @@ export default function ProductDetail({ product }: Props) {
           animate={{ opacity: 1, x: 0 }}
           className="space-y-4"
         >
-          <div className="aspect-square relative rounded-lg overflow-hidden border border-stone-700 shadow-lg shadow-amber-900/20">
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              fill
-              className="object-cover hover:scale-105 transition-transform duration-300"
-              priority
-            />
-          </div>
-          <div className="grid grid-cols-4 gap-4">
-            {product.images.slice(1).map((image, index) => (
-              <div
-                key={index}
-                className="aspect-square relative rounded-lg overflow-hidden border border-stone-700 shadow-lg shadow-amber-900/20"
-              >
-                <Image
-                  src={image}
-                  alt={`${product.name} ${t('productView')} ${index + 2}`}
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
-                />
+          {/* Main Product Image */}
+          <div className="relative w-full h-96 md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden border border-stone-700 shadow-lg shadow-amber-900/20">
+            {!mainImgError ? (
+              <Image
+                src={mainImage}
+                alt={product.name}
+                fill
+                className="object-cover hover:scale-105 transition-transform duration-300"
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                onError={() => setMainImgError(true)}
+                unoptimized={process.env.NODE_ENV === 'development'}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-stone-800">
+                <span className="text-stone-500">Image not available</span>
               </div>
-            ))}
+            )}
           </div>
+
+          {/* Thumbnail Images */}
+          {product.images && product.images.length > 1 && (
+            <div className="grid grid-cols-4 gap-4">
+              {product.images.slice(1).map((image, index) => (
+                <div
+                  key={index}
+                  className="relative w-full h-24 md:h-32 rounded-lg overflow-hidden border border-stone-700 shadow-lg shadow-amber-900/20"
+                >
+                  {!thumbnailErrors[index] && isValidImageUrl(image) ? (
+                    <Image
+                      src={image}
+                      alt={`${product.name} ${t('productView')} ${index + 2}`}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 25vw, 15vw"
+                      onError={() => setThumbnailErrors(prev => ({ ...prev, [index]: true }))}
+                      unoptimized={process.env.NODE_ENV === 'development'}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-stone-800">
+                      <span className="text-xs text-stone-500">No image</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         {/* Product Info */}
@@ -117,7 +153,7 @@ export default function ProductDetail({ product }: Props) {
               {t('ingredients')}
             </h2>
             <ul className="grid grid-cols-2 gap-2">
-              {product.ingredients.map((ingredient, index) => (
+              {product.ingredients && product.ingredients.map((ingredient, index) => (
                 <li key={index} className="text-stone-300 flex items-center space-x-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                   <span>{ingredient}</span>
@@ -134,7 +170,7 @@ export default function ProductDetail({ product }: Props) {
               {t('nutritionalInfo')}
             </h2>
             <dl className="grid grid-cols-2 gap-4">
-              {Object.entries(product.nutritionalInfo).map(([key, value]) => (
+              {product.nutritionalInfo && Object.entries(product.nutritionalInfo).map(([key, value]) => (
                 <div key={key} className="bg-stone-800/50 p-3 rounded-md">
                   <dt className="text-stone-400 text-sm">{key}</dt>
                   <dd className="text-stone-200 font-medium">{String(value)}</dd>
@@ -159,7 +195,7 @@ export default function ProductDetail({ product }: Props) {
                 </div>
               </div>
               
-              {product.allergens.length > 0 && (
+              {product.allergens && product.allergens.length > 0 && (
                 <div className="bg-stone-800/50 p-3 rounded-md">
                   <dt className="text-stone-400 text-sm mb-2">{t('allergens')}</dt>
                   <dd className="flex flex-wrap gap-2">
@@ -180,4 +216,4 @@ export default function ProductDetail({ product }: Props) {
       </motion.div>
     </div>
   )
-} 
+}

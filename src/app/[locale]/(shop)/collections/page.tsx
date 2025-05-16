@@ -95,7 +95,7 @@ export default async function CollectionsPage() {
           </div>
         )}
         
-        {/* Subscription Banner */}
+        {/*
         <div className="mt-20 bg-gradient-to-r from-amber-900/50 to-stone-800 rounded-lg p-8 border border-amber-800/30">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0">
@@ -113,6 +113,7 @@ export default async function CollectionsPage() {
             </Link>
           </div>
         </div>
+        */}
       </div>
     </div>
   )

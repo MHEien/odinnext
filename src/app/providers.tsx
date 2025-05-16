@@ -10,6 +10,7 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
+    <>
     <SessionProvider>
       <AuthProvider>
         <CartProvider>
@@ -17,5 +18,7 @@ export function Providers({ children }: ProvidersProps) {
         </CartProvider>
       </AuthProvider>
     </SessionProvider>
+
+    </>
   )
 } 

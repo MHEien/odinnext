@@ -37,23 +37,24 @@ interface FormData extends Omit<CreateProductInput, 'price' | 'weight' | 'stock'
   stock: string;
 }
 
-const initialFormData: FormData = {
-  name: '',
-  description: '',
-  longDescription: '',
-  price: '',
-  categoryId: '',
-  ingredients: [''],
-  allergens: [''],
-  weight: '',
-  images: ['/images/placeholder-product.jpg'],
-  inStock: true,
-  featured: false,
-  stock: '0',
-  nutritionalInfo: {},
-};
+
 
 export default function NewProductForm() {
+  const initialFormData: FormData = {
+    name: '',
+    description: '',
+    longDescription: '',
+    price: '',
+    categoryId: '',
+    ingredients: [''],
+    allergens: [''],
+    weight: '',
+    images: ['/images/placeholder-product.jpg'],
+    inStock: true,
+    featured: false,
+    stock: '0',
+    nutritionalInfo: {},
+  };
   const t = useTranslations('Admin.Products');
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>(initialFormData);

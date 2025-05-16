@@ -12,7 +12,15 @@
     "orders": "Bestillinger",
     "contactUs": "Kontakt Oss",
     "about": "Om oss",
-    "account": "Konto",
+    "account": {
+      "title": "Konto",
+      "profile": "Profil",
+      "orders": "Bestillinger",
+      "subscriptions": "Abonnementer",
+      "preferences": "Preferanser",
+      "admin": "Admin",
+      "signOut": "Logg ut"
+    },
     "language": "Endre språk",
     "orCheckoutAsGuest": "Eller sjekk ut som gjest",
     "signUp": "Registrer",
@@ -625,6 +633,7 @@
       "subscribeNews": "Abonner på våre nyheter",
       "ourStory": "Vår Historie",
       "contactUs": "Kontakt Oss",
+      "collections": "Kolleksjoner",
       "shipping": "Frakt",
       "returns": "Retur",
       "faq": "Ofte Stilte Spørsmål",
@@ -736,5 +745,35 @@
       "biweekly": "Annenhver uke",
       "monthly": "Månedlig"
     }
+  },
+  "Contact": {
+    "hero": {
+      "title": "Kontakt Oss",
+      "subtitle": "Har du spørsmål om våre håndlagde sjokolader eller ønsker å legge inn en spesialbestilling? Vi vil gjerne høre fra deg."
+    },
+    "form": {
+      "title": "Send Oss en Melding",
+      "name": "Ditt Navn",
+      "email": "E-postadresse",
+      "message": "Din Melding",
+      "submit": "Send Melding",
+      "sending": "Sender...",
+      "success": "Meldingen er sendt! Vi vil svare deg så snart som mulig.",
+      "error": "Det oppstod en feil ved sending av meldingen. Vennligst prøv igjen."
+    },
+    "info": {
+      "title": "Kontaktinformasjon",
+      "address": "Besøk Vår Butikk",
+      "email": "Send E-post",
+      "phone": "Ring Oss"
+    },
+    "hours": {
+      "title": "Åpningstider",
+      "weekdays": "Mandag - Fredag",
+      "saturday": "Lørdag",
+      "sunday": "Søndag",
+      "closed": "Stengt"
+    },
+    "visit_us": "Vis veibeskrivelse"
   }
 }

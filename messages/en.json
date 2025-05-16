@@ -13,16 +13,16 @@
     "contactUs": "Contact Us",
     "about": "About us",
     "account": {
-      "profile": "profile",
-      "subscriptions": "subscriptions",
-      "orders": "orders",
-      "admin": "admin",
-      "signOut": "signOut"
+      "profile": "Profile",
+      "subscriptions": "Subscriptions",
+      "orders": "Orders",
+      "admin": "Admin",
+      "signOut": "Sign out"
     },
     "language": "Change language",
     "orCheckoutAsGuest": "Or check out as guest",
-    "signIn": "signIn",
-    "signUp": "signUp"
+    "signIn": "Sign in",
+    "signUp": "Sign up"
   },
   "Products": {
     "addToCart": "Add to cart",
@@ -632,6 +632,7 @@
       "shop": "Shop",
       "company": "Company",
       "allProducts": "All Products",
+      "collections": "Collections",
       "featured": "Featured",
       "newReleases": "New Releases",
       "subscribeNews": "Subscribe to our newsletter",
@@ -1178,5 +1179,35 @@
   "function toLocaleString() {\n    [native code]\n}": {
     "en-US": "en-US",
     "no-NO": "no-NO"
+  },
+  "Contact": {
+    "hero": {
+      "title": "Get in Touch",
+      "subtitle": "Have questions about our artisanal chocolates or want to place a special order? We'd love to hear from you."
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "name": "Your Name",
+      "email": "Email Address",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! We'll get back to you soon.",
+      "error": "There was an error sending your message. Please try again."
+    },
+    "info": {
+      "title": "Contact Information",
+      "address": "Visit Our Store",
+      "email": "Email Us",
+      "phone": "Call Us"
+    },
+    "hours": {
+      "title": "Business Hours",
+      "weekdays": "Monday - Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "closed": "Closed"
+    },
+    "visit_us": "Show directions"
   }
 }

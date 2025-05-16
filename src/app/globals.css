@@ -56,3 +56,67 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-primary-200 rounded-full hover:bg-primary-300;
 }
+
+/* Leaflet Map Customization */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #1c1917;
+  color: #e7e5e4;
+  border-radius: 0.5rem;
+  border: 1px solid #44403c;
+}
+
+.leaflet-popup-tip {
+  background: #1c1917;
+  border: 1px solid #44403c;
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background: #1c1917 !important;
+  color: #e7e5e4 !important;
+  border: 1px solid #44403c !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background: #292524 !important;
+}
+
+/* Subtle attribution styling */
+.leaflet-control-attribution {
+  background: rgba(28, 25, 23, 0.4) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(68, 64, 60, 0.2) !important;
+  padding: 2px 4px !important;
+  border-radius: 4px !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  margin: 0 4px 4px 0 !important;
+}
+
+.leaflet-control-attribution a {
+  color: #a8a29e !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease-in-out !important;
+}
+
+.leaflet-control-attribution a:hover {
+  color: #d6d3d1 !important;
+}
+
+/* Hide default images that might not load */
+.leaflet-marker-icon {
+  border: none;
+  background: none;
+}

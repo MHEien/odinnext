@@ -56,7 +56,7 @@ export default function AboutPage() {
         >
           <motion.div variants={itemVariants} className="relative h-96">
             <Image
-              src="/images/crafting.jpg"
+              src="/images/bg-hero.png"
               alt="Artisanal chocolate crafting"
               fill
               className="object-cover rounded-lg"
@@ -167,11 +167,11 @@ export default function AboutPage() {
           <motion.h2 variants={itemVariants} className="font-norse text-3xl text-stone-100 mb-12">
             {t('team.title')}
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div variants={itemVariants}>
               <div className="relative w-48 h-48 mx-auto mb-4">
                 <Image
-                  src="/images/team/master-craftsman.jpg"
+                  src="/images/team/martin.png"
                   alt="Master Chocolatier"
                   fill
                   className="object-cover rounded-full border-2 border-amber-600"
@@ -185,7 +185,7 @@ export default function AboutPage() {
             <motion.div variants={itemVariants}>
               <div className="relative w-48 h-48 mx-auto mb-4">
                 <Image
-                  src="/images/team/artisan.jpg"
+                  src="/images/team/kriss.png"
                   alt="Lead Artisan"
                   fill
                   className="object-cover rounded-full border-2 border-amber-600"
@@ -199,14 +199,28 @@ export default function AboutPage() {
             <motion.div variants={itemVariants}>
               <div className="relative w-48 h-48 mx-auto mb-4">
                 <Image
-                  src="/images/team/flavor-master.jpg"
+                  src="/images/team/ariana.png"
                   alt="Flavor Master"
                   fill
                   className="object-cover rounded-full border-2 border-amber-600"
                 />
               </div>
               <h3 className="font-norse text-xl text-stone-100 mb-1">
-                Thor Bjarne Henriksen
+                Ariana Aschjem
+              </h3>
+              <p className="text-amber-500">{t('team.roles.flavorMaster')}</p>
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <div className="relative w-48 h-48 mx-auto mb-4">
+                <Image
+                  src="/images/team/andrine.png"
+                  alt="Flavor Master"
+                  fill
+                  className="object-cover rounded-full border-2 border-amber-600"
+                />
+              </div>
+              <h3 className="font-norse text-xl text-stone-100 mb-1">
+                Andrine Vivestad
               </h3>
               <p className="text-amber-500">{t('team.roles.flavorMaster')}</p>
             </motion.div>

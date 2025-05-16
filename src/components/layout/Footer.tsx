@@ -6,9 +6,9 @@ import NewsletterForm from './NewsletterForm'
 const footerNavigation = {
   shop: [
     { name: "allProducts", href: "/shop" },
-    { name: "featured", href: "/shop/featured" },
-    { name: "newReleases", href: "/shop/new" },
-    { name: "subscribeNews", href: "/shop/subscriptions" },
+    { name: "featured", href: "/products" },
+    { name: "newReleases", href: "/products" },
+    { name: "collections", href: "/collections" },
   ],
   company: [
     { name: "ourStory", href: "/about" },
@@ -23,7 +23,7 @@ const footerNavigation = {
   social: [
     {
       name: "Instagram",
-      href: "#",
+      href: "https://www.instagram.com/odinchocolate/",
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -36,7 +36,7 @@ const footerNavigation = {
     },
     {
       name: "Facebook",
-      href: "#",
+      href: "https://www.facebook.com/odinchocolate/",
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path

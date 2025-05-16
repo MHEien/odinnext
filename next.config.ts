@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'v7kjjrxwjplkvql5.public.blob.vercel-storage.com',
+      },
     ],
   },
   async headers() {
