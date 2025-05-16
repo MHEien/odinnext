@@ -85,7 +85,9 @@ export async function POST(request: NextRequest) {
               city: shippingDetails.city || "",
               state: "", // Vipps doesn't provide state
               postalCode: shippingDetails.postalCode || "",
-              country: shippingDetails.country || ""
+              country: shippingDetails.country || "",
+              createdAt: new Date(),
+              updatedAt: new Date()
             }
           });
           updateData.shippingAddress = { connect: { id: shippingAddress.id } };
@@ -107,7 +109,9 @@ export async function POST(request: NextRequest) {
               city: billingDetails.city || "",
               state: "", // Vipps doesn't provide state
               postalCode: billingDetails.postalCode || "",
-              country: billingDetails.country || ""
+              country: billingDetails.country || "",
+              createdAt: new Date(),
+              updatedAt: new Date()
             }
           });
           updateData.billingAddress = { connect: { id: billingAddress.id } };
@@ -119,7 +123,7 @@ export async function POST(request: NextRequest) {
       // Update order with status and newly created address IDs
       await prisma.order.update({
         where: { id: reference },
-        data: updateData
+        data: updateData,
       });
     }
 

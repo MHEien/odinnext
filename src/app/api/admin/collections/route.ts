@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { z } from 'zod'
 import { UserRole } from '@prisma/client'
+import { serializeModel } from '@/lib/utils/prisma-helpers'
 
 const collectionSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -56,7 +57,8 @@ export async function GET() {
       }
     })
 
-    return NextResponse.json(collections)
+    // Serialize Decimal values to numbers
+    return NextResponse.json(serializeModel(collections))
   } catch (error) {
     console.error('Error fetching collections:', error)
     return NextResponse.json(

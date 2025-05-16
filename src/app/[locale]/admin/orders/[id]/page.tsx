@@ -6,14 +6,33 @@ import { getOrderById } from '@/lib/db/actions/orders';
 import { StatusSelect } from './StatusSelect';
 import { getTranslations } from 'next-intl/server';
 
-// Utility functions
-function formatDate(date: Date | null | undefined) {
-  if (!date) return 'N/A';
-  return new Date(date).toLocaleDateString('no-NO', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+// Improved date validation and formatting
+function formatDate(date: Date | null | undefined | object) {
+  // Check if date is null, undefined, an empty object, or not a valid date
+  if (!date || 
+      (typeof date === 'object' && Object.keys(date).length === 0) || 
+      (date instanceof Date && isNaN(date.getTime()))) {
+    return 'N/A';
+  }
+  
+  try {
+    // Convert to Date if it's not already
+    const dateObj = date instanceof Date ? date : new Date(date as unknown as string);
+    
+    // Validate the date is valid before formatting
+    if (isNaN(dateObj.getTime())) {
+      return 'N/A';
+    }
+    
+    return dateObj.toLocaleDateString('no-NO', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch (error) {
+    console.error("Error formatting date:", error);
+    return 'N/A';
+  }
 }
 
 function formatPrice(amount: Prisma.Decimal | number | string | null | undefined) {
@@ -56,18 +75,34 @@ export default async function OrderDetailPage({
   const { id } = await params
   const order = await getOrderById(id);
   const t = await getTranslations('Admin')
-
+  
   if (!order) {
-    return null;
+    return <div className="p-8">Order not found</div>;
   }
 
+  // Handle cases where items or product might be undefined
+  const orderItems = order.items || [];
+  
+  // Safely create status timeline with fallback dates
+  // Create a default date for statuses if the order doesn't have valid timestamps
+  const defaultDate = new Date(); // Use current date as fallback
+  
+  // Get valid dates or use fallbacks
+  const createdAt = (order.createdAt && 
+                    !(typeof order.createdAt === 'object' && Object.keys(order.createdAt).length === 0)) 
+                    ? order.createdAt : defaultDate;
+                    
+  const updatedAt = (order.updatedAt && 
+                    !(typeof order.updatedAt === 'object' && Object.keys(order.updatedAt).length === 0)) 
+                    ? order.updatedAt : defaultDate;
+  
   const statusTimeline = [
-    { status: 'PENDING', date: order.createdAt },
-    { status: 'PROCESSING', date: order.updatedAt },
-    { status: 'SHIPPED', date: order.updatedAt },
-    { status: 'DELIVERED', date: order.updatedAt },
-    { status: 'CANCELLED', date: order.updatedAt },
-  ].filter((item) => item.date);
+    { status: 'PENDING', date: createdAt },
+    { status: 'PROCESSING', date: updatedAt },
+    { status: 'SHIPPED', date: updatedAt },
+    { status: 'DELIVERED', date: updatedAt },
+    { status: 'CANCELLED', date: updatedAt },
+  ];
 
   return (
     <div className="p-8">
@@ -88,10 +123,11 @@ export default async function OrderDetailPage({
             </Link>
             <h1 className="font-display text-3xl">{t('orders.orderTitle', { id: order.id })}</h1>
             <p className="text-stone-600">
-              {t('orders.createdOn', { date: formatDate(order.createdAt) })}
+              {t('orders.createdOn', { date: formatDate(createdAt) })}
             </p>
           </div>
           <div className="flex gap-4">
+            {/* Only render StatusSelect if order is valid */}
             <StatusSelect order={order} />
           </div>
         </motion.div>
@@ -107,32 +143,46 @@ export default async function OrderDetailPage({
             <div className="bg-white rounded-xl shadow-sm p-6">
               <h2 className="font-display text-xl mb-4">{t('orders.items')}</h2>
               <div className="space-y-4">
-                {order.items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center gap-4 p-4 bg-stone-50 rounded-lg"
-                  >
-                    <div className="relative w-16 h-16">
-                      <Image
-                        src={item.product.images[0] || '/placeholder.png'}
-                        alt={item.product.name}
-                        fill
-                        className="object-cover rounded-md"
-                      />
+                {orderItems.map((item) => {
+                  const productImage = item.product && item.product.images && item.product.images.length > 0 
+                    ? item.product.images[0] 
+                    : '/placeholder.png';
+                  
+                  const productName = item.product ? item.product.name : 'Product Not Available';
+                  
+                  return (
+                    <div
+                      key={item.id}
+                      className="flex items-center gap-4 p-4 bg-stone-50 rounded-lg"
+                    >
+                      <div className="relative w-16 h-16">
+                        <Image
+                          src={productImage}
+                          alt={productName}
+                          fill
+                          className="object-cover rounded-md"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-medium">{productName}</h3>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium">
+                          {formatPrice(Number(item.price) * item.quantity)}
+                        </p>
+                        <p className="text-sm text-stone-600">
+                          {item.quantity} × {formatPrice(item.price)}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-medium">{item.product.name}</h3>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-medium">
-                        {formatPrice(Number(item.price) * item.quantity)}
-                      </p>
-                      <p className="text-sm text-stone-600">
-                        {item.quantity} × {formatPrice(item.price)}
-                      </p>
-                    </div>
+                  );
+                })}
+                
+                {orderItems.length === 0 && (
+                  <div className="p-4 bg-stone-50 rounded-lg text-center">
+                    No items found
                   </div>
-                ))}
+                )}
               </div>
               <div className="mt-6 pt-6 border-t border-stone-200">
                 <div className="space-y-2">
@@ -148,14 +198,14 @@ export default async function OrderDetailPage({
             <div className="bg-white rounded-xl shadow-sm p-6">
               <h2 className="font-display text-xl mb-4">{t('orders.timeline')}</h2>
               <div className="space-y-4">
-                {statusTimeline.map((item, index) => (
+                {statusTimeline.map((item) => (
                   <div
                     key={item.status}
                     className="flex items-start gap-4"
                   >
                     <div
                       className={`w-2 h-2 mt-2 rounded-full ${
-                        index === statusTimeline.length - 1
+                        order.status === item.status
                           ? 'bg-primary-600'
                           : 'bg-stone-400'
                       }`}
@@ -184,25 +234,35 @@ export default async function OrderDetailPage({
                   <h3 className="text-sm font-medium text-stone-600">
                     {t('orders.shippingAddress')}
                   </h3>
-                  <p>{order.shippingAddress?.street}</p>
-                  <p>
-                    {order.shippingAddress?.city}, {order.shippingAddress?.state}{' '}
-                    {order.shippingAddress?.postalCode}
-                  </p>
-                  <p>{order.shippingAddress?.country}</p>
+                  {order.shippingAddress ? (
+                    <>
+                      <p>{order.shippingAddress.street}</p>
+                      <p>
+                        {order.shippingAddress.city}, {order.shippingAddress.state}{' '}
+                        {order.shippingAddress.postalCode}
+                      </p>
+                      <p>{order.shippingAddress.country}</p>
+                    </>
+                  ) : (
+                    <p>No shipping address provided</p>
+                  )}
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-stone-600">
                     {t('orders.paymentMethod')}
                   </h3>
-                  <p>
-                    {order.paymentMethod.type === 'card'
-                      ? t('orders.cardEnding', { 
-                          brand: order.paymentMethod.cardBrand,
-                          last4: order.paymentMethod.last4 
-                        })
-                      : order.paymentMethod.type}
-                  </p>
+                  {order.paymentMethod ? (
+                    <p>
+                      {order.paymentMethod.type === 'card' && order.paymentMethod.cardBrand && order.paymentMethod.last4
+                        ? t('orders.cardEnding', { 
+                            brand: order.paymentMethod.cardBrand,
+                            last4: order.paymentMethod.last4 
+                          })
+                        : order.paymentMethod.type}
+                    </p>
+                  ) : (
+                    <p>No payment method provided</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -211,4 +271,4 @@ export default async function OrderDetailPage({
       </motion.div>
     </div>
   );
-} 
+}

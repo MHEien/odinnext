@@ -4,6 +4,7 @@ import { prisma } from '@/lib/db'
 import { auth } from '@/auth'
 import { revalidatePath } from 'next/cache'
 import type { Product, Prisma } from '@prisma/client'
+import { serializeModel } from '@/lib/utils/prisma-helpers'
 
 export type ProductWithStats = Omit<Product, 'price'> & {
   price: number
@@ -112,12 +113,7 @@ export async function createProduct(data: Prisma.ProductCreateInput) {
   revalidatePath('/admin/products')
   
   // Convert Decimal to Number before returning to client
-  const serializedProduct = {
-    ...product,
-    price: Number(product.price),
-  };
-  
-  return serializedProduct
+  return serializeModel(product)
 }
 
 export async function updateProduct(id: string, data: Prisma.ProductUpdateInput) {
@@ -138,12 +134,7 @@ export async function updateProduct(id: string, data: Prisma.ProductUpdateInput)
   revalidatePath(`/admin/products/${id}`)
   
   // Convert Decimal to Number before returning to client
-  const serializedProduct = {
-    ...product,
-    price: Number(product.price),
-  };
-  
-  return serializedProduct
+  return serializeModel(product)
 }
 
 export async function deleteProduct(id: string) {
@@ -159,7 +150,7 @@ export async function deleteProduct(id: string) {
   revalidatePath('/admin/products')
 }
 
-export async function updateStock(id: string, quantity: number): Promise<Omit<Product, 'price'> & { price: number }> {
+export async function updateStock(id: string, quantity: number) {
   const product = await prisma.product.update({
     where: { id },
     data: {
@@ -170,10 +161,7 @@ export async function updateStock(id: string, quantity: number): Promise<Omit<Pr
   });
   
   // Convert Decimal to Number before returning to client
-  return {
-    ...product,
-    price: Number(product.price),
-  };
+  return serializeModel(product);
 }
 
 export async function searchProducts(query: string): Promise<(Omit<Product, 'price'> & { price: number })[]> {

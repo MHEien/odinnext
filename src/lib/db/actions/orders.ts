@@ -5,6 +5,7 @@ import { auth } from '@/auth'
 import { revalidatePath } from 'next/cache'
 import type { Order, OrderItem, Address, PaymentMethod } from '@prisma/client'
 import { Prisma } from '@prisma/client'
+import { serializeModel } from '@/lib/utils/prisma-helpers'
 
 export type OrderWithItems = Order & {
   items: (OrderItem & {
@@ -172,8 +173,8 @@ export async function getOrders(): Promise<OrderWithDetails[]> {
     }
   })
 
-  // Type assertion since we know the query matches our type
-  return orders as OrderWithDetails[]
+  // Serialize Decimal values to numbers for client usage
+  return serializeModel(orders) as OrderWithDetails[]
 }
 
 export async function getOrder(id: string): Promise<OrderWithDetails | null> {
@@ -204,8 +205,8 @@ export async function getOrder(id: string): Promise<OrderWithDetails | null> {
     }
   })
 
-  // Type assertion since we know the query matches our type
-  return order as OrderWithDetails | null
+  // Serialize Decimal values to numbers for client usage
+  return order ? serializeModel(order) as OrderWithDetails : null
 }
 
 export async function updateOrderStatus(id: string, status: Order['status']) {
@@ -238,7 +239,7 @@ export async function deleteOrder(id: string) {
 }
 
 export async function getOrdersByUserId(userId: string): Promise<OrderWithItems[]> {
-  return prisma.order.findMany({
+  const orders = await prisma.order.findMany({
     where: { userId },
     include: {
       items: {
@@ -257,10 +258,13 @@ export async function getOrdersByUserId(userId: string): Promise<OrderWithItems[
     },
     orderBy: { createdAt: 'desc' }
   })
+  
+  // Serialize Decimal values to numbers for client usage
+  return serializeModel(orders) as OrderWithItems[]
 }
 
 export async function getOrderById(id: string): Promise<OrderWithItems | null> {
-  return prisma.order.findUnique({
+  const order = await prisma.order.findUnique({
     where: { id },
     include: {
       items: {
@@ -278,6 +282,9 @@ export async function getOrderById(id: string): Promise<OrderWithItems | null> {
       paymentMethod: true
     }
   })
+  
+  // Serialize Decimal values to numbers for client usage
+  return order ? serializeModel(order) as OrderWithItems : null
 }
 
 export async function cancelOrder(id: string): Promise<Order> {

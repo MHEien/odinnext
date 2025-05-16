@@ -70,7 +70,9 @@ export async function POST(request: NextRequest) {
                             productId: product.id,
                             quantity: product.quantity
                         }))
-                    }
+                    },
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 }
             });
             
@@ -105,7 +107,9 @@ export async function POST(request: NextRequest) {
                             quantity: product.quantity,
                             price: new Decimal(product.price)
                         }))
-                    }
+                    },
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 }
             });
             

@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/db'
 import type { Collection, CollectionProduct, Product } from '@prisma/client'
+import { Prisma } from '@prisma/client'
+import { serializeModel } from '@/lib/utils/prisma-helpers'
 
 
 interface GetCollectionsOptions {
@@ -33,11 +35,12 @@ export async function getCollections(options: GetCollectionsOptions = {}): Promi
     }
   })
 
-  return collections
+  // Serialize Decimal values to numbers
+  return serializeModel(collections)
 }
 
 export async function getCollectionById(id: string): Promise<CollectionWithProducts | null> {
-  return prisma.collection.findUnique({
+  const collection = await prisma.collection.findUnique({
     where: { id },
     include: {
       products: {
@@ -47,6 +50,9 @@ export async function getCollectionById(id: string): Promise<CollectionWithProdu
       }
     }
   })
+  
+  // Serialize Decimal values to numbers
+  return collection ? serializeModel(collection) : null
 }
 
 export async function createCollection(data: {
@@ -58,9 +64,10 @@ export async function createCollection(data: {
   active?: boolean
   products: { productId: string; quantity: number }[]
 }) {
-  return prisma.collection.create({
+  const collection = await prisma.collection.create({
     data: {
       ...data,
+      price: new Prisma.Decimal(data.price),
       products: {
         create: data.products.map(p => ({
           quantity: p.quantity,
@@ -78,6 +85,9 @@ export async function createCollection(data: {
       }
     }
   })
+  
+  // Serialize Decimal values to numbers
+  return serializeModel(collection)
 }
 
 export async function updateCollection(
@@ -93,11 +103,17 @@ export async function updateCollection(
   }
 ) {
   const { products, ...rest } = data
+  
+  // Convert price to Prisma.Decimal if it exists
+  const updateData = {
+    ...rest,
+    ...(rest.price !== undefined ? { price: new Prisma.Decimal(rest.price) } : {})
+  }
 
   // First update the collection details
   await prisma.collection.update({
     where: { id },
-    data: rest
+    data: updateData
   })
 
   // If products are provided, update them
@@ -123,7 +139,10 @@ export async function updateCollection(
     })
   }
 
-  return getCollectionById(id)
+  const updatedCollection = await getCollectionById(id)
+  
+  // Serialize Decimal values to numbers (although getCollectionById already does this)
+  return updatedCollection
 }
 
 export async function deleteCollection(id: string) {

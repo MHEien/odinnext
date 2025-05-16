@@ -80,7 +80,7 @@ export function OrderList({ orders }: OrderListProps) {
                 </td>
                 <td className="px-6 py-4">
                   <div className="text-sm">
-                    <p className="text-stone-900">{order.user.name || order.user.email}</p>
+                    <p className="text-stone-900">{order.user?.name || order.user?.email}</p>
                   </div>
                 </td>
                 <td className="px-6 py-4">
