@@ -22,8 +22,8 @@ async function checkOrder(orderId: string) {
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const orderId = params.id;
+export async function GET(request: NextRequest) {
+  const orderId = request.nextUrl.searchParams.get('id');
 
   if (!orderId) {
     return new Response('Order ID is required', { status: 400 });
