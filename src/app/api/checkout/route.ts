@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 export async function POST(request: NextRequest) {
     const { products, isSubscription } = await request.json();
 
+
     const orderId = uuidv4();
 
     if (!products) {
@@ -17,6 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     const checkout = await createCheckout({ products, orderId });
+    console.log('checkout', JSON.stringify(checkout, null, 2));
     return NextResponse.json(checkout);
 }
 
