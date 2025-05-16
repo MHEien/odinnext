@@ -47,11 +47,7 @@ export default function CartPage() {
   const handleCheckout = async () => {
     try {
       const body = {
-        products: items.map(item => ({
-          id: item.productId,
-          price: item.price,
-          quantity: item.quantity
-        })),
+        products: items,
         isSubscription,
         frequency: isSubscription ? frequency : undefined,
       }
