@@ -12,26 +12,12 @@ interface ProductItem {
     quantity: number;
 }
 
-interface AddressData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    street: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
-}
-
 export async function POST(request: NextRequest) {
     try {
         const { 
             products, 
             isSubscription, 
             userId, 
-            shippingAddress, 
-            billingAddress,
             frequency = 'MONTHLY',
             collectionId = null
         } = await request.json();
@@ -83,24 +69,14 @@ export async function POST(request: NextRequest) {
                 }
             });
 
-            // Create address records
-            const shippingAddrRecord = await prisma.address.create({
-                data: shippingAddress as AddressData,
-            });
-
-            const billingAddrRecord = await prisma.address.create({
-                data: (billingAddress || shippingAddress) as AddressData,
-            });
-
-            // Create order record in database
+            // Create order record in database without addresses
+            // Addresses will be added when we get the data from Vipps
             const order = await prisma.order.create({
                 data: {
                     id: orderId,
                     userId,
                     status: OrderStatus.PENDING,
                     total: new Decimal(total),
-                    shippingAddressId: shippingAddrRecord.id,
-                    billingAddressId: billingAddrRecord.id,
                     paymentMethodId: paymentMethod.id,
                     items: {
                         create: products.map((product: ProductItem) => ({

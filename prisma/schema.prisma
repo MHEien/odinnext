@@ -160,10 +160,10 @@ model Order {
   status          OrderStatus @default(PENDING)
   total           Decimal     @db.Decimal(10, 2)
   items           OrderItem[]
-  shippingAddress Address     @relation("OrderShippingAddress", fields: [shippingAddressId], references: [id])
-  shippingAddressId String
-  billingAddress  Address     @relation("OrderBillingAddress", fields: [billingAddressId], references: [id])
-  billingAddressId String
+  shippingAddress Address?     @relation("OrderShippingAddress", fields: [shippingAddressId], references: [id])
+  shippingAddressId String?
+  billingAddress  Address?     @relation("OrderBillingAddress", fields: [billingAddressId], references: [id])
+  billingAddressId String?
   paymentMethod   PaymentMethod @relation(fields: [paymentMethodId], references: [id])
   paymentMethodId String
   createdAt       DateTime    @default(now())
@@ -172,15 +172,15 @@ model Order {
 
 model Address {
   id          String   @id @default(cuid())
-  firstName   String
-  lastName    String
-  email       String
-  phone       String
-  street      String
-  city        String
-  state       String
-  postalCode  String
-  country     String
+  firstName   String?
+  lastName    String?
+  email       String?
+  phone       String?
+  street      String?
+  city        String?
+  state       String?
+  postalCode  String?
+  country     String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   

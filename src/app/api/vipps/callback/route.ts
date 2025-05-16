@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getCheckout } from '@/lib/vipps';
-import { OrderStatus, SubscriptionStatus } from '@prisma/client';
+import { OrderStatus, SubscriptionStatus, Prisma } from '@prisma/client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -52,6 +52,10 @@ export async function POST(request: NextRequest) {
       (checkoutData && typeof checkoutData === 'object' && checkoutData !== null && 
        'subscription' in checkoutData);
 
+    // Extract shipping and billing details if available
+    const shippingDetails = checkoutData?.shippingDetails;
+    const billingDetails = checkoutData?.billingDetails;
+
     // Update order or subscription status in database
     if (isSubscription) {
       await prisma.subscription.update({
@@ -62,12 +66,60 @@ export async function POST(request: NextRequest) {
         }
       });
     } else {
+      // Create and connect address records if provided
+      const updateData: Prisma.OrderUpdateInput = {
+        status: orderStatus,
+        updatedAt: new Date()
+      };
+
+      // Create shipping address if provided
+      if (shippingDetails) {
+        try {
+          const shippingAddress = await prisma.address.create({
+            data: {
+              firstName: shippingDetails.firstName || "",
+              lastName: shippingDetails.lastName || "",
+              email: shippingDetails.email || "",
+              phone: shippingDetails.phoneNumber || "",
+              street: shippingDetails.streetAddress || "",
+              city: shippingDetails.city || "",
+              state: "", // Vipps doesn't provide state
+              postalCode: shippingDetails.postalCode || "",
+              country: shippingDetails.country || ""
+            }
+          });
+          updateData.shippingAddress = { connect: { id: shippingAddress.id } };
+        } catch (error) {
+          console.error('Failed to create shipping address:', error);
+        }
+      }
+
+      // Create billing address if provided
+      if (billingDetails) {
+        try {
+          const billingAddress = await prisma.address.create({
+            data: {
+              firstName: billingDetails.firstName || "",
+              lastName: billingDetails.lastName || "",
+              email: billingDetails.email || "",
+              phone: billingDetails.phoneNumber || "",
+              street: billingDetails.streetAddress || "",
+              city: billingDetails.city || "",
+              state: "", // Vipps doesn't provide state
+              postalCode: billingDetails.postalCode || "",
+              country: billingDetails.country || ""
+            }
+          });
+          updateData.billingAddress = { connect: { id: billingAddress.id } };
+        } catch (error) {
+          console.error('Failed to create billing address:', error);
+        }
+      }
+
+      // Update order with status and newly created address IDs
       await prisma.order.update({
         where: { id: reference },
-        data: {
-          status: orderStatus,
-          updatedAt: new Date()
-        }
+        data: updateData
       });
     }
 
