@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { usePathname } from 'next/navigation';
 import { Link } from '@/i18n/routing'
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { UserRole } from '@prisma/client';
 
 interface AdminUser {
@@ -189,7 +189,7 @@ interface ClientAdminLayoutProps {
 
 export function ClientAdminLayout({ user, children }: ClientAdminLayoutProps) {
   const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <>
@@ -214,11 +214,31 @@ export function ClientAdminLayout({ user, children }: ClientAdminLayoutProps) {
       />
       <ErrorBoundary reset={() => window.location.reload()}>
         <div className="min-h-screen bg-stone-50">
-          {/* Sidebar */}
-          <aside
-            className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-stone-200 transform transition-transform duration-200 ease-in-out ${
-              isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            }`}
+          {/* Overlay */}
+          <AnimatePresence>
+            {isSidebarOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.4 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsSidebarOpen(false)}
+                className="fixed inset-0 bg-black lg:hidden z-40"
+              />
+            )}
+          </AnimatePresence>
+
+          {/* Mobile Sidebar */}
+          <motion.aside
+            initial={false}
+            animate={{
+              x: isSidebarOpen ? 0 : -256,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 30
+            }}
+            className="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-stone-200 lg:hidden"
           >
             <div className="h-16 flex items-center justify-between px-4 border-b border-stone-200">
               <Link href="/admin" className="font-display text-xl">
@@ -226,7 +246,7 @@ export function ClientAdminLayout({ user, children }: ClientAdminLayoutProps) {
               </Link>
               <button
                 onClick={() => setIsSidebarOpen(false)}
-                className="lg:hidden p-2 hover:bg-stone-100 rounded-lg"
+                className="p-2 hover:bg-stone-100 rounded-lg"
               >
                 <svg
                   className="w-6 h-6"
@@ -243,47 +263,21 @@ export function ClientAdminLayout({ user, children }: ClientAdminLayoutProps) {
                 </svg>
               </button>
             </div>
-            <nav className="p-4 space-y-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
-                    pathname === item.href
-                      ? 'bg-primary-50 text-primary-600'
-                      : 'text-stone-600 hover:bg-stone-50'
-                  }`}
-                >
-                  {item.icon}
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-            <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-stone-200">
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-8 h-8 rounded-full bg-cover bg-center"
-                  style={{
-                    backgroundImage: user.image
-                      ? `url(${user.image})`
-                      : 'none',
-                    backgroundColor: !user.image ? '#e5e7eb' : undefined,
-                  }}
-                />
-                <div>
-                  <p className="font-medium">{user.name}</p>
-                  <p className="text-sm text-stone-600">{user.email}</p>
-                </div>
-              </div>
+            <SidebarContent pathname={pathname} setIsSidebarOpen={setIsSidebarOpen} user={user} />
+          </motion.aside>
+
+          {/* Desktop Sidebar */}
+          <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:flex-col lg:w-64 bg-white border-r border-stone-200 z-50">
+            <div className="h-16 flex items-center px-4 border-b border-stone-200">
+              <Link href="/admin" className="font-display text-xl">
+                Odin Admin
+              </Link>
             </div>
+            <SidebarContent pathname={pathname} setIsSidebarOpen={setIsSidebarOpen} user={user} />
           </aside>
 
           {/* Main Content */}
-          <main
-            className={`min-h-screen transition-all duration-200 ${
-              isSidebarOpen ? 'lg:pl-64' : ''
-            }`}
-          >
+          <main className="lg:pl-64 min-h-screen">
             <div className="h-16 bg-white border-b border-stone-200 flex items-center px-4">
               <button
                 onClick={() => setIsSidebarOpen(true)}
@@ -310,6 +304,55 @@ export function ClientAdminLayout({ user, children }: ClientAdminLayoutProps) {
           </main>
         </div>
       </ErrorBoundary>
+    </>
+  );
+}
+
+function SidebarContent({ pathname, setIsSidebarOpen, user }: { 
+  pathname: string; 
+  setIsSidebarOpen: (open: boolean) => void;
+  user: AdminUser;
+}) {
+  return (
+    <>
+      <nav className="p-4 space-y-1">
+        {navItems.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            onClick={() => {
+              if (window.innerWidth < 1024) {
+                setIsSidebarOpen(false);
+              }
+            }}
+            className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
+              pathname === item.href
+                ? 'bg-primary-50 text-primary-600'
+                : 'text-stone-600 hover:bg-stone-50'
+            }`}
+          >
+            {item.icon}
+            {item.name}
+          </Link>
+        ))}
+      </nav>
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-stone-200">
+        <div className="flex items-center gap-3">
+          <div
+            className="w-8 h-8 rounded-full bg-cover bg-center"
+            style={{
+              backgroundImage: user.image
+                ? `url(${user.image})`
+                : 'none',
+              backgroundColor: !user.image ? '#e5e7eb' : undefined,
+            }}
+          />
+          <div>
+            <p className="font-medium">{user.name}</p>
+            <p className="text-sm text-stone-600">{user.email}</p>
+          </div>
+        </div>
+      </div>
     </>
   );
 } 

@@ -13,6 +13,7 @@
     "@ai-sdk/react": "^1.2.12",
     "@auth/core": "^0.37.4",
     "@auth/prisma-adapter": "^2.7.4",
+    "@edge-runtime/primitives": "^6.0.0",
     "@prisma/client": "^6.3.1",
     "@radix-ui/react-popover": "^1.1.13",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -27,6 +28,7 @@
     "@tiptap/starter-kit": "^2.12.0",
     "@types/accept-language-parser": "^1.5.8",
     "@types/bcrypt": "^5.0.2",
+    "@types/ws": "^8.18.1",
     "@vercel/analytics": "^1.5.0",
     "@vercel/blob": "^1.0.1",
     "@vippsmobilepay/sdk": "^2.4.2",
@@ -50,6 +52,7 @@
     "tailwind-merge": "^3.3.0",
     "uuid": "^11.1.0",
     "web-push": "^3.6.7",
+    "ws": "^8.18.2",
     "zod": "^3.24.1",
     "zustand": "^5.0.3"
   },

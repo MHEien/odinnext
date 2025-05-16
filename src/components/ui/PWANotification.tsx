@@ -15,7 +15,7 @@ interface WebPushSubscription {
   };
 }
 
-export default function PWANotification() {
+export default function PWANotification({isStandalone}: {isStandalone: boolean | undefined}) {
   const [isSupported, setIsSupported] = useState(false)
   const [subscription, setSubscription] = useState<PushSubscription | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -92,7 +92,7 @@ export default function PWANotification() {
     return outputArray
   }
 
-  if (!isSupported) {
+  if (!isSupported || !isStandalone) {
     return null
   }
 

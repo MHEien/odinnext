@@ -104,7 +104,7 @@ export async function createCheckout({
                         title: 'PostNord',
                         amount: {
                             currency: 'NOK',
-                            value: 111,
+                            value: 111 * 100,
                         },
                         description: 'PostNord',
                     }
@@ -219,7 +219,7 @@ export async function createSubscriptionCheckout({
             },
             merchantInfo: {
                 callbackUrl: `${baseUrl}/api/vipps/callback`,
-                returnUrl: `${baseUrl}/order/${orderId}/success`,
+                returnUrl: `${baseUrl}/orders/${orderId}/success`,
                 callbackAuthorizationToken: accessToken,
             },
             transaction: {
@@ -268,3 +268,11 @@ export async function getCheckout(orderId: string) {
     return checkout;
 }
  
+export async function createWebhook() {
+    const accessToken = await getAccessToken();
+    const webhook = await client.webhook.register(accessToken, {
+        events: ['epayments.payment.created.v1', 'epayments.payment.aborted.v1', 'epayments.payment.expired.v1', 'epayments.payment.cancelled.v1', 'epayments.payment.captured.v1', 'epayments.payment.refunded.v1', 'epayments.payment.authorized.v1', 'epayments.payment.terminated.v1'],
+        url: `https://odinnext.vercel.app/api/vipps/webhook`,
+    })
+    return webhook;
+}

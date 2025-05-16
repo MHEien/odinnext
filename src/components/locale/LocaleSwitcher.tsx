@@ -15,9 +15,10 @@ const locales = [
 
 type LocaleSwitcherProps = {
   closeMenu?: () => void;
+  direction?: 'up' | 'down';
 };
 
-export default function LocaleSwitcher({ closeMenu }: LocaleSwitcherProps) {
+export default function LocaleSwitcher({ closeMenu, direction = 'down' }: LocaleSwitcherProps) {
   const currentLocale = useLocale() as AppLocale;
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
@@ -56,10 +57,10 @@ export default function LocaleSwitcher({ closeMenu }: LocaleSwitcherProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            className="absolute right-0 mt-2 bg-white rounded-lg shadow-lg py-1 min-w-[120px]"
-            initial={{ opacity: 0, y: -10 }}
+            className={`absolute ${direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2'} right-0 bg-white rounded-lg shadow-lg py-1 min-w-[120px]`}
+            initial={{ opacity: 0, y: direction === 'up' ? 10 : -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: direction === 'up' ? 10 : -10 }}
             transition={{ duration: 0.2 }}
           >
             {locales.map((locale) => (

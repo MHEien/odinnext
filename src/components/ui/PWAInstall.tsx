@@ -63,6 +63,8 @@ export default function PWAInstall() {
   }
 
   return (
+    <>
+    {isIOS || showInstallButton && (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
       {isIOS ? (
         <div className="flex flex-col gap-2">
@@ -90,5 +92,7 @@ export default function PWAInstall() {
         </div>
       ) : null}
     </div>
+    )}
+    </>
   )
 } 

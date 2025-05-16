@@ -178,20 +178,32 @@
       "priceEach": "${price} per item"
     },
     "success": {
-      "title": "Order confirmed!",
-      "message": "Thank you for your order. We will send you a confirmation email with your order details.",
+      "title": "Order Confirmed!",
+      "message": "Thank you for your order. We'll start preparing it right away.",
+      "loading": {
+        "title": "Processing Your Order",
+        "message": "Please wait while we confirm your payment and prepare your order details..."
+      },
+      "processing": {
+        "title": "Creating Your Order",
+        "message": "We're waiting for confirmation from Vipps and setting up your order. This should only take a moment..."
+      },
+      "error": {
+        "title": "Something went wrong",
+        "message": "We couldn't load your order details. Please try again later."
+      },
       "details": {
-        "title": "Order details",
-        "orderNumber": "Order number",
-        "orderDate": "Order date",
-        "totalAmount": "Total amount",
+        "title": "Order Details",
+        "orderNumber": "Order Number",
+        "orderDate": "Order Date",
+        "totalAmount": "Total Amount",
         "status": "Status",
-        "items": "Ordered items",
+        "items": "Items Ordered",
         "quantity": "Quantity"
       },
       "actions": {
-        "viewOrders": "View orders",
-        "continueShopping": "Continue shopping"
+        "viewOrders": "View All Orders",
+        "continueShopping": "Continue Shopping"
       }
     }
   },
