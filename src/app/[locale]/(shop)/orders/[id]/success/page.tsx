@@ -30,7 +30,7 @@ export default function OrderSuccessPage() {
     const retryDelay = 2000; // 2 seconds
 
     const connectEventSource = () => {
-      eventSource = new EventSource(`/api/orders/${id}/status`);
+      eventSource = new EventSource(`/orders/${id}/status`);
 
       eventSource.onmessage = (event) => {
         const data = JSON.parse(event.data);
