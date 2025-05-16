@@ -68,21 +68,32 @@ export default function CartPage() {
       const data = await response.json();
       console.log("Checkout response:", data);
       
-      // Handling the Vipps response structure
-      if (data.ok && data.data) {
-        // If there's a Vipps response with token and checkout URL
-        if (data.data.token && data.data.checkoutFrontendUrl) {
-          // Redirect to Vipps checkout with token
-          const redirectUrl = `${data.data.checkoutFrontendUrl}?token=${data.data.token}`;
-          window.location.href = redirectUrl;
-          return;
-        }
+      // Handle various response formats from Vipps API
+      if (data.data?.checkoutFrontendUrl) {
+        // Format: { data: { checkoutFrontendUrl, token } }
+        const redirectUrl = data.data.token 
+          ? `${data.data.checkoutFrontendUrl}?token=${data.data.token}`
+          : data.data.checkoutFrontendUrl;
+        window.location.href = redirectUrl;
+        return;
+      } else if (data.checkoutFrontendUrl) {
+        // Format: { checkoutFrontendUrl, token }
+        const redirectUrl = data.token 
+          ? `${data.checkoutFrontendUrl}?token=${data.token}`
+          : data.checkoutFrontendUrl;
+        window.location.href = redirectUrl;
+        return;
       } else if (data.url) {
-        // Legacy format for direct URL
+        // Legacy format with direct URL
         window.location.href = data.url;
+        return;
+      } else if (data.redirectUrl) {
+        // Another possible format
+        window.location.href = data.redirectUrl;
         return;
       }
       
+      console.error('Unknown checkout response format:', data);
       throw new Error('Invalid checkout response format');
     } catch (error) {
       console.error('Checkout error:', error);
