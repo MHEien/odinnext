@@ -7,11 +7,16 @@
     "products": "Produkter",
     "collections": "Kolleksjoner",
     "cart": "Handlekurv",
+    "openMenu": "Åpne meny",
+    "closeMenu": "Lukk meny",
     "orders": "Bestillinger",
     "contactUs": "Kontakt Oss",
     "about": "Om oss",
     "account": "Konto",
-    "language": "Endre språk"
+    "language": "Endre språk",
+    "orCheckoutAsGuest": "Eller sjekk ut som gjest",
+    "signUp": "Registrer",
+    "signIn": "Logg inn"
   },
   "Products": {
     "addToCart": "Legg i handlekurv",

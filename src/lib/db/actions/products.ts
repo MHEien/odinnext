@@ -62,10 +62,6 @@ export async function getProducts(): Promise<ProductWithStats[]> {
 }
 
 export async function getProduct(id: string): Promise<ProductWithStats | null> {
-  const session = await auth()
-  if (!session?.user) {
-    throw new Error('Not authenticated')
-  }
 
   const product = await prisma.product.findUnique({
     where: { id },

@@ -11,7 +11,7 @@ export default function ProductHero() {
     <div className="relative h-[40vh] overflow-hidden">
       <div className="absolute inset-0 bg-black/40 z-10" />
       <Image
-        src="/globe.svg"
+        src="/images/sjoko.png"
         alt="Viking products banner"
         fill
         className="object-cover"

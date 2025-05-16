@@ -7,20 +7,33 @@
     "products": "Products",
     "collections": "Collections",
     "cart": "Shopping cart",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
     "orders": "Orders",
-    
-"contactUs": "Contact Us",
+    "contactUs": "Contact Us",
     "about": "About us",
-    "account": "Account",
-    "language": "Change language"
+    "account": {
+      "profile": "profile",
+      "subscriptions": "subscriptions",
+      "orders": "orders",
+      "admin": "admin",
+      "signOut": "signOut"
+    },
+    "language": "Change language",
+    "orCheckoutAsGuest": "Or check out as guest",
+    "signIn": "signIn",
+    "signUp": "signUp"
   },
-"Products": {
+  "Products": {
     "addToCart": "Add to cart",
     "outOfStock": "Out of stock",
     "price": "Price",
-    
-"inStock": "in stock",
-    "details": "Product details",
+    "inStock": "in stock",
+    "details": {
+      "totalRevenue": "totalRevenue",
+      "totalOrders": "totalOrders",
+      "averageOrderValue": "averageOrderValue"
+    },
     "sku": "SKU",
     "category": "Category",
     "premiumCollection": "Premium Collection",
@@ -33,8 +46,7 @@
     "productDetails": "Product Details",
     "weight": "Weight",
     "allergens": "Allergens",
-    
-"currency": "kr",
+    "currency": "kr",
     "productView": "view",
     "hero": {
       "title": "Forge Your Heritage",
@@ -43,69 +55,60 @@
     "grid": {
       "noProducts": "No products found",
       "loading": "Loading products..."
-    
-},
+    },
     "Products": {
       "newProduct": "New Product",
       "createNewProduct": "Create new product",
       "basicInfo": "Basic Information",
       "productName": "Product name",
       "productNamePlaceholder": "e.g., Thor's Thunder",
-      
-"shortDescription": "Short Description",
+      "shortDescription": "Short Description",
       "shortDescriptionPlaceholder": "Short product description",
-"fullDescription": "Full Description",
-"fullDescriptionPlaceholder": "Detailed product description",
-"price": "Price (kr)",
-"weight": "Weight (g)",
-      
-"stock": "Stock",
+      "fullDescription": "Full Description",
+      "fullDescriptionPlaceholder": "Detailed product description",
+      "price": "Price (kr)",
+      "weight": "Weight (g)",
+      "stock": "Stock",
       "category": "Category",
-"selectCategory": "Select a category",
-"ingredients": "Ingredients",
-"addIngredient": "Add Ingredient",
-"ingredientPlaceholder": "e.g., Dark Chocolate",
-      
-"allergens": "Allergens",
+      "selectCategory": "Select a category",
+      "ingredients": "Ingredients",
+      "addIngredient": "Add Ingredient",
+      "ingredientPlaceholder": "e.g., Dark Chocolate",
+      "allergens": "Allergens",
       "addAllergen": "Add Allergen",
-"allergenPlaceholder": "e.g., Milk",
-"nutritionalInfo": "Nutritional information",
-"calories": "Calories",
-"fat": "Fat (g)",
-"protein": "Protein (g)",
-      
-"carbs": "Carbohydrates (g)",
+      "allergenPlaceholder": "e.g., Milk",
+      "nutritionalInfo": "Nutritional information",
+      "calories": "Calories",
+      "fat": "Fat (g)",
+      "protein": "Protein (g)",
+      "carbs": "Carbohydrates (g)",
       "productImage": "Product image",
-"options": "Options",
-"inStock": "In stock",
-"featured": "Featured product",
-"creating": "Creating...",
-"create": "Create product",
-"cancel": "Cancel",
-      
-"details": {
+      "options": "Options",
+      "inStock": "In stock",
+      "featured": "Featured product",
+      "creating": "Creating...",
+      "create": "Create product",
+      "cancel": "Cancel",
+      "details": {
         "title": "Product details",
         "overview": "Overview",
         "performance": "Performance metrics",
         "totalOrders": "Total orders",
         "totalRevenue": "Total revenue",
         "averageOrderValue": "Average order value",
-        
-"subscriptionCount": "Active Subscriptions",
+        "subscriptionCount": "Active Subscriptions",
         "stockHistory": "Stock History",
         "salesTrend": "Sales Trend",
         "lastUpdated": "Last Updated",
         "createdAt": "Created",
         "editProduct": "Edit Product",
         "deleteProduct": "Delete Product",
-        
-"confirmDelete": "Are you sure you want to delete this product?",
+        "confirmDelete": "Are you sure you want to delete this product?",
         "deleteWarning": "This action cannot be undone.",
         "relatedProducts": "Related Products",
         "collections": "Included in Collections",
         "noCollections": "Not included in any collections",
-        
-"recentOrders": "Recent Orders",
+        "recentOrders": "Recent Orders",
         "noOrders": "No orders yet",
         "viewAllOrders": "View All Orders",
         "status": {
@@ -113,47 +116,42 @@
           "active": "Active",
           "inactive": "Inactive",
           "outOfStock": "Out of Stock"
-        
-}
+        }
       },
       "errors": {
         "nameRequired": "Product name is required",
         "descriptionRequired": "Description is required",
         "longDescriptionRequired": "Full description is required",
         "validPriceRequired": "Valid price is required",
-        
-"validWeightRequired": "Valid weight is required",
+        "validWeightRequired": "Valid weight is required",
         "validStockRequired": "Valid stock is required",
         "allIngredientsRequired": "All ingredients must be filled in",
         "allAllergensRequired": "All allergens must be filled in",
         "categoryRequired": "Category is required",
-        
-"createError": "Could not create product",
+        "createError": "Could not create product",
         "unknownError": "An unknown error occurred",
         "loadError": "Could not load product details",
         "deleteError": "Could not delete product"
       }
-    }
+    },
+    "manage": "manage"
   },
   "Cart": {
     "empty": "Your shopping cart is empty",
-    
-"checkout": "Proceed to checkout",
+    "checkout": "Proceed to checkout",
     "total": "Total",
     "remove": "Remove from cart",
     "quantity": "Quantity",
     "title": "Your Cart",
     "emptyMessage": "Explore our collection and add some items to your cart",
-    
-"exploreProducts": "Explore Products",
+    "exploreProducts": "Explore Products",
     "orderSummary": "Order Summary",
     "subscription": {
       "toggle": "Subscribe and save 10%",
       "frequency": "Delivery frequency",
       "weekly": "Every week",
       "biweekly": "Every other week",
-      
-"monthly": "Every month",
+      "monthly": "Every month",
       "savings": "You save {amount} kr with a subscription"
     },
     "summary": {
@@ -162,8 +160,7 @@
       "shipping": "Delivery",
       "shippingMessage": "Calculated at checkout"
     },
-    
-"oneTime": "Once",
+    "oneTime": "Once",
     "checkoutError": "Checkout error message"
   },
   "Orders": {
@@ -171,8 +168,7 @@
     "empty": {
       "title": "No orders yet",
       "message": "You have not placed any orders yet.",
-      
-"action": "Start shopping"
+      "action": "Start shopping"
     },
     "details": {
       "orderNumber": "Order #{id}",
@@ -182,15 +178,13 @@
       "priceEach": "${price} per item"
     },
     "success": {
-      
-"title": "Order confirmed!",
+      "title": "Order confirmed!",
       "message": "Thank you for your order. We will send you a confirmation email with your order details.",
       "details": {
         "title": "Order details",
         "orderNumber": "Order number",
         "orderDate": "Order date",
-        
-"totalAmount": "Total amount",
+        "totalAmount": "Total amount",
         "status": "Status",
         "items": "Ordered items",
         "quantity": "Quantity"
@@ -201,9 +195,8 @@
       }
     }
   },
-"Admin": {
-    
-"dashboard": "Control panel",
+  "Admin": {
+    "dashboard": "Control panel",
     "revenue": "Revenue",
     "subTitle": "Overview of sales and customers",
     "recentActivity": "Recent activity",
@@ -211,18 +204,16 @@
     "categories": "Categories",
     "orders": {
       "order": "Order",
-      
-"customer": "Customer",
+      "customer": "Customer",
       "items": "Items",
-"total": "Total",
-"status": {
+      "total": "Total",
+      "status": {
         "title": "Status",
         "pending": "Pending",
-"processing": "Processing",
-"delivered": "Delivered",
-"cancelled": "Cancelled",
-        
-"shipped": "Shipped"
+        "processing": "Processing",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled",
+        "shipped": "Shipped"
       },
       "date": "Date",
       "actions": "Actions",
@@ -230,93 +221,81 @@
       "backToOrders": "Back to orders",
       "orderTitle": "Order {id}",
       "createdOn": "Created {date}",
-      
-"timeline": "Timeline",
+      "timeline": "Timeline",
       "shippingAddress": "Shipping address",
-"paymentMethod": "Payment method",
-"cardEnding": "{brand} ending in {last4}"
-},
-"noActivity": "No recent activity",
-"viewAll": "View all",
-"Categories": {
-      
-"title": "Categories",
+      "paymentMethod": "Payment method",
+      "cardEnding": "{brand} ending in {last4}"
+    },
+    "noActivity": "No recent activity",
+    "viewAll": "View all",
+    "Categories": {
+      "title": "Categories",
       "adding": "Adding...",
-"manage": "Manage product categories",
-"name": "Name",
-"description": "Description",
-"namePlaceholder": "e.g., Dark Chocolate",
-"descriptionPlaceholder": "Category description",
-      
-"addNewCategory": "Add new category",
+      "manage": "Manage product categories",
+      "name": "Name",
+      "description": "Description",
+      "namePlaceholder": "e.g., Dark Chocolate",
+      "descriptionPlaceholder": "Category description",
+      "addNewCategory": "Add new category",
       "addCategory": "Add category",
-"existingCategories": "Existing categories",
-"noCategories": "No categories found. Add your first category above."
-},
-"Products": {
-"newProduct": "New Product",
-      
-"manage": "Manage product catalog",
+      "existingCategories": "Existing categories",
+      "noCategories": "No categories found. Add your first category above."
+    },
+    "Products": {
+      "newProduct": "New Product",
+      "manage": "Manage product catalog",
       "createNewProduct": "Create new product",
-"basicInfo": "Basic Information",
-"productName": "Product name",
-"productNamePlaceholder": "e.g., Thor's Thunder",
-"shortDescription": "Short Description",
-      
-"shortDescriptionPlaceholder": "Short product description",
+      "basicInfo": "Basic Information",
+      "productName": "Product name",
+      "productNamePlaceholder": "e.g., Thor's Thunder",
+      "shortDescription": "Short Description",
+      "shortDescriptionPlaceholder": "Short product description",
       "fullDescription": "Full description",
-"fullDescriptionPlaceholder": "Detailed product description",
-"price": "Price (kr)",
-"weight": "Weight (g)",
-"stock": "Stock",
-      
-"carbohydrates": "Carbohydrates (g)",
+      "fullDescriptionPlaceholder": "Detailed product description",
+      "price": "Price (kr)",
+      "weight": "Weight (g)",
+      "stock": "Stock",
+      "carbohydrates": "Carbohydrates (g)",
       "category": "Category",
-"selectCategory": "Select a category",
-"ingredients": "Ingredients",
-"addIngredient": "Add Ingredient",
-"ingredientPlaceholder": "e.g., Dark Chocolate",
-      
-"allergens": "Allergens",
+      "selectCategory": "Select a category",
+      "ingredients": "Ingredients",
+      "addIngredient": "Add Ingredient",
+      "ingredientPlaceholder": "e.g., Dark Chocolate",
+      "allergens": "Allergens",
       "addAllergen": "Add Allergen",
-"allergenPlaceholder": "e.g., Milk",
-"nutritionalInfo": "Nutritional Information",
-"calories": "Calories",
-"fat": "Fat (g)",
-"protein": "Protein (g)",
-      
-"carbs": "Carbohydrates (g)",
+      "allergenPlaceholder": "e.g., Milk",
+      "nutritionalInfo": "Nutritional Information",
+      "calories": "Calories",
+      "fat": "Fat (g)",
+      "protein": "Protein (g)",
+      "carbs": "Carbohydrates (g)",
       "productImage": "Product image",
-"options": "Options",
-"inStock": "In stock",
-"featured": "Featured product",
-"creating": "Creating...",
-"create": "Create product",
-"cancel": "Cancel",
-      
-"details": {
+      "options": "Options",
+      "inStock": "In stock",
+      "featured": "Featured product",
+      "creating": "Creating...",
+      "create": "Create product",
+      "cancel": "Cancel",
+      "details": {
         "title": "Product details",
         "overview": "Overview",
         "performance": "Performance metrics",
         "totalOrders": "Total orders",
         "totalRevenue": "Total revenue",
         "averageOrderValue": "Average order value",
-        
-"subscriptionCount": "Active Subscriptions",
+        "subscriptionCount": "Active Subscriptions",
         "stockHistory": "Stock History",
         "salesTrend": "Sales Trend",
         "lastUpdated": "Last Updated",
         "createdAt": "Created",
         "editProduct": "Edit Product",
         "deleteProduct": "Delete Product",
-        
-"confirmDelete": "Are you sure you want to delete this product?",
+        "confirmDelete": "Are you sure you want to delete this product?",
         "deleteWarning": "This action cannot be undone.",
         "relatedProducts": "Related Products",
         "collections": "Included in Collections",
         "noCollections": "Not included in any collections",
-        
-"recentOrders": "Recent Orders",
+        "recentOrders": "Recent Orders",
         "noOrders": "No orders yet",
         "viewAllOrders": "View All Orders",
         "status": {
@@ -324,22 +303,19 @@
           "active": "Active",
           "inactive": "Inactive",
           "outOfStock": "Out of Stock"
-        
-}
+        }
       },
-"errors": {
-"nameRequired": "Product name is required",
-"descriptionRequired": "Description is required",
-"longDescriptionRequired": "Full description is required",
-"validPriceRequired": "Valid price is required",
-        
-"validWeightRequired": "Valid weight is required",
+      "errors": {
+        "nameRequired": "Product name is required",
+        "descriptionRequired": "Description is required",
+        "longDescriptionRequired": "Full description is required",
+        "validPriceRequired": "Valid price is required",
+        "validWeightRequired": "Valid weight is required",
         "validStockRequired": "Valid stock is required",
         "allIngredientsRequired": "All ingredients must be filled in",
         "allAllergensRequired": "All allergens must be filled in",
         "categoryRequired": "Category is required",
-        
-"createError": "Could not create product",
+        "createError": "Could not create product",
         "unknownError": "An unknown error occurred",
         "loadError": "Could not load product details",
         "deleteError": "Could not delete product"
@@ -347,38 +323,34 @@
     },
     "Subscriptions": {
       "title": "Manage Subscriptions",
-      
-"nextDelivery": "Next Delivery",
+      "nextDelivery": "Next Delivery",
       "frequency": "Delivery frequency",
       "Details": {
         "backToSubscriptions": "Back to Subscriptions",
         "subscriptionDetails": "Subscription details",
         "items": "Items",
         "viewCustomer": "View Customer",
-        
-"resume": "Resume",
+        "resume": "Resume",
         "customerInformation": "Customer Information",
         "contactDetails": "Contact Details",
         "quantity": "Quantity",
-"viewProduct": "View Product"
-},
-"shippingAddress": "Shipping Address",
-"deliverySchedule": "Delivery Schedule",
-      
-"history": "History",
+        "viewProduct": "View Product"
+      },
+      "shippingAddress": "Shipping Address",
+      "deliverySchedule": "Delivery Schedule",
+      "history": "History",
       "created": "Created",
-"lastUpdated": "Last Updated",
-"Type": {
-"collection": "Collection",
-"custom": "Custom"
-},
-"Status": {
-"all": "All",
-"active": "Active",
-        
-"paused": "Paused",
+      "lastUpdated": "Last Updated",
+      "Type": {
+        "collection": "Collection",
+        "custom": "Custom"
+      },
+      "Status": {
+        "all": "All",
+        "active": "Active",
+        "paused": "Paused",
         "cancelled": "Cancelled"
-}
+      }
     },
     "manageOrders": "Manage orders",
     "Customers": {
@@ -386,37 +358,33 @@
       "subtitle": "Manage your customer base",
       "list": {
         "anonymous": "Anonymous",
-        
-"totalOrders": "Total Orders",
+        "totalOrders": "Total Orders",
         "totalSpent": "Total Spent",
         "activeSubscriptions": "Active Subscription",
         "activeSubscriptionsPlural": "Active Subscriptions",
-"viewDetails": "View Details"
+        "viewDetails": "View Details"
       },
       "details": {
         "title": "Customer Details",
-        
-"stats": {
+        "stats": {
           "title": "Customer Statistics",
           "totalOrders": "Total Orders",
           "totalSpent": "Total Spent",
           "averageOrderValue": "Average Order Value",
           "firstOrder": "First Order",
           "lastOrder": "Last Order",
-          
-"activeSubscriptions": "Active Subscriptions"
+          "activeSubscriptions": "Active Subscriptions"
         },
-"orders": {
-"title": "Order History",
-"noOrders": "No orders yet",
-"table": {
-"orderNumber": "Order Number",
-"date": "Date",
-"status": "Status",
-            
-"total": "Total",
+        "orders": {
+          "title": "Order History",
+          "noOrders": "No orders yet",
+          "table": {
+            "orderNumber": "Order Number",
+            "date": "Date",
+            "status": "Status",
+            "total": "Total",
             "items": "Items"
-}
+          }
         },
         "subscriptions": {
           "title": "Active Subscriptions",
@@ -425,8 +393,7 @@
             "plan": "Plan",
             "status": "Status",
             "nextDelivery": "Next Delivery",
-            
-"amount": "Amount"
+            "amount": "Amount"
           }
         },
         "sidebar": {
@@ -436,8 +403,7 @@
           "phone": "Phone",
           "address": "Address",
           "memberSince": "Member Since",
-          
-"lastActive": "Last Active"
+          "lastActive": "Last Active"
         }
       }
     },
@@ -447,140 +413,125 @@
       "createNewButton": "Create new",
       "noNewsletters": "No newsletters",
       "columns": {
-        
-"title": "Title",
+        "title": "Title",
         "status": "Status",
         "scheduled": "Scheduled",
         "sent": "Sent",
-"actions": "Actions"
-},
-"actions": {
-"view": "View",
-"edit": "Edit",
-"delete": "Delete"
-},
-      
-"newNewsletter": "New newsletter",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "newNewsletter": "New newsletter",
       "createNewsletterDesc": "Create new newsletter",
-"englishContent": "English content",
-"content": "Content",
-"translateToNorwegian": "Translate to English",
-"norwegianContent": "Norwegian content",
-      
-"translateToEnglish": "Translate to English",
+      "englishContent": "English content",
+      "content": "Content",
+      "translateToNorwegian": "Translate to English",
+      "norwegianContent": "Norwegian content",
+      "translateToEnglish": "Translate to English",
       "scheduledFor": "Scheduled",
-"scheduledHint": "Scheduled hint",
-"cancel": "Cancel",
-"saving": "Saving",
-"saveNewsletter": "Save newsletter"
-},
-"Collections": {
-      
-"title": "Title",
+      "scheduledHint": "Scheduled hint",
+      "cancel": "Cancel",
+      "saving": "Saving",
+      "saveNewsletter": "Save newsletter"
+    },
+    "Collections": {
+      "title": "Title",
       "manage": "Manage",
       "addNewCollection": "Add new collection",
       "name": "Name",
       "namePlaceholder": "Collection 1",
       "description": "Description",
       "descriptionPlaceholder": "Description of the collection",
-      
-"imageUrl": "Image link",
+      "imageUrl": "Image link",
       "imageUrlPlaceholder": "https://odinchocolate.no/public/images/bilde.png",
-"price": "Price",
-"calculatedDefault": "Calculate",
-"featured": "Featured",
-"active": "Active",
-      
-"selectProducts": "Select products",
+      "price": "Price",
+      "calculatedDefault": "Calculate",
+      "featured": "Featured",
+      "active": "Active",
+      "selectProducts": "Select products",
       "noProducts": "No products",
-"adding": "Adding",
-"addCollection": "Add collection",
-"existingCollections": "Collections",
-"noImage": "No image",
-"inactive": "Inactive",
-      
-"edit": "Edit",
+      "adding": "Adding",
+      "addCollection": "Add collection",
+      "existingCollections": "Collections",
+      "noImage": "No image",
+      "inactive": "Inactive",
+      "edit": "Edit",
       "delete": "Delete",
-"noCollections": "No collections",
-"createFirst": "Create first",
-"done": "Done",
-"productsSelected": "Selected products",
-"noProductsFound": "No products found",
-"inStock": "In stock",
-      
-"searchProducts": "Search products",
+      "noCollections": "No collections",
+      "createFirst": "Create first",
+      "done": "Done",
+      "productsSelected": "Selected products",
+      "noProductsFound": "No products found",
+      "inStock": "In stock",
+      "searchProducts": "Search products",
       "addProducts": "Add products",
-"noProductsSelected": "No products selected"
-}
-},
-"Common": {
-"loading": "Loading...",
-"error": "An error occurred",
-"retry": "Try again",
-    
-"save": "Save",
+      "noProductsSelected": "No products selected"
+    }
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "save": "Save",
     "cancel": "Cancel",
-"delete": "Delete",
-"edit": "Edit",
-"salesTrends": "Sales trends",
-"revenue": "Revenue",
-"orders": "Orders"
-},
-"About": {
-"hero": {
-      
-"title": "Our Saga",
+    "delete": "Delete",
+    "edit": "Edit",
+    "salesTrends": "Sales trends",
+    "revenue": "Revenue",
+    "orders": "Orders"
+  },
+  "About": {
+    "hero": {
+      "title": "Our Saga",
       "subtitle": "Like the ancient Nordic craftsmen who forged legendary weapons, we make our chocolates with dedication, knowledge and a deep respect for tradition."
     },
-"mission": {
-"title": "Our Quest",
+    "mission": {
+      "title": "Our Quest",
       "description1": "We source the finest cocoa beans from old trees, where the soul of the earth infuses each bean with unique character. Our master craftsmen transform these precious ingredients into extreme chocolate recipes.",
-      
-"description2": "Like the Norse gods who created great gifts in their heavenly workshop, we breathe our enthusiasm and knowledge into every batch, ensuring that each piece tells its own story of excellence."
+      "description2": "Like the Norse gods who created great gifts in their heavenly workshop, we breathe our enthusiasm and knowledge into every batch, ensuring that each piece tells its own story of excellence."
     },
-"values": {
-"title": "Our Values",
-"honor": {
-"title": "Honor",
-        
-"description": "Like Thor's unyielding power, we stand firm in our commitment to quality and craftsmanship."
+    "values": {
+      "title": "Our Values",
+      "honor": {
+        "title": "Honor",
+        "description": "Like Thor's unyielding power, we stand firm in our commitment to quality and craftsmanship."
       },
-"harmony": {
-"title": "Harmony",
-"description": "Like Yggdrasil's roots, we maintain strong ties with sustainable agricultural practices."
+      "harmony": {
+        "title": "Harmony",
+        "description": "Like Yggdrasil's roots, we maintain strong ties with sustainable agricultural practices."
       },
-"knowledge": {
-        
-"title": "Knowledge",
+      "knowledge": {
+        "title": "Knowledge",
         "description": "Like Odin's endless quest for knowledge, we explore new flavors and techniques."
-}
+      }
     },
-"team": {
-"title": "Our Master Artisans",
-"roles": {
-"masterChocolatier": "Master Chocolatier",
-        
-"leadArtisan": "Lead Artisan",
+    "team": {
+      "title": "Our Master Artisans",
+      "roles": {
+        "masterChocolatier": "Master Chocolatier",
+        "leadArtisan": "Lead Artisan",
         "flavorMaster": "Flavor Master"
-}
-}
-},
-"Checkout": {
-"title": "Complete your journey",
-"emptyCart": {
-"title": "Your shopping cart is waiting for its big gift",
-      
-"message": "Fill your shopping cart with legendary recipes before heading to checkout.",
+      }
+    }
+  },
+  "Checkout": {
+    "title": "Complete your journey",
+    "emptyCart": {
+      "title": "Your shopping cart is waiting for its big gift",
+      "message": "Fill your shopping cart with legendary recipes before heading to checkout.",
       "action": "Explore our collection"
-},
-"steps": {
-"shipping": "Delivery",
-"payment": "Payment",
-"review": "Review"
-},
-"shipping": {
-      
-"title": "Shipping information",
+    },
+    "steps": {
+      "shipping": "Delivery",
+      "payment": "Payment",
+      "review": "Review",
+      "${step}": "${step}"
+    },
+    "shipping": {
+      "title": "Shipping information",
       "firstName": "First name",
       "lastName": "Last name",
       "email": "Email",
@@ -588,167 +539,146 @@
       "street": "Street address",
       "city": "City",
       "state": "State",
-      
-"postalCode": "Postal code",
+      "postalCode": "Postal code",
       "country": "Country",
-"sameAsBilling": "Billing address same as shipping address",
-"saveInfo": "Save this information for next time",
-"continue": "Continue to payment"
-},
-"payment": {
-"title": "Payment method",
-      
-"cardNumber": "Card number",
+      "sameAsBilling": "Billing address same as shipping address",
+      "saveInfo": "Save this information for next time",
+      "continue": "Continue to payment"
+    },
+    "payment": {
+      "title": "Payment method",
+      "cardNumber": "Card number",
       "cardName": "Card name",
       "expiry": "Expiration date",
       "cvc": "CVC",
       "back": "Back to delivery",
       "continue": "Continue to review"
-},
-"review": {
-      
-"title": "Review order",
+    },
+    "review": {
+      "title": "Review order",
       "shippingDetails": "Shipping details",
-"paymentMethod": "Payment method",
-"cardEnding": "•••• •••• •••• {last4}",
-"expires": "Expires {month}/{year}",
-      
-"back": "Back",
+      "paymentMethod": "Payment method",
+      "cardEnding": "•••• •••• •••• {last4}",
+      "expires": "Expires {month}/{year}",
+      "back": "Back",
       "placeOrder": "Place order",
-"processing": "Processing...",
-"paymentOptions": "Payment methods",
-"cardPayment": "Card payment",
-"vippsPayment": "Vipps payment",
-"payWithVipps": "Pay with Vipps"
-},
-    
-"error": {
+      "processing": "Processing...",
+      "paymentOptions": "Payment methods",
+      "cardPayment": "Card payment",
+      "vippsPayment": "Vipps payment",
+      "payWithVipps": "Pay with Vipps"
+    },
+    "error": {
       "orderFailed": "Could not complete your order. Please try again."
     }
   },
   "Collections": {
     "title": "Our Collections",
     "subtitle": "Discover our carefully selected chocolate collections, each designed to take you on a unique taste journey.",
-    
-"loading": "Loading collection...",
+    "loading": "Loading collection...",
     "includedProducts": "Included Products",
     "quantity": "Quantity",
     "perDelivery": "per delivery",
     "featured": "Featured",
     "viewDetails": "View details",
     "noCollections": "No collections available",
-    
-"checkBackLater": "Please check back later for new collections",
+    "checkBackLater": "Please check back later for new collections",
     "subscriptionCTA": {
       "title": "Subscribe and Save",
       "description": "Enjoy regular deliveries of your favorite collection at a discounted price.",
       "button": "Explore Subscriptions"
     },
-    
-"subscription": {
+    "subscription": {
       "toggle": "Subscribe and save 10%",
-"savingsLabel": "Save 10% with subscription",
-"frequency": "Delivery frequency",
-"weekly": "Every week",
-"biweekly": "Every other week",
-"monthly": "Every month"
-    
-},
+      "savingsLabel": "Save 10% with subscription",
+      "frequency": "Delivery frequency",
+      "weekly": "Every week",
+      "biweekly": "Every other week",
+      "monthly": "Every month"
+    },
     "addToCart": {
-"button": "Add to Cart",
-"loading": "Adding to cart...",
-"error": "Could not add collection to cart:"
-}
-},
-"FeaturedCollections": {
-"title": "Legendary Collections",
-    
-"subtitle": "Subscribe to our curated collections and join us on a taste journey through Norse mythology",
+      "button": "Add to Cart",
+      "loading": "Adding to cart...",
+      "error": "Could not add collection to cart:"
+    }
+  },
+  "FeaturedCollections": {
+    "title": "Legendary Collections",
+    "subtitle": "Subscribe to our curated collections and join us on a taste journey through Norse mythology",
     "saveWithSubscription": "Save 10% with a subscription",
     "perDelivery": "per delivery",
     "exploreCollection": "Explore Collection"
   },
-"SubscriptionPlans": {
-    
-"title": "Join our legendary community",
+  "SubscriptionPlans": {
+    "title": "Join our legendary community",
     "subtitle": "Subscribe to regular deliveries of our artful chocolate and become part of our legendary community",
     "mostPopular": "Most Popular",
     "monthly": "monthly",
     "choosePlan": "Choose Plan"
-  
-},
+  },
   "CallToAction": {
     "title": "Start Your Legendary Journey",
     "description": "Join our community of chocolate enthusiasts and experience the divine taste of our handmade creations. Each piece tells a story of Norse mythology and craftsmanship.",
-    
-"exploreProducts": "Explore All Products"
+    "exploreProducts": "Explore All Products"
   },
   "Footer": {
     "companyDescription": "We make Norwegian chocolate directly from cocoa beans that we import from South and Central America. All our chocolate is made in Hof at our small chocolate factory.",
     "subscribeTitle": "Subscribe to our newsletter",
-    
-"subscribeDescription": "Get notifications about new products, special offers and Norse chocolate wisdom.",
+    "subscribeDescription": "Get notifications about new products, special offers and Norse chocolate wisdom.",
     "emailPlaceholder": "Enter your email address",
     "subscribeButton": "Subscribe",
     "copyright": "© {year} Odin Chocolate. All rights reserved.",
     "navigation": {
-      
-"shop": "Shop",
+      "shop": "Shop",
       "company": "Company",
       "allProducts": "All Products",
       "featured": "Featured",
       "newReleases": "New Releases",
       "subscribeNews": "Subscribe to our newsletter",
       "ourStory": "Our Story",
-      
-"contactUs": "Contact Us",
+      "contactUs": "Contact Us",
       "shipping": "Shipping",
-"returns": "Returns",
-"faq": "Frequently Asked Questions",
-"terms": "Terms",
-"copyright": "Copyright",
-"companyDescription": "Company Description",
-      
-"subscribeTitle": "Subscribe title",
+      "returns": "Returns",
+      "faq": "Frequently Asked Questions",
+      "terms": "Terms",
+      "copyright": "Copyright",
+      "companyDescription": "Company Description",
+      "subscribeTitle": "Subscribe title",
       "subscribeDescription": "Subscription description",
-"emailPlaceholder": "ragnarok@odinchocolate.no",
-"subscribeButton": "Subscribe",
-"subscribing": "Subscribing",
-"subscribeSuccess": "Completed",
-"subscribeError": "Error"
-    
-}
+      "emailPlaceholder": "ragnarok@odinchocolate.no",
+      "subscribeButton": "Subscribe",
+      "subscribing": "Subscribing",
+      "subscribeSuccess": "Completed",
+      "subscribeError": "Error"
+    }
   },
-"Account": {
-"signOut": "Sign out",
-"signIn": "Sign in",
-"welcome": {
-"title": "Welcome to Valhall",
-"greeting": "Hi, {name}! Your chocolate party is waiting for you."
-},
-"profile": {
-"title": "Profile",
-      
-"edit": "Edit",
+  "Account": {
+    "signOut": "Sign out",
+    "signIn": "Sign in",
+    "welcome": {
+      "title": "Welcome to Valhall",
+      "greeting": "Hi, {name}! Your chocolate party is waiting for you."
+    },
+    "profile": {
+      "title": "Profile",
+      "edit": "Edit",
       "name": "Name",
-"email": "Email",
-"phone": "Phone",
-"shippingAddress": "Shipping address"
-},
-"orders": {
-"title": "Latest orders",
-"viewAll": "View all",
-      
-"noOrders": "No orders yet.",
+      "email": "Email",
+      "phone": "Phone",
+      "shippingAddress": "Shipping address"
+    },
+    "orders": {
+      "title": "Latest orders",
+      "viewAll": "View all",
+      "noOrders": "No orders yet.",
       "startShopping": "Start Shopping"
-},
-"subscriptions": {
-"title": "Subscriptions",
-"manage": "Manage",
-"noSubscriptions": "No active subscriptions.",
-"explorePlans": "Explore Plans"
-    
-},
+    },
+    "subscriptions": {
+      "title": "Subscriptions",
+      "manage": "Manage",
+      "noSubscriptions": "No active subscriptions.",
+      "explorePlans": "Explore Plans"
+    },
     "preferences": {
       "title": "Preferences",
       "marketingEmails": "Marketing emails",
@@ -759,8 +689,7 @@
   },
   "Profile": {
     "title": "Edit Profile",
-    
-"subtitle": "Update your personal information",
+    "subtitle": "Update your personal information",
     "loading": "Loading...",
     "personalInfo": {
       "title": "Personal Information",
@@ -769,8 +698,7 @@
     },
     "shippingAddress": {
       "title": "Shipping Address",
-      
-"street": "Street address",
+      "street": "Street address",
       "city": "City",
       "state": "State",
       "postalCode": "Postal code",
@@ -779,38 +707,39 @@
     "preferences": {
       "title": "Preferences",
       "marketingConsent": "Receive marketing emails about new products and offers",
-      
-"notifications": "Receive order and delivery updates"
+      "notifications": "Receive order and delivery updates"
     },
-"actions": {
-"cancel": "Cancel",
-"saving": "Saving...",
-"save": "Save Changes"
-},
-"error": "An error occurred while updating your profile"
-},
-"Subscriptions": {
-    
-"title": "Your Subscriptions",
+    "actions": {
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "save": "Save Changes"
+    },
+    "error": "An error occurred while updating your profile"
+  },
+  "Subscriptions": {
+    "title": "Your Subscriptions",
     "subtitle": "Manage your divine chocolate deliveries",
     "empty": {
       "title": "No Active Subscriptions",
       "message": "Join our subscription plans to receive regular deliveries of premium Norse-inspired chocolate.",
-      
-"action": "Explore Our Chocolates"
+      "action": "Explore Our Chocolates"
     },
-"details": {
-"customSubscription": "Custom Subscription",
-"delivery": "{frequency} Delivery",
-"nextDelivery": "Next Delivery",
-"noUpcomingDelivery": "No upcoming delivery",
-"products": "Products"
-    
-},
+    "details": {
+      "customSubscription": "Custom Subscription",
+      "delivery": "{frequency} Delivery",
+      "nextDelivery": "Next Delivery",
+      "noUpcomingDelivery": "No upcoming delivery",
+      "products": "Products"
+    },
     "status": {
       "active": "Active",
       "paused": "Paused",
-      "cancelled": "Cancelled"
+      "cancelled": "Cancelled",
+      "${subscription": {
+        "status": {
+          "toLowerCase()}": "toLowerCase()}"
+        }
+      }
     },
     "actions": {
       "modifyProducts": "Change Products",
@@ -822,7 +751,432 @@
     "frequency": {
       "weekly": "Weekly",
       "biweekly": "Biweekly",
-      "monthly": "Monthly"
+      "monthly": "Monthly",
+      "${subscription": {
+        "frequency": {
+          "toLowerCase()}": "toLowerCase()}"
+        }
+      }
     }
-}
+  },
+  "title": "title",
+  "subtitle": "subtitle",
+  "noProducts": "noProducts",
+  "productView": "productView",
+  "currency": "currency",
+  "inStock": "inStock",
+  "outOfStock": "outOfStock",
+  "detailedDescription": "detailedDescription",
+  "ingredients": "ingredients",
+  "nutritionalInfo": "nutritionalInfo",
+  "productDetails": "productDetails",
+  "weight": "weight",
+  "sku": "sku",
+  "allergens": "allergens",
+  "price": "price",
+  "products": "products",
+  "collections": "collections",
+  "cart": "cart",
+  "orders": {
+    "order": "order",
+    "customer": "customer",
+    "items": "items",
+    "total": "total",
+    "status": {
+      "title": "title",
+      "pending": "pending",
+      "processing": "processing",
+      "delivered": "delivered",
+      "cancelled": "cancelled",
+      "${item": {
+        "status": {
+          "toLowerCase()}": "toLowerCase()}"
+        }
+      }
+    },
+    "date": "date",
+    "actions": "actions",
+    "viewDetails": "viewDetails",
+    "title": "title",
+    "viewAll": "viewAll",
+    "noOrders": "noOrders",
+    "startShopping": "startShopping",
+    "backToOrders": "backToOrders",
+    "orderTitle": "orderTitle",
+    "createdOn": "createdOn",
+    "timeline": "timeline",
+    "shippingAddress": "shippingAddress",
+    "paymentMethod": "paymentMethod",
+    "cardEnding": "cardEnding"
+  },
+  "about": "about",
+  "account": "account",
+  "mostPopular": "mostPopular",
+  "monthly": "monthly",
+  "choosePlan": "choosePlan",
+  "companyDescription": "companyDescription",
+  "subscribeTitle": "subscribeTitle",
+  "subscribeDescription": "subscribeDescription",
+  "emailPlaceholder": "emailPlaceholder",
+  "subscribeButton": "subscribeButton",
+  "copyright": "copyright",
+  "description": "description",
+  "exploreProducts": "exploreProducts",
+  "perDelivery": "perDelivery",
+  "saveWithSubscription": "saveWithSubscription",
+  "exploreCollection": "exploreCollection",
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "email": "email",
+  "phone": "phone",
+  "street": "street",
+  "city": "city",
+  "state": "state",
+  "postalCode": "postalCode",
+  "country": "country",
+  "sameAsBilling": "sameAsBilling",
+  "saveInfo": "saveInfo",
+  "continue": "continue",
+  "cardNumber": "cardNumber",
+  "cardName": "cardName",
+  "expiry": "expiry",
+  "cvc": "cvc",
+  "back": "back",
+  "orderSummary": "orderSummary",
+  "quantity": "quantity",
+  "summary": {
+    "subtotal": "subtotal",
+    "shipping": "shipping",
+    "shippingMessage": "shippingMessage",
+    "discount": "discount"
+  },
+  "total": "total",
+  "salesTrends": "salesTrends",
+  "recentActivity": "recentActivity",
+  "dashboard": "dashboard",
+  "subTitle": "subTitle",
+  "Status": {
+    "${status}": "${status}",
+    "${subscription": {
+      "status": {
+        "toLowerCase()}": "toLowerCase()}"
+      }
+    },
+    "paused": "paused",
+    "cancelled": "cancelled"
+  },
+  "nextDelivery": "nextDelivery",
+  "Type": {
+    "collection": "collection",
+    "custom": "custom"
+  },
+  "shippingAddress": "shippingAddress",
+  "Details": {
+    "backToSubscriptions": "backToSubscriptions",
+    "subscriptionDetails": "subscriptionDetails",
+    "items": "items",
+    "viewCustomer": "viewCustomer",
+    "resume": "resume",
+    "customerInformation": "customerInformation",
+    "contactDetails": "contactDetails",
+    "quantity": "quantity",
+    "viewProduct": "viewProduct"
+  },
+  "deliverySchedule": "deliverySchedule",
+  "frequency": {
+    "${subscription": {
+      "frequency": {
+        "toLowerCase()}": "toLowerCase()}"
+      }
+    }
+  },
+  "history": "history",
+  "created": "created",
+  "lastUpdated": "lastUpdated",
+  "anonymous": "anonymous",
+  "totalOrders": "totalOrders",
+  "totalSpent": "totalSpent",
+  "activeSubscriptionsPlural": "activeSubscriptionsPlural",
+  "activeSubscriptions": "activeSubscriptions",
+  "viewDetails": "viewDetails",
+  "manageOrders": "manageOrders",
+  "deleteConfirm": "deleteConfirm",
+  "createNewButton": "createNewButton",
+  "noNewsletters": "noNewsletters",
+  "columns": {
+    "title": "title",
+    "status": "status",
+    "scheduled": "scheduled",
+    "sent": "sent",
+    "actions": "actions"
+  },
+  "status": {
+    "${newsletter": {
+      "status": {
+        "toLowerCase()}": "toLowerCase()}"
+      }
+    },
+    "${subscription": {
+      "status": {
+        "toLowerCase()}": "toLowerCase()}"
+      }
+    }
+  },
+  "actions": {
+    "view": "view",
+    "edit": "edit",
+    "delete": "delete",
+    "modifyProducts": "modifyProducts",
+    "pauseDeliveries": "pauseDeliveries",
+    "cancelSubscription": "cancelSubscription",
+    "resumeDeliveries": "resumeDeliveries",
+    "reactivate": "reactivate",
+    "viewOrders": "viewOrders",
+    "continueShopping": "continueShopping"
+  },
+  "manage": "manage",
+  "addNewCollection": "addNewCollection",
+  "name": "name",
+  "namePlaceholder": "namePlaceholder",
+  "descriptionPlaceholder": "descriptionPlaceholder",
+  "imageUrl": "imageUrl",
+  "imageUrlPlaceholder": "imageUrlPlaceholder",
+  "calculatedDefault": "calculatedDefault",
+  "featured": "featured",
+  "active": "active",
+  "selectProducts": "selectProducts",
+  "addProducts": "addProducts",
+  "noProductsSelected": "noProductsSelected",
+  "adding": "adding",
+  "addCollection": "addCollection",
+  "existingCollections": "existingCollections",
+  "noImage": "noImage",
+  "inactive": "inactive",
+  "edit": "edit",
+  "delete": "delete",
+  "noCollections": "noCollections",
+  "createFirst": "createFirst",
+  "searchProducts": "searchProducts",
+  "noProductsFound": "noProductsFound",
+  "productsSelected": "productsSelected",
+  "done": "done",
+  "addNewCategory": "addNewCategory",
+  "addCategory": "addCategory",
+  "existingCategories": "existingCategories",
+  "noCategories": "noCategories",
+  "checkBackLater": "checkBackLater",
+  "subscriptionCTA": {
+    "title": "title",
+    "description": "description",
+    "button": "button"
+  },
+  "empty": {
+    "action": "action",
+    "message": "message",
+    "title": "title"
+  },
+  "details": {
+    "orderNumber": "orderNumber",
+    "date": "date",
+    "status": {
+      "title": "title",
+      "inactive": "inactive",
+      "active": "active",
+      "outOfStock": "outOfStock"
+    },
+    "quantity": "quantity",
+    "priceEach": "priceEach",
+    "editProduct": "editProduct",
+    "customSubscription": "customSubscription",
+    "delivery": "delivery",
+    "nextDelivery": "nextDelivery",
+    "noUpcomingDelivery": "noUpcomingDelivery",
+    "products": "products",
+    "performance": "performance",
+    "totalOrders": "totalOrders",
+    "totalRevenue": "totalRevenue",
+    "averageOrderValue": "averageOrderValue",
+    "subscriptionCount": "subscriptionCount",
+    "overview": "overview",
+    "lastUpdated": "lastUpdated",
+    "recentOrders": "recentOrders",
+    "noOrders": "noOrders",
+    "viewAllOrders": "viewAllOrders",
+    "collections": "collections",
+    "noCollections": "noCollections",
+    "title": "title",
+    "orderDate": "orderDate",
+    "totalAmount": "totalAmount",
+    "items": "items"
+  },
+  "emptyCart": {
+    "title": "title",
+    "message": "message",
+    "action": "action"
+  },
+  "error": {
+    "orderFailed": "orderFailed"
+  },
+  "steps": {
+    "${step}": "${step}"
+  },
+  "review": {
+    "shippingDetails": "shippingDetails",
+    "paymentMethod": "paymentMethod",
+    "cardEnding": "cardEnding",
+    "expires": "expires",
+    "paymentOptions": "paymentOptions",
+    "cardPayment": "cardPayment",
+    "vippsPayment": "vippsPayment",
+    "back": "back",
+    "processing": "processing",
+    "payWithVipps": "payWithVipps",
+    "placeOrder": "placeOrder"
+  },
+  "checkoutError": "checkoutError",
+  "emptyMessage": "emptyMessage",
+  "subscription": {
+    "toggle": "toggle",
+    "frequency": "frequency",
+    "weekly": "weekly",
+    "biweekly": "biweekly",
+    "monthly": "monthly",
+    "savings": "savings",
+    "savingsLabel": "savingsLabel"
+  },
+  "checkout": "checkout",
+  "welcome": {
+    "title": "title",
+    "greeting": "greeting"
+  },
+  "profile": {
+    "title": "title",
+    "edit": "edit",
+    "name": "name",
+    "email": "email",
+    "phone": "phone",
+    "shippingAddress": "shippingAddress"
+  },
+  "subscriptions": {
+    "title": "title",
+    "manage": "manage",
+    "noSubscriptions": "noSubscriptions",
+    "explorePlans": "explorePlans"
+  },
+  "preferences": {
+    "title": "title",
+    "marketingEmails": "marketingEmails",
+    "orderNotifications": "orderNotifications",
+    "on": "on",
+    "off": "off"
+  },
+  "hero": {
+    "title": "title",
+    "subtitle": "subtitle"
+  },
+  "mission": {
+    "title": "title",
+    "description1": "description1",
+    "description2": "description2"
+  },
+  "values": {
+    "title": "title",
+    "honor": {
+      "title": "title",
+      "description": "description"
+    },
+    "harmony": {
+      "title": "title",
+      "description": "description"
+    },
+    "knowledge": {
+      "title": "title",
+      "description": "description"
+    }
+  },
+  "team": {
+    "title": "title",
+    "roles": {
+      "masterChocolatier": "masterChocolatier",
+      "leadArtisan": "leadArtisan",
+      "flavorMaster": "flavorMaster"
+    }
+  },
+  "newProduct": "newProduct",
+  "createNewProduct": "createNewProduct",
+  "errors": {
+    "nameRequired": "nameRequired",
+    "descriptionRequired": "descriptionRequired",
+    "longDescriptionRequired": "longDescriptionRequired",
+    "validPriceRequired": "validPriceRequired",
+    "validWeightRequired": "validWeightRequired",
+    "validStockRequired": "validStockRequired",
+    "allIngredientsRequired": "allIngredientsRequired",
+    "allAllergensRequired": "allAllergensRequired",
+    "categoryRequired": "categoryRequired",
+    "createError": "createError",
+    "unknownError": "unknownError"
+  },
+  "basicInfo": "basicInfo",
+  "productName": "productName",
+  "productNamePlaceholder": "productNamePlaceholder",
+  "shortDescription": "shortDescription",
+  "shortDescriptionPlaceholder": "shortDescriptionPlaceholder",
+  "fullDescription": "fullDescription",
+  "fullDescriptionPlaceholder": "fullDescriptionPlaceholder",
+  "stock": "stock",
+  "category": "category",
+  "selectCategory": "selectCategory",
+  "addIngredient": "addIngredient",
+  "ingredientPlaceholder": "ingredientPlaceholder",
+  "addAllergen": "addAllergen",
+  "allergenPlaceholder": "allergenPlaceholder",
+  "calories": "calories",
+  "fat": "fat",
+  "protein": "protein",
+  "carbs": "carbs",
+  "productImage": "productImage",
+  "options": "options",
+  "cancel": "cancel",
+  "creating": "creating",
+  "create": "create",
+  "newNewsletter": "newNewsletter",
+  "createNewsletterDesc": "createNewsletterDesc",
+  "englishContent": "englishContent",
+  "content": "content",
+  "translateToNorwegian": "translateToNorwegian",
+  "norwegianContent": "norwegianContent",
+  "translateToEnglish": "translateToEnglish",
+  "scheduledFor": "scheduledFor",
+  "scheduledHint": "scheduledHint",
+  "saving": "saving",
+  "saveNewsletter": "saveNewsletter",
+  "noSubscriptions": "noSubscriptions",
+  "table": {
+    "plan": "plan",
+    "status": "status",
+    "nextDelivery": "nextDelivery",
+    "amount": "amount",
+    "orderNumber": "orderNumber",
+    "date": "date",
+    "total": "total"
+  },
+  "averageOrderValue": "averageOrderValue",
+  "contactInfo": "contactInfo",
+  "noOrders": "noOrders",
+  "decreaseQuantity": "decreaseQuantity",
+  "increaseQuantity": "increaseQuantity",
+  "addToCart": {
+    "button": "button",
+    "loading": "loading",
+    "error": "error"
+  },
+  "addToCartSuccess": "addToCartSuccess",
+  "loading": "loading",
+  "includedProducts": "includedProducts",
+  "message": "message",
+  "function toLocaleString() {\n    [native code]\n}": {
+    "en-US": "en-US",
+    "no-NO": "no-NO"
+  }
 }

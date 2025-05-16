@@ -13,6 +13,7 @@ export default function PWAInstall() {
   const [isStandalone, setIsStandalone] = useState(false)
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [showInstallButton, setShowInstallButton] = useState(false)
+  
 
   useEffect(() => {
     // Check if it's iOS
