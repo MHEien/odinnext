@@ -1,65 +1,49 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
-import { OrderStatus, SubscriptionStatus } from '@prisma/client';
+import { OrderStatus } from '@prisma/client';
 
-// TypeScript interfaces for webhook data
-interface WebhookPayload {
-  event: string;
-  data: PaymentData | SubscriptionData;
-}
-
-interface PaymentData {
+// TypeScript interfaces for webhook data based on actual Vipps payload
+interface VippsWebhookPayload {
+  msn: string;
   reference: string;
-  status?: string;
-  amount?: number;
-  currency?: string;
-  timestamp?: string;
-}
-
-interface SubscriptionData {
-  reference: string;
-  status?: string;
-  agreementId?: string;
-  timestamp?: string;
+  pspReference: string;
+  name: string;
+  amount: {
+    currency: string;
+    value: number;
+  };
+  timestamp: string;
+  idempotencyKey: string;
+  success: boolean;
 }
 
 export async function POST(request: NextRequest) {
   try {
-    // Validate webhook signature if Vipps provides one
-    // This would involve checking headers, etc.
-    
-    const body = await request.json() as WebhookPayload;
+    // Parse the incoming webhook data
+    const body = await request.json() as VippsWebhookPayload;
     console.log('Vipps webhook received:', body);
     
-    // Extract event type and data
-    const { event, data } = body;
-    
-    if (!event || !data) {
-      return NextResponse.json({ error: 'Invalid webhook payload' }, { status: 400 });
+    if (!body.reference) {
+      return NextResponse.json({ error: 'Invalid webhook payload: missing reference' }, { status: 400 });
     }
     
-    // Handle different webhook event types
-    switch (event) {
-      case 'payment.created':
-      case 'payment.updated':
-        await handlePaymentUpdate(data as PaymentData);
+    // Handle different webhook event types based on the 'name' field
+    switch (body.name) {
+      case 'CREATED':
+        await handleOrderCreated(body);
         break;
         
-      case 'subscription.created':
-      case 'subscription.updated':
-        await handleSubscriptionUpdate(data as SubscriptionData);
+      case 'AUTHORIZED':
+      case 'PAID':
+        await handleOrderPayment(body);
         break;
         
-      case 'payment.cancelled':
-        await handlePaymentCancellation(data as PaymentData);
-        break;
-        
-      case 'subscription.cancelled':
-        await handleSubscriptionCancellation(data as SubscriptionData);
+      case 'CANCELLED':
+        await handleOrderCancellation(body);
         break;
         
       default:
-        console.log(`Unhandled Vipps webhook event: ${event}`);
+        console.log(`Unhandled Vipps webhook event: ${body.name}`);
     }
     
     return NextResponse.json({ success: true });
@@ -71,76 +55,61 @@ export async function POST(request: NextRequest) {
 
 // Helper functions to handle different event types
 
-async function handlePaymentUpdate(data: PaymentData) {
-  const { reference, status } = data;
-  
-  if (!reference) return;
-  
-  let orderStatus: OrderStatus = OrderStatus.PENDING;
-  
-  if (status === 'AUTHORIZED' || status === 'PAID') {
-    orderStatus = OrderStatus.PROCESSING;
-  } else if (status === 'DELIVERED') {
-    orderStatus = OrderStatus.DELIVERED;
-  } else if (status === 'CANCELLED') {
-    orderStatus = OrderStatus.CANCELLED;
-  }
-  
-  await prisma.order.update({
-    where: { id: reference },
-    data: {
-      status: orderStatus,
-      updatedAt: new Date()
-    }
-  });
-}
-
-async function handleSubscriptionUpdate(data: SubscriptionData) {
-  const { reference, status } = data;
-  
-  if (!reference) return;
-  
-  let subscriptionStatus: SubscriptionStatus = SubscriptionStatus.ACTIVE;
-  
-  if (status === 'PAUSED') {
-    subscriptionStatus = SubscriptionStatus.PAUSED;
-  } else if (status === 'CANCELLED') {
-    subscriptionStatus = SubscriptionStatus.CANCELLED;
-  }
-  
-  await prisma.subscription.update({
-    where: { id: reference },
-    data: {
-      status: subscriptionStatus,
-      updatedAt: new Date()
-    }
-  });
-}
-
-async function handlePaymentCancellation(data: PaymentData) {
+async function handleOrderCreated(data: VippsWebhookPayload) {
   const { reference } = data;
   
-  if (!reference) return;
-  
-  await prisma.order.update({
-    where: { id: reference },
-    data: {
-      status: OrderStatus.CANCELLED,
-      updatedAt: new Date()
+  try {
+    // Check if order already exists
+    const existingOrder = await prisma.order.findUnique({
+      where: { id: reference }
+    });
+
+    if (existingOrder) {
+      // Update existing order if found
+      await prisma.order.update({
+        where: { id: reference },
+        data: {
+          status: OrderStatus.PENDING,
+          updatedAt: new Date()
+        }
+      });
+    } else {
+      // Order doesn't exist yet - log this for debugging
+      console.log(`Order ${reference} not found in database. Waiting for order creation.`);
     }
-  });
+  } catch (error) {
+    console.error('Error handling order creation:', error);
+  }
 }
 
-async function handleSubscriptionCancellation(data: SubscriptionData) {
+async function handleOrderPayment(data: VippsWebhookPayload) {
   const { reference } = data;
   
-  if (!reference) return;
+  try {
+    await prisma.order.update({
+      where: { id: reference },
+      data: {
+        status: OrderStatus.PROCESSING,
+        updatedAt: new Date()
+      }
+    });
+  } catch (error) {
+    console.error('Error updating order payment status:', error);
+  }
+}
+
+async function handleOrderCancellation(data: VippsWebhookPayload) {
+  const { reference } = data;
   
-  await prisma.subscription.update({
-    where: { id: reference },
-    data: {
-      status: SubscriptionStatus.CANCELLED,
-      updatedAt: new Date()
-    }
-  });
+  try {
+    await prisma.order.update({
+      where: { id: reference },
+      data: {
+        status: OrderStatus.CANCELLED,
+        updatedAt: new Date()
+      }
+    });
+  } catch (error) {
+    console.error('Error cancelling order:', error);
+  }
 }
