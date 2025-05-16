@@ -80,7 +80,7 @@ export async function createCheckout({
         {
             merchantInfo: {
                 callbackUrl: `${baseUrl}/api/vipps/callback`,
-                returnUrl: `${baseUrl}/order/${orderId}/success`,
+                returnUrl: `${baseUrl}/orders/${orderId}/success`,
                 callbackAuthorizationToken: accessToken,
             },
             configuration: {
@@ -118,7 +118,7 @@ export async function createCheckout({
                 },
                 orderSummary: {
                     orderLines: products.map((product) => {
-                        const price = Math.round(getPriceValue(product.price));
+                        const price = Math.round(getPriceValue(product.price) * 100);
                         // Make sure these values are integers
                         const priceExcludingTax = Math.round(price / (1 + taxRate));
                         const taxAmount = price - priceExcludingTax;
@@ -230,7 +230,7 @@ export async function createSubscriptionCheckout({
                 },
                 orderSummary: {
                     orderLines: products.map((product) => {
-                        const price = Math.round(getPriceValue(product.price));
+                        const price = Math.round(getPriceValue(product.price) * 100);
                         // Make sure these values are integers
                         const priceExcludingTax = Math.round(price / (1 + taxRate));
                         const taxAmount = price - priceExcludingTax;

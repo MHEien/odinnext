@@ -148,7 +148,7 @@ export default function AccountDashboard({ profile, translations: t }: AccountDa
           <div className="space-y-4">
             <p className="text-stone-600">{t.orders.noOrders}</p>
             <button
-              onClick={() => router.push('/shop')}
+              onClick={() => router.push('/products')}
               className="btn-primary w-full"
             >
               {t.orders.startShopping}

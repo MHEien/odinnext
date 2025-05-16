@@ -5,7 +5,7 @@ import NewsletterForm from './NewsletterForm'
 
 const footerNavigation = {
   shop: [
-    { name: "allProducts", href: "/shop" },
+    { name: "allProducts", href: "/products" },
     { name: "featured", href: "/products" },
     { name: "newReleases", href: "/products" },
     { name: "collections", href: "/collections" },

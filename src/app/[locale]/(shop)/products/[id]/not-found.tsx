@@ -16,7 +16,7 @@ export default function NotFound() {
             The chocolate you&apos;re looking for seems to have vanished into Valhalla.
           </p>
           <Link
-            href="/shop"
+            href="/products"
             className="btn-primary bg-primary-600 hover:bg-primary-700 inline-block"
           >
             Return to Shop

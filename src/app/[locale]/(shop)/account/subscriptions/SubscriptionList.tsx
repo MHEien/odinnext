@@ -101,7 +101,7 @@ export default function SubscriptionList({ subscriptions }: SubscriptionListProp
           {t('empty.message')}
         </p>
         <button
-          onClick={() => router.push('/shop')}
+          onClick={() => router.push('/collections')}
           className="btn-primary"
         >
           {t('empty.action')}
