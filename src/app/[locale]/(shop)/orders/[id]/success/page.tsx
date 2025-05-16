@@ -13,6 +13,7 @@ type ExtendedOrder = Order & {
     product: Product;
   })[];
 };
+export const dynamic = 'force-dynamic';
 
 export default function OrderSuccessPage() {
   const searchParams = useSearchParams();
