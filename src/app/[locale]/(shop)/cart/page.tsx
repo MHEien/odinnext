@@ -47,8 +47,13 @@ export default function CartPage() {
   const handleCheckout = async () => {
     try {
       const body = {
-        products: items,
+        products: items.map(item => ({
+          id: item.productId,
+          price: item.price,
+          quantity: item.quantity
+        })),
         isSubscription,
+        frequency: isSubscription ? frequency : undefined,
       }
       console.log("Sending checkout request with body:", body);
       const response = await fetch('/api/checkout', {
