@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/db';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 async function checkOrder(orderId: string) {
   try {
@@ -22,10 +23,10 @@ async function checkOrder(orderId: string) {
   }
 }
 
-export async function GET(request: NextRequest) {
-  const orderId = request.nextUrl.searchParams.get('id');
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
-  if (!orderId) {
+  if (!id) {
     return new Response('Order ID is required', { status: 400 });
   }
 
@@ -36,7 +37,7 @@ export async function GET(request: NextRequest) {
 
   try {
     // Initial order check
-    let order = await checkOrder(orderId);
+    let order = await checkOrder(id);
     
     if (order) {
       // Order exists, send it immediately
@@ -51,7 +52,7 @@ export async function GET(request: NextRequest) {
     // Poll for order creation/updates every 2 seconds
     const pollInterval = setInterval(async () => {
       try {
-        const updatedOrder = await checkOrder(orderId);
+        const updatedOrder = await checkOrder(id);
         
         if (updatedOrder) {
           // If this is the first time we found the order, or if the order status has changed
