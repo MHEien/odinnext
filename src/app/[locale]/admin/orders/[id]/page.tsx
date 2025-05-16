@@ -184,12 +184,12 @@ export default async function OrderDetailPage({
                   <h3 className="text-sm font-medium text-stone-600">
                     {t('orders.shippingAddress')}
                   </h3>
-                  <p>{order.shippingAddress.street}</p>
+                  <p>{order.shippingAddress?.street}</p>
                   <p>
-                    {order.shippingAddress.city}, {order.shippingAddress.state}{' '}
-                    {order.shippingAddress.postalCode}
+                    {order.shippingAddress?.city}, {order.shippingAddress?.state}{' '}
+                    {order.shippingAddress?.postalCode}
                   </p>
-                  <p>{order.shippingAddress.country}</p>
+                  <p>{order.shippingAddress?.country}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-stone-600">
