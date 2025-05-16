@@ -13,8 +13,8 @@ export type OrderWithItems = Order & {
       images: string[]
     }
   })[]
-  shippingAddress: Address
-  billingAddress: Address
+  shippingAddress?: Address | null
+  billingAddress?: Address | null
   paymentMethod: PaymentMethod
 }
 
@@ -32,15 +32,15 @@ export type OrderWithDetails = Order & {
 }
 
 type AddressInput = {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  street: string
-  city: string
-  state: string
-  postalCode: string
-  country: string
+  firstName?: string
+  lastName?: string
+  email?: string
+  phone?: string
+  street?: string
+  city?: string
+  state?: string
+  postalCode?: string
+  country?: string
 }
 
 type PaymentMethodInput = {
@@ -58,8 +58,8 @@ interface OrderCreateInput {
     quantity: number
     price: number
   }[]
-  shippingAddress: AddressInput
-  billingAddress: AddressInput
+  shippingAddress?: AddressInput
+  billingAddress?: AddressInput
   paymentMethod: PaymentMethodInput
 }
 
@@ -67,15 +67,24 @@ export async function createOrder(data: OrderCreateInput): Promise<Order> {
   const total = data.items.reduce((acc, item) => acc + item.price * item.quantity, 0)
 
   return await prisma.$transaction(async (tx) => {
-    // Create shipping address
-    const shippingAddress = await tx.address.create({
-      data: data.shippingAddress
-    })
+    let shippingAddressId: string | undefined = undefined;
+    let billingAddressId: string | undefined = undefined;
 
-    // Create billing address
-    const billingAddress = await tx.address.create({
-      data: data.billingAddress
-    })
+    // Create shipping address if provided
+    if (data.shippingAddress) {
+      const shippingAddress = await tx.address.create({
+        data: data.shippingAddress
+      });
+      shippingAddressId = shippingAddress.id;
+    }
+
+    // Create billing address if provided
+    if (data.billingAddress) {
+      const billingAddress = await tx.address.create({
+        data: data.billingAddress
+      });
+      billingAddressId = billingAddress.id;
+    }
 
     // Create payment method
     const paymentMethod = await tx.paymentMethod.create({
@@ -85,8 +94,6 @@ export async function createOrder(data: OrderCreateInput): Promise<Order> {
     // Create the order data structure
     const orderData: Prisma.OrderCreateInput = {
       total: new Prisma.Decimal(total),
-      shippingAddress: { connect: { id: shippingAddress.id } },
-      billingAddress: { connect: { id: billingAddress.id } },
       paymentMethod: { connect: { id: paymentMethod.id } },
       items: {
         create: data.items.map(item => ({
@@ -95,6 +102,15 @@ export async function createOrder(data: OrderCreateInput): Promise<Order> {
           price: new Prisma.Decimal(item.price)
         }))
       }
+    }
+
+    // Add address relations if available
+    if (shippingAddressId) {
+      orderData.shippingAddress = { connect: { id: shippingAddressId } };
+    }
+    
+    if (billingAddressId) {
+      orderData.billingAddress = { connect: { id: billingAddressId } };
     }
 
     // Only add the user relation if userId is provided
@@ -269,4 +285,4 @@ export async function cancelOrder(id: string): Promise<Order> {
     where: { id },
     data: { status: 'CANCELLED' }
   })
-} 
+}

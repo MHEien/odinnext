@@ -362,13 +362,6 @@ export default function MiniCart() {
                 >
                   View Cart
                 </Link>
-                <Link
-                  href="/checkout"
-                  onClick={() => setOpen(false)}
-                  className="block w-full py-3 px-4 bg-stone-800 hover:bg-stone-900 text-white text-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-stone-800 focus:ring-offset-2"
-                >
-                  Checkout
-                </Link>
               </div>
             </div>
           )}

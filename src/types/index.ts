@@ -1,13 +1,13 @@
 export interface Address {
-    firstName: string
-    lastName: string
-    email: string
-    phone: string
-    street: string
-    city: string
-    state: string
-    postalCode: string
-    country: string
+    firstName?: string
+    lastName?: string
+    email?: string
+    phone?: string
+    street?: string
+    city?: string
+    state?: string
+    postalCode?: string
+    country?: string
   }
   
   export interface PaymentMethod {
@@ -25,7 +25,7 @@ export interface Address {
       price: number
     }[]
     total: number
-    shippingAddress: Address
-    billingAddress: Address
+    shippingAddress?: Address
+    billingAddress?: Address
     paymentMethod: PaymentMethod
   }

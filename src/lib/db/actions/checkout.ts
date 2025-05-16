@@ -32,39 +32,41 @@ export async function processCheckout(data: CheckoutData): Promise<Order> {
       paymentMethod: data.paymentMethod
     })
 
-    // Update user profile with addresses if they don't exist
-    if (!user.profile) {
-      await prisma.profile.create({
-        data: {
-          userId: user.id,
-          shippingStreet: data.shippingAddress.street,
-          shippingCity: data.shippingAddress.city,
-          shippingState: data.shippingAddress.state,
-          shippingPostalCode: data.shippingAddress.postalCode,
-          shippingCountry: data.shippingAddress.country,
-          billingStreet: data.billingAddress.street,
-          billingCity: data.billingAddress.city,
-          billingState: data.billingAddress.state,
-          billingPostalCode: data.billingAddress.postalCode,
-          billingCountry: data.billingAddress.country
-        }
-      })
-    } else {
-      await prisma.profile.update({
-        where: { userId: user.id },
-        data: {
-          shippingStreet: data.shippingAddress.street,
-          shippingCity: data.shippingAddress.city,
-          shippingState: data.shippingAddress.state,
-          shippingPostalCode: data.shippingAddress.postalCode,
-          shippingCountry: data.shippingAddress.country,
-          billingStreet: data.billingAddress.street,
-          billingCity: data.billingAddress.city,
-          billingState: data.billingAddress.state,
-          billingPostalCode: data.billingAddress.postalCode,
-          billingCountry: data.billingAddress.country
-        }
-      })
+    // Update user profile with addresses if they don't exist and if we have address data
+    if (data.shippingAddress && data.billingAddress) {
+      if (!user.profile) {
+        await prisma.profile.create({
+          data: {
+            userId: user.id,
+            shippingStreet: data.shippingAddress.street,
+            shippingCity: data.shippingAddress.city,
+            shippingState: data.shippingAddress.state,
+            shippingPostalCode: data.shippingAddress.postalCode,
+            shippingCountry: data.shippingAddress.country,
+            billingStreet: data.billingAddress.street,
+            billingCity: data.billingAddress.city,
+            billingState: data.billingAddress.state,
+            billingPostalCode: data.billingAddress.postalCode,
+            billingCountry: data.billingAddress.country
+          }
+        })
+      } else {
+        await prisma.profile.update({
+          where: { userId: user.id },
+          data: {
+            shippingStreet: data.shippingAddress.street,
+            shippingCity: data.shippingAddress.city,
+            shippingState: data.shippingAddress.state,
+            shippingPostalCode: data.shippingAddress.postalCode,
+            shippingCountry: data.shippingAddress.country,
+            billingStreet: data.billingAddress.street,
+            billingCity: data.billingAddress.city,
+            billingState: data.billingAddress.state,
+            billingPostalCode: data.billingAddress.postalCode,
+            billingCountry: data.billingAddress.country
+          }
+        })
+      }
     }
   } else {
     // Guest user flow
