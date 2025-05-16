@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { Order, OrderItem, Product } from '@prisma/client';
+import { useSearchParams } from 'next/navigation';
 
 type ExtendedOrder = Order & {
   items: (OrderItem & {
@@ -13,12 +14,9 @@ type ExtendedOrder = Order & {
   })[];
 };
 
-type Props = {
-  params: { id: string }
-}
-
-export default function OrderSuccessPage({ params }: Props) {
-  const { id } = params;
+export default function OrderSuccessPage() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
   const t = useTranslations('Orders.success');
   const [order, setOrder] = useState<ExtendedOrder | null>(null);
   const [isLoading, setIsLoading] = useState(true);
