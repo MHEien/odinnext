@@ -5,7 +5,7 @@ const merchantSerialNumber = process.env.VIPPS_MERCHANT_SERIAL_NUMBER!;
 const subscriptionKey = process.env.VIPPS_SUBSCRIPTION_KEY!;
 const clientId = process.env.VIPPS_CLIENT_ID!;
 const clientSecret = process.env.VIPPS_CLIENT_SECRET!;
-const isDevelopment = process.env.NODE_ENV === 'development';
+
 
 const projectVersion = pkg.version;
 
@@ -17,7 +17,7 @@ const pluginVersion = "1.0.0";
 const client = Client({
     merchantSerialNumber,
     subscriptionKey,
-    useTestMode: isDevelopment,
+    useTestMode: process.env.VIPPS_TEST_MODE === 'true',
     retryRequests: false,
     pluginName: "Odin Chocolate",
     pluginVersion: pluginVersion,
