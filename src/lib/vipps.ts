@@ -114,7 +114,7 @@ export async function createCheckout({
                 reference: orderId,
                 amount: {
                     currency: 'NOK',
-                    value: Math.round(totalAmount), // Ensure this is an integer
+                    value: Math.round(totalAmount * 100), // Ensure this is an integer
                 },
                 orderSummary: {
                     orderLines: products.map((product) => {
